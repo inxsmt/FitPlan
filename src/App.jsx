@@ -1,0 +1,139 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useState } from 'react'
+import { AuthProvider, useAuth } from './context/AuthContext'
+import { Login } from './components/auth/Login'
+import { Register } from './components/auth/Register'
+import { Dashboard } from './components/dashboard/Dashboard'
+import { MealTracker } from './components/meals/MealTracker'
+import { TDEECalculator } from './components/tdee/TDEECalculator'
+import { QuizModule } from './components/quiz/QuizModule'
+import { Navbar } from './components/layout/Navbar'
+import { Sidebar } from './components/layout/Sidebar'
+
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-slate-500">Ladowanie...</div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
+}
+
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-slate-500">Ladowanie...</div>
+      </div>
+    )
+  }
+
+  if (user) {
+    return <Navigate to="/dashboard" replace />
+  }
+
+  return children
+}
+
+const AppLayout = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  return (
+    <div className="min-h-screen bg-slate-50 dark:bg-dark-bg">
+      <Navbar
+        onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+        sidebarOpen={sidebarOpen}
+      />
+      <div className="flex">
+        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <main className="flex-1 p-4 lg:p-6 max-w-7xl mx-auto w-full">
+          {children}
+        </main>
+      </div>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Dashboard />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/meals"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <MealTracker />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tdee"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <TDEECalculator />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/quiz"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <QuizModule />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  )
+}
+
+export default App
