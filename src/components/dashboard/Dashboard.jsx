@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame } from 'lucide-react'
+import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { useMeals } from '../../hooks/useMeals'
 import { Card } from '../ui/Card'
@@ -12,6 +12,15 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 export const Dashboard = () => {
   const { profile, loading: profileLoading } = useProfile()
   const { meals, loading: mealsLoading } = useMeals()
+  const [showWelcome, setShowWelcome] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem('accountCreated')) {
+      sessionStorage.removeItem('accountCreated')
+      setShowWelcome(true)
+      setTimeout(() => setShowWelcome(false), 3000)
+    }
+  }, [])
 
   const todayMeals = useMemo(() => filterTodayMeals(meals), [meals])
   const todayMacros = useMemo(() => sumMacros(todayMeals), [todayMeals])
@@ -49,6 +58,12 @@ export const Dashboard = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      {showWelcome && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl animate-fade-in">
+          <CheckCircle size={22} />
+          <span className="font-semibold">Konto zostalo utworzone! Witaj w FitPlan!</span>
+        </div>
+      )}
       <div>
         <h1 className="text-3xl font-bold mb-1">
           Czesc, {profile?.initials || 'Uzytkowniku'}!

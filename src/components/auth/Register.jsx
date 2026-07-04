@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, Salad, UserPlus } from 'lucide-react'
+import { Mail, Lock, Salad, UserPlus, CheckCircle } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -35,31 +35,20 @@ export const Register = () => {
     if (error) {
       setError(error.message)
     } else if (data?.user) {
+      sessionStorage.setItem('accountCreated', 'true')
       setSuccess(true)
-      if (data.session) {
-        setTimeout(() => navigate('/dashboard'), 1200)
-      }
+      if (!data.session) setTimeout(() => navigate('/login'), 2500)
     }
-  }
-
-  if (success) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-dark-bg dark:to-slate-900 p-4">
-        <div className="card max-w-md text-center animate-fade-in">
-          <div className="w-16 h-16 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 flex items-center justify-center mx-auto mb-4">
-            <UserPlus size={32} />
-          </div>
-          <h2 className="text-2xl font-bold mb-2">Rejestracja zakonczona!</h2>
-          <p className="text-slate-500 dark:text-slate-400 mb-4">
-            Twoje konto zostalo utworzone. Przekierowuje do dashboardu...
-          </p>
-        </div>
-      </div>
-    )
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-dark-bg dark:to-slate-900 p-4">
+      {success && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl animate-fade-in">
+          <CheckCircle size={22} />
+          <span className="font-semibold">Konto zostalo utworzone!</span>
+        </div>
+      )}
       <div className="w-full max-w-md animate-fade-in">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-600 text-white mb-4 shadow-lg">

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Plus } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -6,13 +6,19 @@ import { Input } from '../ui/Input'
 export const MealForm = ({ onAdd }) => {
   const [form, setForm] = useState({
     meal_name: '',
-    calories: '',
     protein: '',
     carbs: '',
     fat: '',
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const calories = useMemo(() => {
+    const p = parseFloat(form.protein) || 0
+    const c = parseFloat(form.carbs) || 0
+    const f = parseFloat(form.fat) || 0
+    return Math.round(p * 4 + c * 4 + f * 9)
+  }, [form.protein, form.carbs, form.fat])
 
   const handleChange = (field) => (e) => {
     setForm({ ...form, [field]: e.target.value })
@@ -26,25 +32,25 @@ export const MealForm = ({ onAdd }) => {
       setError('Podaj nazwe posilku')
       return
     }
-    if (!form.calories || Number(form.calories) <= 0) {
-      setError('Podaj kalorie (> 0)')
+    if (calories <= 0) {
+      setError('Podaj makroskładniki aby obliczyc kalorie')
       return
     }
 
     setLoading(true)
     const { error } = await onAdd({
       meal_name: form.meal_name.trim(),
-      calories: parseInt(form.calories) || 0,
-      protein: parseInt(form.protein) || 0,
-      carbs: parseInt(form.carbs) || 0,
-      fat: parseInt(form.fat) || 0,
+      calories,
+      protein: parseFloat(form.protein) || 0,
+      carbs: parseFloat(form.carbs) || 0,
+      fat: parseFloat(form.fat) || 0,
     })
     setLoading(false)
 
     if (error) {
       setError(error.message || 'Blad dodawania posilku')
     } else {
-      setForm({ meal_name: '', calories: '', protein: '', carbs: '', fat: '' })
+      setForm({ meal_name: '', protein: '', carbs: '', fat: '' })
     }
   }
 
@@ -58,16 +64,7 @@ export const MealForm = ({ onAdd }) => {
         required
       />
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Input
-          label="Kalorie (kcal)"
-          type="number"
-          min="0"
-          value={form.calories}
-          onChange={handleChange('calories')}
-          placeholder="450"
-          required
-        />
+      <div className="grid grid-cols-3 gap-3">
         <Input
           label="Bialko (g)"
           type="number"
@@ -92,6 +89,10 @@ export const MealForm = ({ onAdd }) => {
           onChange={handleChange('fat')}
           placeholder="12"
         />
+      </div>
+
+      <div className="p-3 rounded-xl bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-400 text-sm font-semibold">
+        Kalorie: {calories} kcal
       </div>
 
       {error && (
