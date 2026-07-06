@@ -12,7 +12,7 @@ export const Register = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState(false)
+  const [status, setStatus] = useState(null) // null | 'confirm_email' | 'success'
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
@@ -34,21 +34,56 @@ export const Register = () => {
 
     if (error) {
       setError(error.message)
-    } else if (data?.user) {
+    } else if (data?.session) {
       sessionStorage.setItem('accountCreated', 'true')
-      setSuccess(true)
-      if (!data.session) setTimeout(() => navigate('/login'), 2500)
+      setStatus('success')
+      setTimeout(() => navigate('/dashboard'), 2000)
+    } else {
+      setStatus('confirm_email')
     }
+  }
+
+  if (status === 'confirm_email') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-dark-bg dark:to-slate-900 p-4">
+        <div className="card max-w-md w-full text-center animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center mx-auto mb-4">
+            <Mail size={32} />
+          </div>
+          <h2 className="text-2xl font-bold mb-2">Sprawdz swoja skrzynke!</h2>
+          <p className="text-slate-500 dark:text-slate-400 mb-2">
+            Wyslalismy link potwierdzajacy na adres:
+          </p>
+          <p className="font-semibold text-brand-600 mb-4">{email}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
+            Kliknij w link w mailu aby aktywowac konto, a nastepnie zaloguj sie.
+          </p>
+          <Link to="/login" className="text-brand-600 hover:text-brand-700 font-semibold text-sm">
+            Przejdz do logowania
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  if (status === 'success') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-dark-bg dark:to-slate-900 p-4">
+        <div className="card max-w-md w-full text-center animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 flex items-center justify-center mx-auto mb-4">
+            <CheckCircle size={32} />
+          </div>
+          <h2 className="text-2xl font-bold mb-2">Konto utworzone!</h2>
+          <p className="text-slate-500 dark:text-slate-400">
+            Przekierowuje do dashboardu...
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-dark-bg dark:to-slate-900 p-4">
-      {success && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl animate-fade-in">
-          <CheckCircle size={22} />
-          <span className="font-semibold">Konto zostalo utworzone!</span>
-        </div>
-      )}
       <div className="w-full max-w-md animate-fade-in">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-600 text-white mb-4 shadow-lg">
@@ -99,12 +134,7 @@ export const Register = () => {
               </div>
             )}
 
-            <Button
-              type="submit"
-              disabled={loading}
-              icon={UserPlus}
-              className="w-full"
-            >
+            <Button type="submit" disabled={loading} icon={UserPlus} className="w-full">
               {loading ? 'Tworzenie konta...' : 'Zarejestruj sie'}
             </Button>
           </form>

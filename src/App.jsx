@@ -7,6 +7,7 @@ import { Dashboard } from './components/dashboard/Dashboard'
 import { MealTracker } from './components/meals/MealTracker'
 import { TDEECalculator } from './components/tdee/TDEECalculator'
 import { QuizModule } from './components/quiz/QuizModule'
+import { Blog } from './components/blog/Blog'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
 
@@ -123,6 +124,17 @@ function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <QuizModule />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/blog"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Blog />
                 </AppLayout>
               </ProtectedRoute>
             }
