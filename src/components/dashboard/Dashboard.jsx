@@ -129,10 +129,10 @@ export const Dashboard = () => {
             <p className="text-xs text-slate-500">Kalorie obliczają się automatycznie z makroskładników</p>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { key: 'target_protein', label: 'Białko (g)', color: 'text-blue-600' },
-                { key: 'target_carbs', label: 'Węglowodany (g)', color: 'text-amber-600' },
-                { key: 'target_fat', label: 'Tłuszcze (g)', color: 'text-red-600' },
-              ].map(({ key, label, color }) => (
+                { key: 'target_protein', label: 'Białko (g)', color: 'text-blue-600', opt: 'opt. 1,6–2,2g/kg' },
+                { key: 'target_carbs', label: 'Węglowodany (g)', color: 'text-amber-600', opt: 'reszta kalorii' },
+                { key: 'target_fat', label: 'Tłuszcze (g)', color: 'text-red-600', opt: 'min. 0,6g/kg (opt. 0,6–1,2g/kg)' },
+              ].map(({ key, label, color, opt }) => (
                 <div key={key}>
                   <label className="block text-xs font-medium text-slate-500 mb-1">{label}</label>
                   <input
@@ -142,7 +142,8 @@ export const Dashboard = () => {
                     className={`w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold ${color} focus:outline-none focus:ring-2 focus:ring-brand-500`}
                     min="0"
                   />
-                  {weight && <p className="text-xs text-slate-400 mt-0.5">{(goalsForm[key] / weight).toFixed(1)}g/kg</p>}
+                  {weight && <p className={`text-xs mt-0.5 ${color}`}>{(goalsForm[key] / weight).toFixed(1)}g/kg</p>}
+                  <p className="text-xs text-slate-400 mt-0.5">{opt}</p>
                 </div>
               ))}
             </div>
@@ -166,16 +167,31 @@ export const Dashboard = () => {
             </div>
             <div className="text-center">
               <MacroRing current={todayMacros.protein} target={recommended.protein} label="Bialko" unit="g" color="#3b82f6" />
-              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.protein/weight).toFixed(1)}g/kg · cel {(recommended.protein/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-blue-500 mt-1 font-medium">{(todayMacros.protein/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-slate-400">cel {(recommended.protein/weight).toFixed(1)}g/kg</p>}
+              <p className="text-xs text-slate-300 dark:text-slate-600">opt. 1,6–2,2g/kg</p>
             </div>
             <div className="text-center">
               <MacroRing current={todayMacros.carbs} target={recommended.carbs} label="Weglowodany" unit="g" color="#f59e0b" />
-              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.carbs/weight).toFixed(1)}g/kg · cel {(recommended.carbs/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-amber-500 mt-1 font-medium">{(todayMacros.carbs/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-slate-400">cel {(recommended.carbs/weight).toFixed(1)}g/kg</p>}
+              <p className="text-xs text-slate-300 dark:text-slate-600">reszta kalorii</p>
             </div>
             <div className="text-center">
               <MacroRing current={todayMacros.fat} target={recommended.fat} label="Tluszcze" unit="g" color="#ef4444" />
-              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.fat/weight).toFixed(1)}g/kg · cel {(recommended.fat/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-red-500 mt-1 font-medium">{(todayMacros.fat/weight).toFixed(1)}g/kg</p>}
+              {weight && <p className="text-xs text-slate-400">cel {(recommended.fat/weight).toFixed(1)}g/kg</p>}
+              <p className="text-xs text-slate-300 dark:text-slate-600">min. 0,6 (opt. 0,6–1,2g/kg)</p>
             </div>
+          </div>
+        )}
+
+        {weight && (
+          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-dark-border text-xs text-slate-500 flex flex-wrap gap-x-4 gap-y-1">
+            <span>Waga: <strong>{weight} kg</strong></span>
+            <span>· Cel białko: <strong className="text-blue-500">{(recommended.protein / weight).toFixed(2)}g/kg</strong></span>
+            <span>· Cel węgle: <strong className="text-amber-500">{(recommended.carbs / weight).toFixed(2)}g/kg</strong></span>
+            <span>· Cel tłuszcz: <strong className="text-red-500">{(recommended.fat / weight).toFixed(2)}g/kg</strong></span>
           </div>
         )}
       </Card>
