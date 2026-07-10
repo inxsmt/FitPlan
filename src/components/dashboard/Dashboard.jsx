@@ -31,6 +31,7 @@ export const Dashboard = () => {
         target_protein: profile.target_protein || 160,
         target_carbs: profile.target_carbs || 196,
         target_fat: profile.target_fat || 64,
+        weight: profile.weight || '',
       })
     }
   }, [profile])
@@ -39,8 +40,9 @@ export const Dashboard = () => {
     const p = parseInt(goalsForm.target_protein) || 0
     const c = parseInt(goalsForm.target_carbs) || 0
     const f = parseInt(goalsForm.target_fat) || 0
+    const w = goalsForm.weight ? parseFloat(goalsForm.weight) : null
     setSavingGoals(true)
-    await updateProfile({ target_protein: p, target_carbs: c, target_fat: f, target_calories: p * 4 + c * 4 + f * 9 })
+    await updateProfile({ target_protein: p, target_carbs: c, target_fat: f, target_calories: p * 4 + c * 4 + f * 9, ...(w !== null && { weight: w }) })
     setSavingGoals(false)
     setEditingGoals(false)
   }
@@ -127,6 +129,17 @@ export const Dashboard = () => {
         {editingGoals ? (
           <div className="space-y-3">
             <p className="text-xs text-slate-500">Kalorie obliczają się automatycznie z makroskładników</p>
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1">Waga (kg)</label>
+              <input
+                type="number"
+                value={goalsForm.weight}
+                onChange={(e) => setGoalsForm({ ...goalsForm, weight: e.target.value })}
+                className="w-32 px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-500"
+                placeholder="np. 80"
+                min="30" max="300"
+              />
+            </div>
             <div className="grid grid-cols-3 gap-3">
               {[
                 { key: 'target_protein', label: 'Białko (g)', color: 'text-blue-600', opt: 'opt. 1,6–2,2g/kg' },
@@ -142,7 +155,7 @@ export const Dashboard = () => {
                     className={`w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold ${color} focus:outline-none focus:ring-2 focus:ring-brand-500`}
                     min="0"
                   />
-                  {weight && <p className={`text-xs mt-0.5 ${color}`}>{(goalsForm[key] / weight).toFixed(1)}g/kg</p>}
+                  {goalsForm.weight && <p className={`text-xs mt-0.5 ${color}`}>{(goalsForm[key] / goalsForm.weight).toFixed(1)}g/kg</p>}
                   <p className="text-xs text-slate-400 mt-0.5">{opt}</p>
                 </div>
               ))}
