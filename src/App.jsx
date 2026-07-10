@@ -8,6 +8,7 @@ import { MealTracker } from './components/meals/MealTracker'
 import { TDEECalculator } from './components/tdee/TDEECalculator'
 import { QuizModule } from './components/quiz/QuizModule'
 import { Blog } from './components/blog/Blog'
+import { Diets } from './components/diets/Diets'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
 
@@ -129,6 +130,16 @@ function App() {
             }
           />
 
+          <Route
+            path="/diets"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Diets />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/blog"
             element={
