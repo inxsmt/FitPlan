@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { User, Save, CheckCircle, Lock } from 'lucide-react'
+import { User, Save, CheckCircle, Lock, Flame } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
@@ -10,6 +10,10 @@ export const ProfileSettings = () => {
   const { user, updatePassword, signIn } = useAuth()
   const { profile, loading, updateProfile } = useProfile()
   const [form, setForm] = useState({ first_name: '', last_name: '' })
+  const [calories, setCalories] = useState('')
+  const [savingCalories, setSavingCalories] = useState(false)
+  const [savedCalories, setSavedCalories] = useState(false)
+  const [caloriesError, setCaloriesError] = useState('')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState('')
@@ -24,8 +28,28 @@ export const ProfileSettings = () => {
         first_name: profile.first_name || '',
         last_name: profile.last_name || '',
       })
+      setCalories(profile.target_calories || 2000)
     }
   }, [profile])
+
+  const handleCaloriesSubmit = async (e) => {
+    e.preventDefault()
+    setCaloriesError('')
+    const val = parseInt(calories)
+    if (!val || val < 500 || val > 10000) {
+      setCaloriesError('Podaj wartość między 500 a 10000 kcal')
+      return
+    }
+    setSavingCalories(true)
+    const { error } = await updateProfile({ target_calories: val })
+    setSavingCalories(false)
+    if (error) {
+      setCaloriesError(error.message)
+    } else {
+      setSavedCalories(true)
+      setTimeout(() => setSavedCalories(false), 3000)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -131,6 +155,40 @@ export const ProfileSettings = () => {
 
           <Button type="submit" icon={Save} disabled={saving} className="w-full">
             {saving ? 'Zapisywanie...' : 'Zapisz zmiany'}
+          </Button>
+        </form>
+      </Card>
+
+      <Card>
+        <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
+          <Flame size={18} /> Docelowe kalorie
+        </h2>
+        <form onSubmit={handleCaloriesSubmit} className="space-y-4">
+          <Input
+            label="Docelowe kalorie (kcal/dzień)"
+            type="number"
+            icon={Flame}
+            value={calories}
+            onChange={(e) => setCalories(e.target.value)}
+            placeholder="np. 2000"
+            min="500"
+            max="10000"
+          />
+
+          {caloriesError && (
+            <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+              {caloriesError}
+            </div>
+          )}
+
+          {savedCalories && (
+            <div className="p-3 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm flex items-center gap-2">
+              <CheckCircle size={16} /> Kalorie zostały zaktualizowane!
+            </div>
+          )}
+
+          <Button type="submit" icon={Save} disabled={savingCalories} className="w-full">
+            {savingCalories ? 'Zapisywanie...' : 'Zapisz kalorie'}
           </Button>
         </form>
       </Card>
