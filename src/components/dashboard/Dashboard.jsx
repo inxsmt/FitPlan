@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle } from 'lucide-react'
+import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle, Pencil, X, Save } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { useMeals } from '../../hooks/useMeals'
 import { Card } from '../ui/Card'
@@ -10,7 +10,10 @@ import { sumMacros, filterTodayMeals, recommendedMacros } from '../../utils/calc
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 export const Dashboard = () => {
-  const { profile, loading: profileLoading } = useProfile()
+  const { profile, loading: profileLoading, updateProfile } = useProfile()
+  const [editingGoals, setEditingGoals] = useState(false)
+  const [goalsForm, setGoalsForm] = useState({ target_protein: '', target_carbs: '', target_fat: '' })
+  const [savingGoals, setSavingGoals] = useState(false)
   const { meals, loading: mealsLoading } = useMeals()
   const [showWelcome, setShowWelcome] = useState(false)
 
@@ -22,13 +25,38 @@ export const Dashboard = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (profile) {
+      setGoalsForm({
+        target_protein: profile.target_protein || 160,
+        target_carbs: profile.target_carbs || 196,
+        target_fat: profile.target_fat || 64,
+      })
+    }
+  }, [profile])
+
+  const handleSaveGoals = async () => {
+    const p = parseInt(goalsForm.target_protein) || 0
+    const c = parseInt(goalsForm.target_carbs) || 0
+    const f = parseInt(goalsForm.target_fat) || 0
+    setSavingGoals(true)
+    await updateProfile({ target_protein: p, target_carbs: c, target_fat: f, target_calories: p * 4 + c * 4 + f * 9 })
+    setSavingGoals(false)
+    setEditingGoals(false)
+  }
+
   const todayMeals = useMemo(() => filterTodayMeals(meals), [meals])
   const todayMacros = useMemo(() => sumMacros(todayMeals), [todayMeals])
 
   const targetCalories = profile?.target_calories || 2000
+  const weight = profile?.weight || null
   const recommended = useMemo(
-    () => recommendedMacros(targetCalories, 70),
-    [targetCalories]
+    () => ({
+      protein: profile?.target_protein || recommendedMacros(targetCalories, weight || 70).protein,
+      carbs: profile?.target_carbs || recommendedMacros(targetCalories, weight || 70).carbs,
+      fat: profile?.target_fat || recommendedMacros(targetCalories, weight || 70).fat,
+    }),
+    [profile, targetCalories, weight]
   )
 
   const last7Days = useMemo(() => {
@@ -75,37 +103,81 @@ export const Dashboard = () => {
         </p>
       </div>
 
-      <Card title="Dzisiejsze spozycie" icon={Flame} subtitle="Kalorie i makroskladniki">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <MacroRing
-            current={todayMacros.calories}
-            target={targetCalories}
-            label="Kalorie"
-            unit=" kcal"
-            color="#22c55e"
-          />
-          <MacroRing
-            current={todayMacros.protein}
-            target={recommended.protein}
-            label="Bialko"
-            unit="g"
-            color="#3b82f6"
-          />
-          <MacroRing
-            current={todayMacros.carbs}
-            target={recommended.carbs}
-            label="Weglowodany"
-            unit="g"
-            color="#f59e0b"
-          />
-          <MacroRing
-            current={todayMacros.fat}
-            target={recommended.fat}
-            label="Tluszcze"
-            unit="g"
-            color="#ef4444"
-          />
+      <Card>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Flame size={18} className="text-brand-600" />
+            <span className="font-bold">Dzisiejsze spozycie</span>
+            {(profile?.weight || profile?.age || profile?.gender) && (
+              <span className="text-xs text-slate-400 hidden sm:inline">
+                {profile.weight && `· ${profile.weight}kg`}
+                {profile.age && ` · ${profile.age}l`}
+                {profile.gender && ` · ${profile.gender === 'male' ? 'M' : profile.gender === 'female' ? 'K' : 'I'}`}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={() => setEditingGoals(!editingGoals)}
+            className="flex items-center gap-1.5 text-xs text-brand-600 hover:text-brand-700 font-semibold px-2 py-1 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-900/20 transition"
+          >
+            {editingGoals ? <><X size={14} /> Anuluj</> : <><Pencil size={14} /> Edytuj cele</>}
+          </button>
         </div>
+
+        {editingGoals ? (
+          <div className="space-y-3">
+            <p className="text-xs text-slate-500">Kalorie obliczają się automatycznie z makroskładników</p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { key: 'target_protein', label: 'Białko (g)', color: 'text-blue-600' },
+                { key: 'target_carbs', label: 'Węglowodany (g)', color: 'text-amber-600' },
+                { key: 'target_fat', label: 'Tłuszcze (g)', color: 'text-red-600' },
+              ].map(({ key, label, color }) => (
+                <div key={key}>
+                  <label className="block text-xs font-medium text-slate-500 mb-1">{label}</label>
+                  <input
+                    type="number"
+                    value={goalsForm[key]}
+                    onChange={(e) => setGoalsForm({ ...goalsForm, [key]: e.target.value })}
+                    className={`w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold ${color} focus:outline-none focus:ring-2 focus:ring-brand-500`}
+                    min="0"
+                  />
+                  {weight && <p className="text-xs text-slate-400 mt-0.5">{(goalsForm[key] / weight).toFixed(1)}g/kg</p>}
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-brand-600">
+                Łącznie: {(parseInt(goalsForm.target_protein)||0)*4 + (parseInt(goalsForm.target_carbs)||0)*4 + (parseInt(goalsForm.target_fat)||0)*9} kcal
+              </p>
+              <button
+                onClick={handleSaveGoals}
+                disabled={savingGoals}
+                className="flex items-center gap-1.5 text-sm bg-brand-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-brand-700 transition"
+              >
+                <Save size={14} /> {savingGoals ? 'Zapisywanie...' : 'Zapisz'}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="text-center">
+              <MacroRing current={todayMacros.calories} target={targetCalories} label="Kalorie" unit=" kcal" color="#22c55e" />
+            </div>
+            <div className="text-center">
+              <MacroRing current={todayMacros.protein} target={recommended.protein} label="Bialko" unit="g" color="#3b82f6" />
+              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.protein/weight).toFixed(1)}g/kg · cel {(recommended.protein/weight).toFixed(1)}g/kg</p>}
+            </div>
+            <div className="text-center">
+              <MacroRing current={todayMacros.carbs} target={recommended.carbs} label="Weglowodany" unit="g" color="#f59e0b" />
+              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.carbs/weight).toFixed(1)}g/kg · cel {(recommended.carbs/weight).toFixed(1)}g/kg</p>}
+            </div>
+            <div className="text-center">
+              <MacroRing current={todayMacros.fat} target={recommended.fat} label="Tluszcze" unit="g" color="#ef4444" />
+              {weight && <p className="text-xs text-slate-400 mt-1">{(todayMacros.fat/weight).toFixed(1)}g/kg · cel {(recommended.fat/weight).toFixed(1)}g/kg</p>}
+            </div>
+          </div>
+        )}
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
