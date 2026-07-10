@@ -66,7 +66,9 @@ export const Dashboard = () => {
       )}
       <div>
         <h1 className="text-3xl font-bold mb-1">
-          Czesc, {profile?.initials || 'Uzytkowniku'}!
+          Czesc, {profile?.first_name
+            ? `${profile.first_name}${profile.last_name ? ' ' + profile.last_name : ''}`
+            : 'Uzytkowniku'}!
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
           Oto Twoje podsumowanie z dzisiaj - {new Date().toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' })}

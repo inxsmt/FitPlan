@@ -9,6 +9,7 @@ import { TDEECalculator } from './components/tdee/TDEECalculator'
 import { QuizModule } from './components/quiz/QuizModule'
 import { Blog } from './components/blog/Blog'
 import { Diets } from './components/diets/Diets'
+import { ProfileSettings } from './components/profile/ProfileSettings'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
 
@@ -146,6 +147,17 @@ function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <Blog />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <ProfileSettings />
                 </AppLayout>
               </ProtectedRoute>
             }
