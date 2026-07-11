@@ -80,6 +80,21 @@ export const TDEECalculator = () => {
 
   const macroKcal = (parseInt(macroForm.protein) || 0) * 4 + (parseInt(macroForm.carbs) || 0) * 4 + (parseInt(macroForm.fat) || 0) * 9
 
+  const [savingMacros, setSavingMacros] = useState(false)
+  const [savedMacros, setSavedMacros] = useState(false)
+
+  const handleSaveMacros = async () => {
+    setSavingMacros(true)
+    const { error } = await updateProfile({
+      target_calories: macroKcal,
+      target_protein: parseInt(macroForm.protein) || 0,
+      target_carbs: parseInt(macroForm.carbs) || 0,
+      target_fat: parseInt(macroForm.fat) || 0,
+    })
+    setSavingMacros(false)
+    if (!error) { setSavedMacros(true); setTimeout(() => setSavedMacros(false), 3000) }
+  }
+
   const handleSave = async () => {
     setSaving(true)
     const { error } = await updateProfile({
@@ -220,7 +235,16 @@ export const TDEECalculator = () => {
               </p>
             </div>
 
-            <p className="text-xs text-slate-500 pt-1">Mozesz recznie dostosowac makroskladniki:</p>
+            <div className="flex items-center justify-between pt-1">
+              <p className="text-xs text-slate-500">Mozesz recznie dostosowac makroskladniki:</p>
+              <button
+                onClick={handleSaveMacros}
+                disabled={savingMacros}
+                className="flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 px-2 py-1 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-900/20 transition"
+              >
+                <Save size={12} /> {savingMacros ? 'Zapisuję...' : savedMacros ? 'Zapisano!' : 'Zapisz makro'}
+              </button>
+            </div>
             <div className="grid grid-cols-3 gap-2">
               {[
                 { key: 'protein', label: 'Bialko', color: 'blue', opt: 'opt. 1,6–2,2' },
