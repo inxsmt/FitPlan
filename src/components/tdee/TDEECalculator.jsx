@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Calculator, Save, Info } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { Card } from '../ui/Card'
@@ -34,8 +34,6 @@ export const TDEECalculator = () => {
     return ls || { protein: 160, carbs: 196, fat: 64 }
   })
 
-  const prevCalcKey = useRef(null)
-
   useEffect(() => {
     if (profile) {
       setForm((prev) => ({
@@ -70,13 +68,6 @@ export const TDEECalculator = () => {
   const goalCalories = useMemo(() => tdee + Number(form.goal), [tdee, form.goal])
   const calcMacros = useMemo(() => recommendedMacros(goalCalories, form.weight), [goalCalories, form.weight])
 
-  useEffect(() => {
-    const key = `${form.activity}_${form.goal}_${form.weight}`
-    if (prevCalcKey.current !== null && prevCalcKey.current !== key) {
-      setMacroForm({ protein: calcMacros.protein, carbs: calcMacros.carbs, fat: calcMacros.fat })
-    }
-    prevCalcKey.current = key
-  }, [form.activity, form.goal, form.weight, calcMacros.protein, calcMacros.carbs, calcMacros.fat])
 
   const macroKcal = (parseInt(macroForm.protein) || 0) * 4 + (parseInt(macroForm.carbs) || 0) * 4 + (parseInt(macroForm.fat) || 0) * 9
 
