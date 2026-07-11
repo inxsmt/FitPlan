@@ -26,6 +26,7 @@ export const TDEECalculator = () => {
 
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [macroForm, setMacroForm] = useState({ protein: 160, carbs: 196, fat: 64 })
 
   useEffect(() => {
     if (profile) {
@@ -48,10 +49,13 @@ export const TDEECalculator = () => {
   const bmr = useMemo(() => calculateBMR(form), [form])
   const tdee = useMemo(() => calculateTDEE(bmr, form.activity), [bmr, form.activity])
   const goalCalories = useMemo(() => tdee + Number(form.goal), [tdee, form.goal])
-  const macros = useMemo(
-    () => recommendedMacros(goalCalories, form.weight),
-    [goalCalories, form.weight]
-  )
+  const calcMacros = useMemo(() => recommendedMacros(goalCalories, form.weight), [goalCalories, form.weight])
+
+  useEffect(() => {
+    setMacroForm({ protein: calcMacros.protein, carbs: calcMacros.carbs, fat: calcMacros.fat })
+  }, [calcMacros.protein, calcMacros.carbs, calcMacros.fat])
+
+  const macroKcal = (parseInt(macroForm.protein) || 0) * 4 + (parseInt(macroForm.carbs) || 0) * 4 + (parseInt(macroForm.fat) || 0) * 9
 
   const handleSave = async () => {
     setSaving(true)
@@ -60,10 +64,10 @@ export const TDEECalculator = () => {
       height: form.height,
       age: form.age,
       gender: form.gender,
-      target_calories: goalCalories,
-      target_protein: macros.protein,
-      target_carbs: macros.carbs,
-      target_fat: macros.fat,
+      target_calories: macroKcal,
+      target_protein: parseInt(macroForm.protein) || 0,
+      target_carbs: parseInt(macroForm.carbs) || 0,
+      target_fat: parseInt(macroForm.fat) || 0,
     })
     setSaving(false)
     if (!error) {
@@ -192,24 +196,34 @@ export const TDEECalculator = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 pt-2">
-              <div className="text-center p-3 rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                <p className="text-xs text-blue-700 dark:text-blue-400">Bialko</p>
-                <p className="font-bold text-blue-700 dark:text-blue-400">{macros.protein}g</p>
-                <p className="text-xs text-blue-500 mt-0.5">{(macros.protein / form.weight).toFixed(1)}g/kg</p>
-                <p className="text-xs text-blue-300 dark:text-blue-700">opt. 1,6–2,2</p>
-              </div>
-              <div className="text-center p-3 rounded-lg bg-amber-100 dark:bg-amber-900/30">
-                <p className="text-xs text-amber-700 dark:text-amber-400">Weglow.</p>
-                <p className="font-bold text-amber-700 dark:text-amber-400">{macros.carbs}g</p>
-                <p className="text-xs text-amber-500 mt-0.5">{(macros.carbs / form.weight).toFixed(1)}g/kg</p>
-              </div>
-              <div className="text-center p-3 rounded-lg bg-red-100 dark:bg-red-900/30">
-                <p className="text-xs text-red-700 dark:text-red-400">Tluszcze</p>
-                <p className="font-bold text-red-700 dark:text-red-400">{macros.fat}g</p>
-                <p className="text-xs text-red-500 mt-0.5">{(macros.fat / form.weight).toFixed(1)}g/kg</p>
-                <p className="text-xs text-red-300 dark:text-red-700">opt. 0,6–1,2</p>
-              </div>
+            <p className="text-xs text-slate-500 pt-1">Mozesz recznie dostosowac makroskladniki:</p>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { key: 'protein', label: 'Bialko', color: 'blue', opt: 'opt. 1,6–2,2' },
+                { key: 'carbs', label: 'Weglow.', color: 'amber', opt: null },
+                { key: 'fat', label: 'Tluszcze', color: 'red', opt: 'opt. 0,6–1,2' },
+              ].map(({ key, label, color, opt }) => (
+                <div key={key} className={`p-3 rounded-lg bg-${color}-100 dark:bg-${color}-900/30`}>
+                  <p className={`text-xs text-${color}-700 dark:text-${color}-400 mb-1 font-medium`}>{label}</p>
+                  <input
+                    type="number"
+                    min="0"
+                    value={macroForm[key]}
+                    onChange={(e) => { setMacroForm({ ...macroForm, [key]: e.target.value }); setSaved(false) }}
+                    className={`w-full px-2 py-1.5 rounded-lg border border-${color}-200 dark:border-${color}-800 bg-white dark:bg-dark-bg text-sm font-bold text-${color}-700 dark:text-${color}-400 focus:outline-none focus:ring-2 focus:ring-${color}-400`}
+                  />
+                  <p className={`text-xs text-${color}-500 mt-1`}>
+                    {form.weight > 0 ? (macroForm[key] / form.weight).toFixed(1) : '–'}g/kg
+                  </p>
+                  {opt && <p className={`text-xs text-${color}-300 dark:text-${color}-700`}>{opt}</p>}
+                </div>
+              ))}
+            </div>
+            <div className="p-3 rounded-xl bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 text-sm font-semibold text-brand-700 dark:text-brand-400">
+              Lacznie z makro: {macroKcal} kcal
+              {Math.abs(macroKcal - goalCalories) > 50 && (
+                <span className="text-xs font-normal text-slate-500 ml-2">(TDEE cel: {goalCalories} kcal)</span>
+              )}
             </div>
 
             <Button
