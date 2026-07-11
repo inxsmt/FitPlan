@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { User, Save, CheckCircle, Lock, Flame, Scale } from 'lucide-react'
+import { User, Save, CheckCircle, Lock, Scale } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
@@ -15,12 +15,7 @@ export const ProfileSettings = () => {
   const [savedPersonal, setSavedPersonal] = useState(false)
   const [personalError, setPersonalError] = useState('')
 
-  const [goalsForm, setGoalsForm] = useState({ target_calories: '', target_protein: '', target_carbs: '', target_fat: '' })
-  const [savingGoals, setSavingGoals] = useState(false)
-  const [savedGoals, setSavedGoals] = useState(false)
-  const [goalsError, setGoalsError] = useState('')
-
-  const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
+  const[passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
   const [savingPassword, setSavingPassword] = useState(false)
   const [savedPassword, setSavedPassword] = useState(false)
   const [passwordError, setPasswordError] = useState('')
@@ -35,21 +30,8 @@ export const ProfileSettings = () => {
         height: profile.height || '',
         gender: profile.gender || '',
       })
-      setGoalsForm({
-        target_calories: profile.target_calories || 2000,
-        target_protein: profile.target_protein || 160,
-        target_carbs: profile.target_carbs || 196,
-        target_fat: profile.target_fat || 64,
-      })
     }
   }, [profile])
-
-  const caloriesFromMacros = () => {
-    const p = parseInt(goalsForm.target_protein) || 0
-    const c = parseInt(goalsForm.target_carbs) || 0
-    const f = parseInt(goalsForm.target_fat) || 0
-    return p * 4 + c * 4 + f * 9
-  }
 
   const handlePersonalSubmit = async (e) => {
     e.preventDefault()
@@ -66,26 +48,6 @@ export const ProfileSettings = () => {
     setSavingPersonal(false)
     if (error) setPersonalError(error.message)
     else { setSavedPersonal(true); setTimeout(() => setSavedPersonal(false), 3000) }
-  }
-
-  const handleGoalsSubmit = async (e) => {
-    e.preventDefault()
-    setGoalsError('')
-    const cal = caloriesFromMacros()
-    if (cal < 500 || cal > 10000) {
-      setGoalsError('Kalorie z makroskładników muszą być między 500 a 10000 kcal')
-      return
-    }
-    setSavingGoals(true)
-    const { error } = await updateProfile({
-      target_calories: cal,
-      target_protein: parseInt(goalsForm.target_protein) || 160,
-      target_carbs: parseInt(goalsForm.target_carbs) || 196,
-      target_fat: parseInt(goalsForm.target_fat) || 64,
-    })
-    setSavingGoals(false)
-    if (error) setGoalsError(error.message)
-    else { setSavedGoals(true); setTimeout(() => setSavedGoals(false), 3000) }
   }
 
   const handlePasswordSubmit = async (e) => {
@@ -111,7 +73,7 @@ export const ProfileSettings = () => {
     <div className="space-y-6 animate-fade-in max-w-lg">
       <div>
         <h1 className="text-3xl font-bold mb-1">Ustawienia profilu</h1>
-        <p className="text-slate-500 dark:text-slate-400">Uzupelnij swoje dane osobowe i cele zywieniowe</p>
+        <p className="text-slate-500 dark:text-slate-400">Uzupelnij swoje dane osobowe i zmien haslo</p>
       </div>
 
       {/* Dane osobowe */}
@@ -158,50 +120,6 @@ export const ProfileSettings = () => {
 
           <Button type="submit" icon={Save} disabled={savingPersonal} className="w-full">
             {savingPersonal ? 'Zapisywanie...' : 'Zapisz dane'}
-          </Button>
-        </form>
-      </Card>
-
-      {/* Cele żywieniowe */}
-      <Card>
-        <h2 className="font-bold text-lg mb-1 flex items-center gap-2">
-          <Flame size={18} /> Cele żywieniowe
-        </h2>
-        <p className="text-xs text-slate-500 mb-4">Kalorie są obliczane automatycznie z makroskładników (B×4 + W×4 + T×9)</p>
-        <form onSubmit={handleGoalsSubmit} className="space-y-4">
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <Input label="Białko (g)" type="number" value={goalsForm.target_protein}
-                onChange={(e) => setGoalsForm({ ...goalsForm, target_protein: e.target.value })}
-                placeholder="160" min="0" />
-              {weight && <p className="text-xs text-blue-500 mt-1">{(goalsForm.target_protein / weight).toFixed(1)}g/kg</p>}
-              <p className="text-xs text-slate-400">opt. 1,6–2,2g/kg</p>
-            </div>
-            <div>
-              <Input label="Węglowodany (g)" type="number" value={goalsForm.target_carbs}
-                onChange={(e) => setGoalsForm({ ...goalsForm, target_carbs: e.target.value })}
-                placeholder="196" min="0" />
-              {weight && <p className="text-xs text-amber-500 mt-1">{(goalsForm.target_carbs / weight).toFixed(1)}g/kg</p>}
-              <p className="text-xs text-slate-400">reszta kalorii</p>
-            </div>
-            <div>
-              <Input label="Tłuszcze (g)" type="number" value={goalsForm.target_fat}
-                onChange={(e) => setGoalsForm({ ...goalsForm, target_fat: e.target.value })}
-                placeholder="64" min="0" />
-              {weight && <p className="text-xs text-red-500 mt-1">{(goalsForm.target_fat / weight).toFixed(1)}g/kg</p>}
-              <p className="text-xs text-slate-400">min. 0,6g/kg</p>
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-400 text-sm font-semibold">
-            Łączne kalorie: {caloriesFromMacros()} kcal
-          </div>
-
-          {goalsError && <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">{goalsError}</div>}
-          {savedGoals && <div className="p-3 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm flex items-center gap-2"><CheckCircle size={16} /> Cele zaktualizowane!</div>}
-
-          <Button type="submit" icon={Save} disabled={savingGoals} className="w-full">
-            {savingGoals ? 'Zapisywanie...' : 'Zapisz cele'}
           </Button>
         </form>
       </Card>
