@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle, Pencil, X, Save, TrendingDown, Minus } from 'lucide-react'
+import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle, Pencil, X, Save, TrendingDown, Minus, ChevronDown } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { useMeals } from '../../hooks/useMeals'
 import { Card } from '../ui/Card'
@@ -124,7 +124,10 @@ export const Dashboard = () => {
             onClick={() => setEditingGoals(!editingGoals)}
             className="flex items-center gap-1.5 text-xs text-brand-600 hover:text-brand-700 font-semibold px-2 py-1 rounded-lg hover:bg-brand-50 dark:hover:bg-brand-900/20 transition"
           >
-            {editingGoals ? <><X size={14} /> Anuluj</> : <><Pencil size={14} /> Edytuj cele</>}
+            {editingGoals
+              ? <><X size={14} /> Anuluj</>
+              : <><Pencil size={14} /> Edytuj cele <ChevronDown size={14} className="opacity-60" /></>
+            }
           </button>
         </div>
 
