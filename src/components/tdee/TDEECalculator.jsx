@@ -59,8 +59,16 @@ export const TDEECalculator = () => {
 
   const handleChange = (field) => (e) => {
     const value = e.target.type === 'number' ? Number(e.target.value) : e.target.value
-    setForm({ ...form, [field]: value })
+    const newForm = { ...form, [field]: value }
+    setForm(newForm)
     setSaved(false)
+    if (['activity', 'goal', 'weight'].includes(field)) {
+      const newBmr = calculateBMR(newForm)
+      const newTdee = calculateTDEE(newBmr, newForm.activity)
+      const newGoalCal = newTdee + Number(newForm.goal)
+      const newMacros = recommendedMacros(newGoalCal, newForm.weight)
+      setMacroForm({ protein: newMacros.protein, carbs: newMacros.carbs, fat: newMacros.fat })
+    }
   }
 
   const bmr = useMemo(() => calculateBMR(form), [form])
