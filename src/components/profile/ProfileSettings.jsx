@@ -10,7 +10,7 @@ export const ProfileSettings = () => {
   const { user, updatePassword, signIn } = useAuth()
   const { profile, loading, updateProfile } = useProfile()
 
-  const [personalForm, setPersonalForm] = useState({ first_name: '', last_name: '', age: '', weight: '', gender: '' })
+  const [personalForm, setPersonalForm] = useState({ first_name: '', last_name: '', age: '', weight: '', height: '', gender: '' })
   const [savingPersonal, setSavingPersonal] = useState(false)
   const [savedPersonal, setSavedPersonal] = useState(false)
   const [personalError, setPersonalError] = useState('')
@@ -32,6 +32,7 @@ export const ProfileSettings = () => {
         last_name: profile.last_name || '',
         age: profile.age || '',
         weight: profile.weight || '',
+        height: profile.height || '',
         gender: profile.gender || '',
       })
       setGoalsForm({
@@ -59,6 +60,7 @@ export const ProfileSettings = () => {
       last_name: personalForm.last_name.trim(),
       age: personalForm.age ? parseInt(personalForm.age) : null,
       weight: personalForm.weight ? parseFloat(personalForm.weight) : null,
+      height: personalForm.height ? parseFloat(personalForm.height) : null,
       gender: personalForm.gender || null,
     })
     setSavingPersonal(false)
@@ -126,13 +128,16 @@ export const ProfileSettings = () => {
               onChange={(e) => setPersonalForm({ ...personalForm, last_name: e.target.value })}
               placeholder="Kowalski" />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <Input label="Wiek (lata)" type="number" icon={User} value={personalForm.age}
               onChange={(e) => setPersonalForm({ ...personalForm, age: e.target.value })}
               placeholder="25" min="10" max="100" />
             <Input label="Waga (kg)" type="number" icon={Scale} value={personalForm.weight}
               onChange={(e) => setPersonalForm({ ...personalForm, weight: e.target.value })}
               placeholder="80" min="30" max="300" />
+            <Input label="Wzrost (cm)" type="number" icon={Scale} value={personalForm.height}
+              onChange={(e) => setPersonalForm({ ...personalForm, height: e.target.value })}
+              placeholder="180" min="100" max="250" />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300">Płeć</label>

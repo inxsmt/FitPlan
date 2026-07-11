@@ -32,6 +32,7 @@ export const Dashboard = () => {
         target_carbs: profile.target_carbs || 196,
         target_fat: profile.target_fat || 64,
         weight: profile.weight || '',
+        height: profile.height || '',
       })
     }
   }, [profile])
@@ -41,8 +42,9 @@ export const Dashboard = () => {
     const c = parseInt(goalsForm.target_carbs) || 0
     const f = parseInt(goalsForm.target_fat) || 0
     const w = goalsForm.weight ? parseFloat(goalsForm.weight) : null
+    const h = goalsForm.height ? parseFloat(goalsForm.height) : null
     setSavingGoals(true)
-    await updateProfile({ target_protein: p, target_carbs: c, target_fat: f, target_calories: p * 4 + c * 4 + f * 9, ...(w !== null && { weight: w }) })
+    await updateProfile({ target_protein: p, target_carbs: c, target_fat: f, target_calories: p * 4 + c * 4 + f * 9, ...(w !== null && { weight: w }), ...(h !== null && { height: h }) })
     setSavingGoals(false)
     setEditingGoals(false)
   }
@@ -129,16 +131,29 @@ export const Dashboard = () => {
         {editingGoals ? (
           <div className="space-y-3">
             <p className="text-xs text-slate-500">Kalorie obliczają się automatycznie z makroskładników</p>
-            <div>
-              <label className="block text-xs font-medium text-slate-500 mb-1">Waga (kg)</label>
-              <input
-                type="number"
-                value={goalsForm.weight}
-                onChange={(e) => setGoalsForm({ ...goalsForm, weight: e.target.value })}
-                className="w-32 px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-500"
-                placeholder="np. 80"
-                min="30" max="300"
-              />
+            <div className="flex gap-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-500 mb-1">Waga (kg)</label>
+                <input
+                  type="number"
+                  value={goalsForm.weight}
+                  onChange={(e) => setGoalsForm({ ...goalsForm, weight: e.target.value })}
+                  className="w-28 px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  placeholder="np. 80"
+                  min="30" max="300"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-500 mb-1">Wzrost (cm)</label>
+                <input
+                  type="number"
+                  value={goalsForm.height}
+                  onChange={(e) => setGoalsForm({ ...goalsForm, height: e.target.value })}
+                  className="w-28 px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm font-bold focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  placeholder="np. 180"
+                  min="100" max="250"
+                />
+              </div>
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[
