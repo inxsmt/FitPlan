@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Calculator, Save, Info } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { Card } from '../ui/Card'
@@ -15,18 +15,26 @@ import {
 export const TDEECalculator = () => {
   const { profile, updateProfile } = useProfile()
 
-  const [form, setForm] = useState({
-    weight: 70,
-    height: 175,
-    age: 25,
-    gender: 'male',
-    activity: 1.55,
-    goal: 0,
+  const [form, setForm] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem('tdee_settings') || '{}')
+    return {
+      weight: 70,
+      height: 175,
+      age: 25,
+      gender: 'male',
+      activity: saved.activity || 1.55,
+      goal: saved.goal ?? 0,
+    }
   })
 
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [macroForm, setMacroForm] = useState({ protein: 160, carbs: 196, fat: 64 })
+  const [macroForm, setMacroForm] = useState(() => {
+    const ls = JSON.parse(localStorage.getItem('tdee_macros') || 'null')
+    return ls || { protein: 160, carbs: 196, fat: 64 }
+  })
+
+  const prevCalcKey = useRef(null)
 
   useEffect(() => {
     if (profile) {
@@ -37,8 +45,19 @@ export const TDEECalculator = () => {
         age: profile.age || prev.age,
         gender: profile.gender || prev.gender,
       }))
+      if (!localStorage.getItem('tdee_macros') && profile.target_protein) {
+        setMacroForm({ protein: profile.target_protein, carbs: profile.target_carbs, fat: profile.target_fat })
+      }
     }
   }, [profile])
+
+  useEffect(() => {
+    localStorage.setItem('tdee_settings', JSON.stringify({ activity: form.activity, goal: form.goal }))
+  }, [form.activity, form.goal])
+
+  useEffect(() => {
+    localStorage.setItem('tdee_macros', JSON.stringify(macroForm))
+  }, [macroForm])
 
   const handleChange = (field) => (e) => {
     const value = e.target.type === 'number' ? Number(e.target.value) : e.target.value
@@ -52,8 +71,12 @@ export const TDEECalculator = () => {
   const calcMacros = useMemo(() => recommendedMacros(goalCalories, form.weight), [goalCalories, form.weight])
 
   useEffect(() => {
-    setMacroForm({ protein: calcMacros.protein, carbs: calcMacros.carbs, fat: calcMacros.fat })
-  }, [calcMacros.protein, calcMacros.carbs, calcMacros.fat])
+    const key = `${form.activity}_${form.goal}_${form.weight}`
+    if (prevCalcKey.current !== null && prevCalcKey.current !== key) {
+      setMacroForm({ protein: calcMacros.protein, carbs: calcMacros.carbs, fat: calcMacros.fat })
+    }
+    prevCalcKey.current = key
+  }, [form.activity, form.goal, form.weight, calcMacros.protein, calcMacros.carbs, calcMacros.fat])
 
   const macroKcal = (parseInt(macroForm.protein) || 0) * 4 + (parseInt(macroForm.carbs) || 0) * 4 + (parseInt(macroForm.fat) || 0) * 9
 
