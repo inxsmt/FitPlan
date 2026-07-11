@@ -18,8 +18,8 @@ export const TDEECalculator = () => {
   const [form, setForm] = useState({
     weight: 70,
     height: 175,
-    age: profile?.age || 25,
-    gender: profile?.gender || 'male',
+    age: 25,
+    gender: 'male',
     activity: 1.55,
     goal: 0,
   })
@@ -31,6 +31,8 @@ export const TDEECalculator = () => {
     if (profile) {
       setForm((prev) => ({
         ...prev,
+        weight: profile.weight || prev.weight,
+        height: profile.height || prev.height,
         age: profile.age || prev.age,
         gender: profile.gender || prev.gender,
       }))
@@ -54,9 +56,14 @@ export const TDEECalculator = () => {
   const handleSave = async () => {
     setSaving(true)
     const { error } = await updateProfile({
-      target_calories: goalCalories,
+      weight: form.weight,
+      height: form.height,
       age: form.age,
       gender: form.gender,
+      target_calories: goalCalories,
+      target_protein: macros.protein,
+      target_carbs: macros.carbs,
+      target_fat: macros.fat,
     })
     setSaving(false)
     if (!error) {
@@ -211,7 +218,7 @@ export const TDEECalculator = () => {
 
             {saved && (
               <p className="text-sm text-brand-600 text-center animate-fade-in">
-                Cel kaloryczny zostal zaktualizowany w Twoim profilu
+                Cel kaloryczny i makroskladniki zostaly zaktualizowane w profilu
               </p>
             )}
           </div>
