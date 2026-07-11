@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle, Pencil, X, Save } from 'lucide-react'
+import { UtensilsCrossed, Calculator, Brain, TrendingUp, Flame, CheckCircle, Pencil, X, Save, TrendingDown, Minus } from 'lucide-react'
 import { useProfile } from '../../hooks/useProfile'
 import { useMeals } from '../../hooks/useMeals'
 import { Card } from '../ui/Card'
@@ -223,6 +223,61 @@ export const Dashboard = () => {
           </div>
         )}
       </Card>
+
+      {/* Bilans kaloryczny */}
+      {(() => {
+        const tdee = profile?.tdee || null
+        const todayBalance = todayMacros.calories - targetCalories
+        const plannedBalance = tdee ? targetCalories - tdee : null
+
+        const balanceColor = (val) => val > 50 ? 'text-red-500' : val < -50 ? 'text-blue-500' : 'text-green-500'
+        const balanceLabel = (val) => val > 50 ? 'nadwyżka' : val < -50 ? 'deficyt' : 'w celu'
+        const BalanceIcon = (val) => val > 50 ? TrendingUp : val < -50 ? TrendingDown : Minus
+
+        return (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Card className="!p-4">
+              <p className="text-xs text-slate-500 mb-1">0 kaloryczne (TDEE)</p>
+              <p className="text-xl font-bold">{tdee ? `${tdee} kcal` : '–'}</p>
+              <p className="text-xs text-slate-400 mt-1">konserwacja masy ciała</p>
+              {!tdee && <p className="text-xs text-amber-500 mt-1">Przelicz kalkulator TDEE</p>}
+            </Card>
+            <Card className="!p-4">
+              <p className="text-xs text-slate-500 mb-1">Cel kaloryczny</p>
+              <p className="text-xl font-bold text-brand-600">{targetCalories} kcal</p>
+              <p className="text-xs text-slate-400 mt-1">twój dzienny cel</p>
+            </Card>
+            <Card className="!p-4">
+              <p className="text-xs text-slate-500 mb-1">Planowany bilans</p>
+              {plannedBalance !== null ? (
+                <>
+                  <p className={`text-xl font-bold ${balanceColor(plannedBalance)}`}>
+                    {plannedBalance > 0 ? '+' : ''}{plannedBalance} kcal
+                  </p>
+                  <p className={`text-xs mt-1 font-medium ${balanceColor(plannedBalance)}`}>
+                    {balanceLabel(plannedBalance)}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-xl font-bold text-slate-400">–</p>
+                  <p className="text-xs text-amber-500 mt-1">brak TDEE</p>
+                </>
+              )}
+            </Card>
+            <Card className="!p-4">
+              <p className="text-xs text-slate-500 mb-1">Bilans dziś</p>
+              <p className={`text-xl font-bold ${balanceColor(todayBalance)}`}>
+                {todayBalance > 0 ? '+' : ''}{todayBalance} kcal
+              </p>
+              <p className={`text-xs mt-1 font-medium flex items-center gap-1 ${balanceColor(todayBalance)}`}>
+                {(() => { const Icon = BalanceIcon(todayBalance); return <Icon size={12} /> })()}
+                {balanceLabel(todayBalance)} vs cel
+              </p>
+            </Card>
+          </div>
+        )
+      })()}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">

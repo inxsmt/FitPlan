@@ -64,6 +64,7 @@ export const TDEECalculator = () => {
       height: form.height,
       age: form.age,
       gender: form.gender,
+      tdee: goalCalories,
       target_calories: macroKcal,
       target_protein: parseInt(macroForm.protein) || 0,
       target_carbs: parseInt(macroForm.carbs) || 0,
