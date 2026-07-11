@@ -205,7 +205,7 @@ export const QUIZZES = [
     color: 'from-purple-500 to-pink-600',
     questions: [
       {
-        question: 'Kreatyna monowodzian poprawia wydolność głównie przez:',
+        question: 'Kreatyna monohydrat poprawia wydolność głównie przez:',
         options: [
           'Zwiększenie poziomu testosteronu',
           'Zwiększenie zapasów fosfokreatyny (PCr) w mięśniach o ~20%',
@@ -297,7 +297,7 @@ export const QUIZZES = [
         question: 'Które suplementy mają kategorię dowodów naukowych Grade A (silne dowody, bezpieczne i skuteczne) według ISSN?',
         options: [
           'Glutamina, BCAA, Tribulus terrestris',
-          'Kreatyna monowodzian, kofeina, beta-alanina, azotany, białko serwatkowe',
+          'Kreatyna monohydrat, kofeina, beta-alanina, azotany, białko serwatkowe',
           'HMB, ZMA, ekstrakt z zielonej herbaty',
           'Arginina, CLA, glukozamina',
         ],
