@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Salad, LogOut, Menu, X, User, Settings } from 'lucide-react'
+import { Salad, LogOut, Menu, X, User, Settings, ChevronDown } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useProfile } from '../../hooks/useProfile'
 
@@ -54,6 +54,7 @@ export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
             <span className="hidden sm:inline text-sm font-medium max-w-[150px] truncate">
               {displayName}
             </span>
+            <ChevronDown size={14} className={`hidden sm:block opacity-50 transition-transform duration-200 ${menuOpen ? 'rotate-180' : ''}`} />
           </button>
 
           {menuOpen && (
