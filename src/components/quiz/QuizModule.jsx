@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Trophy, Clock, Apple, Scale, Brain, Pill } from 'lucide-react'
+import { Trophy, Clock, Apple, Scale, Brain, Zap } from 'lucide-react'
 import { supabase } from '../../lib/supabaseClient'
 import { useAuth } from '../../context/AuthContext'
 import { Card } from '../ui/Card'
@@ -9,8 +9,8 @@ import { QUIZZES } from './quizData'
 const ICONS = {
   basics: Apple,
   macros: Scale,
-  myths: Brain,
-  micronutrients: Pill,
+  supplementation: Zap,
+  advanced: Brain,
 }
 
 export const QuizModule = () => {
