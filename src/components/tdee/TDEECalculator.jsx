@@ -196,14 +196,19 @@ export const TDEECalculator = () => {
               <div className="text-center p-3 rounded-lg bg-blue-100 dark:bg-blue-900/30">
                 <p className="text-xs text-blue-700 dark:text-blue-400">Bialko</p>
                 <p className="font-bold text-blue-700 dark:text-blue-400">{macros.protein}g</p>
+                <p className="text-xs text-blue-500 mt-0.5">{(macros.protein / form.weight).toFixed(1)}g/kg</p>
+                <p className="text-xs text-blue-300 dark:text-blue-700">opt. 1,6–2,2</p>
               </div>
               <div className="text-center p-3 rounded-lg bg-amber-100 dark:bg-amber-900/30">
                 <p className="text-xs text-amber-700 dark:text-amber-400">Weglow.</p>
                 <p className="font-bold text-amber-700 dark:text-amber-400">{macros.carbs}g</p>
+                <p className="text-xs text-amber-500 mt-0.5">{(macros.carbs / form.weight).toFixed(1)}g/kg</p>
               </div>
               <div className="text-center p-3 rounded-lg bg-red-100 dark:bg-red-900/30">
                 <p className="text-xs text-red-700 dark:text-red-400">Tluszcze</p>
                 <p className="font-bold text-red-700 dark:text-red-400">{macros.fat}g</p>
+                <p className="text-xs text-red-500 mt-0.5">{(macros.fat / form.weight).toFixed(1)}g/kg</p>
+                <p className="text-xs text-red-300 dark:text-red-700">opt. 0,6–1,2</p>
               </div>
             </div>
 

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { ProfileProvider } from './context/ProfileContext'
 import { Login } from './components/auth/Login'
 import { Register } from './components/auth/Register'
 import { Dashboard } from './components/dashboard/Dashboard'
@@ -71,6 +72,7 @@ const AppLayout = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <ProfileProvider>
       <BrowserRouter>
         <Routes>
           <Route
@@ -167,6 +169,7 @@ function App() {
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>
+      </ProfileProvider>
     </AuthProvider>
   )
 }
