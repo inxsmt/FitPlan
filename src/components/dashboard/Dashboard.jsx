@@ -266,14 +266,22 @@ export const Dashboard = () => {
               )}
             </Card>
             <Card className="!p-4">
-              <p className="text-xs text-slate-500 mb-1">Bilans dziś</p>
-              <p className={`text-xl font-bold ${balanceColor(todayBalance)}`}>
-                {todayBalance > 0 ? '+' : ''}{todayBalance} kcal
-              </p>
-              <p className={`text-xs mt-1 font-medium flex items-center gap-1 ${balanceColor(todayBalance)}`}>
-                {(() => { const Icon = BalanceIcon(todayBalance); return <Icon size={12} /> })()}
-                {balanceLabel(todayBalance)} vs cel
-              </p>
+              <p className="text-xs text-slate-500 mb-1">Pozostało dziś</p>
+              {(() => {
+                const remaining = targetCalories - todayMacros.calories
+                if (remaining > 0) return (
+                  <>
+                    <p className="text-xl font-bold text-brand-600">{remaining} kcal</p>
+                    <p className="text-xs text-slate-400 mt-1">do dziennego celu</p>
+                  </>
+                )
+                return (
+                  <>
+                    <p className="text-xl font-bold text-red-500">{Math.abs(remaining)} kcal</p>
+                    <p className="text-xs text-red-500 mt-1 font-medium">powyżej celu</p>
+                  </>
+                )
+              })()}
             </Card>
           </div>
         )
