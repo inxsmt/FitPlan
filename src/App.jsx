@@ -6,6 +6,7 @@ import { Login } from './components/auth/Login'
 import { Register } from './components/auth/Register'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { MealTracker } from './components/meals/MealTracker'
+import { WaterTracker } from './components/water/WaterTracker'
 import { TDEECalculator } from './components/tdee/TDEECalculator'
 import { QuizModule } from './components/quiz/QuizModule'
 import { Blog } from './components/blog/Blog'
@@ -108,6 +109,16 @@ function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <MealTracker />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/water"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <WaterTracker />
                 </AppLayout>
               </ProtectedRoute>
             }

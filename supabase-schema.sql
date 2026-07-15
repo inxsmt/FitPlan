@@ -93,6 +93,32 @@ CREATE POLICY "Uzytkownik zapisuje wlasne quizy"
   WITH CHECK (auth.uid() = user_id);
 
 -- ============================================================
+-- 3b. TABELA: water_logs
+-- ============================================================
+CREATE TABLE public.water_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  amount_ml INTEGER NOT NULL CHECK (amount_ml > 0),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_water_logs_user_date ON public.water_logs(user_id, created_at DESC);
+
+ALTER TABLE public.water_logs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Uzytkownik widzi wlasne logi wody"
+  ON public.water_logs FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik dodaje wlasne logi wody"
+  ON public.water_logs FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik usuwa wlasne logi wody"
+  ON public.water_logs FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- ============================================================
 -- 4. TRIGGER: Automatyczne tworzenie profilu po rejestracji
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()

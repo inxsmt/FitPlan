@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, X } from 'lucide-react'
+import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, Droplet, X } from 'lucide-react'
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/meals', label: 'Posilki', icon: UtensilsCrossed },
+  { to: '/water', label: 'Woda', icon: Droplet },
   { to: '/diets', label: 'Diety', icon: Salad },
   { to: '/tdee', label: 'Kalkulator TDEE', icon: Calculator },
   { to: '/quiz', label: 'Quizy EBM', icon: Brain },

@@ -81,3 +81,32 @@ export const recommendedMacros = (targetCalories, weight = 70) => {
   const carbs = Math.round(carbsKcal / 4)
   return { protein, carbs, fat }
 }
+
+/**
+ * Rozmiar standardowej szklanki wody
+ */
+export const GLASS_SIZE_ML = 250
+
+/**
+ * Rekomendowane dzienne spozycie wody: ok. 35ml/kg masy ciala
+ * (przy braku wagi - domyslnie 2500ml)
+ */
+export const recommendedWaterMl = (weight = null) => {
+  if (!weight) return 2500
+  return Math.round((weight * 35) / 50) * 50
+}
+
+/**
+ * Sumuje ilosc wypitej wody (ml) z listy logow
+ */
+export const sumWater = (waterLogs = []) => {
+  return waterLogs.reduce((sum, w) => sum + (w.amount_ml || 0), 0)
+}
+
+/**
+ * Filtruje logi wody z danego dnia
+ */
+export const filterTodayWater = (waterLogs = []) => {
+  const today = new Date().toISOString().slice(0, 10)
+  return waterLogs.filter((w) => w.created_at?.slice(0, 10) === today)
+}
