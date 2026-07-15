@@ -125,6 +125,8 @@ CREATE TABLE public.weight_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   weight_kg NUMERIC(5,1) NOT NULL CHECK (weight_kg > 0),
+  waist_cm NUMERIC(5,1) CHECK (waist_cm > 0),
+  hips_cm NUMERIC(5,1) CHECK (hips_cm > 0),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -180,6 +182,13 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER update_profiles_updated_at
   BEFORE UPDATE ON public.profiles
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at();
+
+-- ============================================================
+-- 6. MIGRACJA: dodanie obwodow (talia/biodra) do weight_logs
+-- Uruchom tylko jesli tabela weight_logs juz istnieje bez tych kolumn
+-- ============================================================
+ALTER TABLE public.weight_logs ADD COLUMN IF NOT EXISTS waist_cm NUMERIC(5,1) CHECK (waist_cm > 0);
+ALTER TABLE public.weight_logs ADD COLUMN IF NOT EXISTS hips_cm NUMERIC(5,1) CHECK (hips_cm > 0);
 
 -- ============================================================
 -- GOTOWE! Sprawdz w zakladce Table Editor czy tabele istnieja.

@@ -131,3 +131,29 @@ export const calculateWeightTrend = (weightLogs = []) => {
 
   return { direction, changeKg, changePerWeek }
 }
+
+/**
+ * WHR (Waist-to-Hip Ratio) - stosunek obwodu talii do obwodu bioder.
+ * Uzywany do oceny rozmieszczenia tkanki tluszczowej (otylosc brzuszna),
+ * niezaleznie od samej masy ciala.
+ */
+export const calculateWHR = (waistCm, hipsCm) => {
+  if (!waistCm || !hipsCm) return null
+  return Number((waistCm / hipsCm).toFixed(2))
+}
+
+/**
+ * Kategoria ryzyka zdrowotnego na podstawie WHR wg progow WHO.
+ * Progi rozne dla kobiet i mezczyzn:
+ * Kobiety: <0.80 niskie, 0.80-0.84 podwyzszone, >=0.85 wysokie
+ * Mezczyzni: <0.90 niskie, 0.90-0.99 podwyzszone, >=1.0 wysokie
+ */
+export const whrRiskCategory = (whr, gender) => {
+  if (!whr) return null
+  const isFemale = gender === 'female'
+  const lowMax = isFemale ? 0.80 : 0.90
+  const highMin = isFemale ? 0.85 : 1.0
+  if (whr < lowMax) return { label: 'Niskie ryzyko', color: 'text-green-500' }
+  if (whr < highMin) return { label: 'Podwyzszone ryzyko', color: 'text-amber-500' }
+  return { label: 'Wysokie ryzyko', color: 'text-red-500' }
+}
