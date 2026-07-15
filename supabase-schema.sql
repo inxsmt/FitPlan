@@ -119,6 +119,32 @@ CREATE POLICY "Uzytkownik usuwa wlasne logi wody"
   USING (auth.uid() = user_id);
 
 -- ============================================================
+-- 3c. TABELA: weight_logs
+-- ============================================================
+CREATE TABLE public.weight_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  weight_kg NUMERIC(5,1) NOT NULL CHECK (weight_kg > 0),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_weight_logs_user_date ON public.weight_logs(user_id, created_at DESC);
+
+ALTER TABLE public.weight_logs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Uzytkownik widzi wlasne logi wagi"
+  ON public.weight_logs FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik dodaje wlasne logi wagi"
+  ON public.weight_logs FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik usuwa wlasne logi wagi"
+  ON public.weight_logs FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- ============================================================
 -- 4. TRIGGER: Automatyczne tworzenie profilu po rejestracji
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()

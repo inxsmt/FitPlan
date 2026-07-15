@@ -110,3 +110,24 @@ export const filterTodayWater = (waterLogs = []) => {
   const today = new Date().toISOString().slice(0, 10)
   return waterLogs.filter((w) => w.created_at?.slice(0, 10) === today)
 }
+
+/**
+ * Wyznacza tendencje wagi na podstawie pierwszego i ostatniego wpisu:
+ * kierunek (up/down/stable) i tempo zmiany na tydzien.
+ * Tempo tygodniowe liczone tylko gdy miedzy wpisami minela co najmniej doba
+ * (przy krotszym okresie ekstrapolacja na tydzien byłaby niemiarodajna).
+ */
+export const calculateWeightTrend = (weightLogs = []) => {
+  if (weightLogs.length < 2) return { direction: 'stable', changeKg: 0, changePerWeek: null }
+
+  const sorted = [...weightLogs].sort((a, b) => new Date(a.created_at) - new Date(b.created_at))
+  const first = sorted[0]
+  const last = sorted[sorted.length - 1]
+  const days = (new Date(last.created_at) - new Date(first.created_at)) / (1000 * 60 * 60 * 24)
+
+  const changeKg = Number((last.weight_kg - first.weight_kg).toFixed(1))
+  const changePerWeek = days >= 1 ? Number(((changeKg / days) * 7).toFixed(2)) : null
+  const direction = changeKg > 0.1 ? 'up' : changeKg < -0.1 ? 'down' : 'stable'
+
+  return { direction, changeKg, changePerWeek }
+}
