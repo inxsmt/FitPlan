@@ -47,9 +47,9 @@ export const QuizModule = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold mb-1">Quizy edukacyjne EBM</h1>
+        <h1 className="text-3xl font-bold mb-1">Quizy wiedzy</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Sprawdz swoja wiedze o dietetyce opartej na dowodach naukowych
+          Sprawdz co wiesz o zywieniu, treningu i suplementacji — bez trudnych slow
         </p>
       </div>
 
