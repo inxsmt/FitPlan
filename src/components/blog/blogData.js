@@ -360,4 +360,75 @@ Jeśli miałbyś zacząć od jednego — zacznij od kofeiny. Jeśli już ją sto
 > **Źródła:** PMID: 19077738 · 29509641 · 22142020 · PMC4462044 · PMID: 26442881 · PMC5368575 · PMC5999519 · PMID: 12145119 · 26900386 · 20386132 · 17953788 · 17513449 · PMID: 26175657 · 22270875 · 27797728
     `.trim(),
   },
+  {
+    id: 'suplementacja-przed-treningowa-cz2',
+    title: 'Co wziąć przed treningiem? Część 2 — glicerol, sok z buraka i kapsaicyna',
+    excerpt: 'Mniej znane, ale skuteczne suplementy przedtreningowe. Glicerol opóźnia odwodnienie, burak poprawia wytrzymałość, a kapsaicyna pozwala wycisnąć więcej z każdej serii.',
+    date: '2026-07-21',
+    readTime: '5 min',
+    category: 'Suplementacja',
+    content: `
+## Trzy mniej znane suplementy, które warto znać
+
+W pierwszej części omówiliśmy kofeinę, cytrulinę i beta-alaninę. Teraz czas na trzy mniej popularne, ale równie dobrze udokumentowane opcje. Żadna magia — same badania.
+
+## 1. Glicerol — dla trenujących w upale
+
+Glicerol to substancja, którą możesz kupić w aptece za dosłownie kilka złotych (ok. 2 zł za 30 g). Działa przez tzw. hiperwodowanie — pomaga organizmowi zatrzymać więcej wody przed treningiem, dzięki czemu wolniej się odwadniasz podczas wysiłku.
+
+**Co daje:**
+- Wydłużenie czasu do wyczerpania nawet o **24%** (PMID: 19941615)
+- Wzrost mocy o ok. **5%** (PMID: 17962713)
+- Szczególnie skuteczny przy treningach w wysokiej temperaturze lub długich sesjach cardio
+
+**Jak brać:**
+- Dawka: **1,2 g na każdy kg masy ciała** (dla 80 kg osoby to ok. 96 g — dużo, więc zaczynaj od mniejszych ilości)
+- Rozcieńczyć w **26 ml wody na każdy kg masy ciała**
+- Pić przez ok. 1 godzinę, kończąc **30 minut przed treningiem**
+
+**Uwaga:** Może powodować mdłości lub zawroty głowy — zacznij od mniejszej dawki, żeby sprawdzić reakcję (PMID: 20092365).
+
+## 2. Sok z buraka — prosty sposób na lepszą wytrzymałość
+
+Burak zawiera naturalne azotany, które w organizmie zamieniają się w tlenek azotu — substancję rozszerzającą naczynia krwionośne. Efekt? Mięśnie dostają więcej tlenu i pracują wydajniej przy tym samym wysiłku.
+
+**Co daje:**
+- Mniejsze zapotrzebowanie na tlen podczas wysiłku — możesz robić więcej przy tym samym zmęczeniu (PMID: 20466802)
+- Lepsza pompa mięśniowa i opóźnienie zmęczenia
+- Potwierdzony efekt zarówno przy jednorazowym użyciu, jak i przy regularnej suplementacji przez 2–3 tygodnie przed zawodami (PMC5756374)
+
+**Jak brać:**
+- **500 ml soku z buraka** ok. 45 minut przed treningiem
+- Alternatywnie: skoncentrowany shot z buraka (odpowiednik 5–11,4 mmol azotanów)
+- Regularność przez kilka dni przed ważnym treningiem lub startem daje lepszy efekt niż jednorazowa dawka (PMC6040767)
+
+**Uwaga:** Może powodować różowe lub czerwone zabarwienie moczu i stolca — to całkowicie normalne i nieszkodliwe.
+
+## 3. Kapsaicyna — ostra papryczka, która pomaga trenować dłużej
+
+Kapsaicyna to substancja, która nadaje papryczce chili jej ostrość. Działa jak naturalny środek przeciwbólowy — zmniejsza odczuwanie bólu mięśni podczas wysiłku, dzięki czemu możesz pracować mocniej i dłużej.
+
+**Co daje:**
+- W badaniu na biegaczach: czas wysiłku **1530 s vs 1342 s** w grupie placebo (PMID: 28682933)
+- W badaniu na siłowni (przysiady 70% ciężaru maks., 4 serie do upadku): łączny ciężar **3919 kg vs 3179 kg** w grupie placebo (PMC5986509)
+- Działa zarówno na wytrzymałość, jak i trening siłowy
+
+**Jak brać:**
+- Dawka: **12 mg** ok. **45 minut przed treningiem**
+- Dostępna w formie kapsułek (wygodniej niż jedzenie surowych papryczek)
+- Jeśli masz wrażliwy żołądek — zacznij od mniejszej dawki
+
+## Podsumowanie
+
+| Suplement | Dawka | Kiedy brać | Dla kogo |
+|---|---|---|---|
+| Glicerol | 1,2 g/kg mc | 30–60 min przed | Cardio, sport w upale |
+| Sok z buraka | 500 ml | ~45 min przed | Wytrzymałość, siłownia |
+| Kapsaicyna | 12 mg | ~45 min przed | Siłownia, sporty wytrzymałościowe |
+
+Żaden z tych suplementów nie zastąpi dobrego treningu i diety — ale jeśli masz podstawy opanowane, to każdy z nich może dać realną różnicę.
+
+> **Źródła:** PMID: 19941615 · 17962713 · 20092365 · PMID: 20466802 · 17635415 · PMC3942720 · PMC5756374 · PMC6040767 · PMID: 28682933 · PMC5986509 · PMC4477151 · PMID: 30737555 · PMC3257466
+    `.trim(),
+  },
 ]
