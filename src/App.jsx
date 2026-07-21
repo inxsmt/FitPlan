@@ -13,6 +13,7 @@ import { QuizModule } from './components/quiz/QuizModule'
 import { Blog } from './components/blog/Blog'
 import { Diets } from './components/diets/Diets'
 import { ProfileSettings } from './components/profile/ProfileSettings'
+import { Recipes } from './components/recipes/Recipes'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
 
@@ -176,6 +177,16 @@ function App() {
             }
           />
 
+          <Route
+            path="/recipes"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <Recipes />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/profile"
             element={
