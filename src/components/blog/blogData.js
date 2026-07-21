@@ -213,4 +213,78 @@ Typowe dawki suplementacyjne wynoszą **15–30 mg dziennie**. Wyższe dawki (ja
 > **Pamiętaj:** Cynk to jeden element układanki. Zdrowy sen, regularna aktywność fizyczna i zrównoważona dieta pozostają fundamentem kontroli stresu.
     `.trim(),
   },
+  {
+    id: 'ile-bialka-dla-sportowca',
+    title: 'Ile białka potrzebuje sportowiec? Konkretne liczby oparte na badaniach',
+    excerpt: 'Nie każdy potrzebuje tyle samo białka. Różne cele — masa, redukcja, wiek — wymagają różnych dawek. Sprawdź, co faktycznie mówi nauka i jak rozłożyć białko w ciągu dnia.',
+    date: '2026-07-21',
+    readTime: '7 min',
+    category: 'Białko',
+    content: `
+## Dlaczego białko jest tak ważne dla ćwiczących?
+
+Mięśnie nie rosną z powietrza. Ich wzrost zależy od jednej prostej zasady: **synteza białek mięśniowych (MPS) musi dominować nad ich rozpadem (MPB)**. Trening oporowy stymuluje MPS o ponad 100% powyżej poziomu podstawowego — ale bez odpowiedniej podaży białka w diecie ten sygnał nie przyniesie efektów.
+
+Problem w tym, że standardowe zalecenia (RDA = 0,8 g/kg mc/dzień) są ustalone dla przeciętnej osoby dorosłej, która nie trenuje. Dla sportowców to zdecydowanie za mało.
+
+## Budowanie masy mięśniowej
+
+Jeśli Twoim celem jest hipertrofia, zakres **1,6–2,2 g białka na kg masy ciała dziennie** jest dobrze udokumentowany w literaturze naukowej (PMC5872778, PMID: 24092765).
+
+Żeby MPS był maksymalnie stymulowany w każdym posiłku, potrzebujesz odpowiedniej porcji leucyny — aminokwasu, który „włącza" szlak mTOR. Próg leucynowy to **2,5–2,8 g leucyny na posiłek**, co odpowiada mniej więcej:
+- 20–30 g białka serwatkowego (whey)
+- 30–35 g białka z kurczaka lub jaj
+- 0,3 g białka na kg masy ciała dla młodych osób
+- 0,4 g białka na kg masy ciała dla osób po 40. roku życia
+
+**Jak rozłożyć białko w ciągu dnia?**
+
+Optymalnie: **4–6 posiłków co 3–4 godziny**. Badania porównujące dawki 2 g/kg vs 1,24 g/kg oraz 3,15 g/kg vs 1,65 g/kg (PMID: 15466943) wykazały wyraźną przewagę wyższego spożycia w kontekście budowania i utrzymania masy mięśniowej.
+
+## Redukcja tkanki tłuszczowej
+
+Tu zaskoczenie: podczas odchudzania potrzebujesz **więcej białka niż na masie**, nie mniej.
+
+Dlaczego? Bez odpowiedniej podaży białka podczas deficytu kalorycznego możesz stracić nawet **25% beztłuszczowej masy ciała** zamiast wyłącznie tkanki tłuszczowej. Białko chroni mięśnie przed rozpadem, a do tego zwiększa termogenezę i sytość — co ułatwia utrzymanie deficytu.
+
+Zalecenia w zależności od poziomu zaawansowania (PMC3518828, PMC5852756):
+
+- **Początkujący** (wysoki % tkanki tłuszczowej): ~2,0 g/kg mc
+- **Średniozaawansowani**: 2,3–2,5 g/kg mc
+- **Zaawansowani** (niski % tkanki tłuszczowej): do 3,0 g/kg mc
+- **Osoby z otyłością**: 1,5–1,8 g/kg rzeczywistej masy ciała
+
+Im niższy poziom tkanki tłuszczowej i im głębszy deficyt kaloryczny, tym wyższe białko jest potrzebne do ochrony mięśni.
+
+## Osoby po 40. roku życia
+
+Między 40. a 80. rokiem życia można stracić nawet **30–50% masy mięśniowej** — zjawisko to nazywamy sarkopenią. Jednym z głównych mechanizmów jest **oporność anaboliczna**: mięśnie osób starszych słabiej reagują na białko i trening niż mięśnie młodych.
+
+Dlatego osoby 40+ potrzebują nie tylko więcej białka w ciągu dnia, ale przede wszystkim **lepszego jego rozłożenia** — każdy posiłek powinien zawierać wyższą porcję (stąd próg 0,4 g/kg zamiast 0,3 g/kg).
+
+Zalecenia grupy PROT-AGE (PMC5078648):
+- **Minimum**: 1,1–1,2 g/kg mc/dzień
+- **Z chorobami przewlekłymi lub aktywni fizycznie**: do 2,0 g/kg mc/dzień
+
+> Dla osób 40+ regularny trening siłowy w połączeniu z odpowiednim białkiem to najsilniejsza dostępna bez recepty metoda zapobiegania sarkopenii.
+
+## Czy wysokie białko szkodzi nerkom?
+
+To jeden z najczęstszych mitów. Metaanaliza z 2018 roku (PMID: 30308987, PMC5852756) objęła osoby spożywające ponad 3 g białka na kg masy ciała dziennie — u zdrowych osób **nie zaobserwowano żadnego szkodliwego wpływu na funkcję nerek**. Ostrożność jest uzasadniona jedynie u osób z istniejącymi chorobami nerek.
+
+## Podsumowanie w liczbach
+
+| Cel | Zalecana podaż |
+|---|---|
+| Budowanie masy | 1,6–2,2 g/kg mc |
+| Redukcja (początkujący) | ~2,0 g/kg mc |
+| Redukcja (zaawansowani) | 2,5–3,0 g/kg mc |
+| Osoby 40+ | 1,2–2,0 g/kg mc |
+| Optymalnie na posiłek (młodzi) | 0,3 g/kg mc |
+| Optymalnie na posiłek (40+) | 0,4 g/kg mc |
+| Leucyna na posiłek | 2,5–2,8 g |
+
+> **Źródła:** PMID: 30308987 · PMC5872778 · PMID: 24092765 · PMID: 15466943 · PMC3518828 · PMC5852756 · PMID: 30383278 · PMC5078648
+    `.trim(),
+  },
 ]
