@@ -287,4 +287,77 @@ To jeden z najczęstszych mitów. Metaanaliza z 2018 roku (PMID: 30308987, PMC58
 > **Źródła:** PMID: 30308987 · PMC5872778 · PMID: 24092765 · PMID: 15466943 · PMC3518828 · PMC5852756 · PMID: 30383278 · PMC5078648
     `.trim(),
   },
+  {
+    id: 'suplementacja-przed-treningowa',
+    title: 'Co wziąć przed treningiem? 3 suplementy, które naprawdę działają',
+    excerpt: 'Kofeina, cytrulina, beta-alanina — trzy suplementy z prawdziwymi dowodami naukowymi. Sprawdź ile brać, kiedy brać i czego się spodziewać.',
+    date: '2026-07-21',
+    readTime: '5 min',
+    category: 'Suplementacja',
+    content: `
+## Czy suplementy przed treningiem mają sens?
+
+Większość produktów pre-workout to mieszanka składników w zbyt małych dawkach, okraszona marketingiem. Ale są trzy substancje, które mają naprawdę solidne badania za sobą i realnie poprawiają wyniki na siłowni. Oto one.
+
+## 1. Kofeina — sprawdzona klasyka
+
+Kofeina to jeden z najlepiej przebadanych środków poprawiających wydolność. Działa po prostu: sprawia, że czujesz mniej zmęczenia i możesz trenować mocniej.
+
+**Co daje:**
+- Poprawa wyników średnio o **3,2%** (PMID: 19077738)
+- Więcej siły, lepsza wytrzymałość, lepszy fokus
+- Opóźnienie uczucia zmęczenia podczas treningu
+
+**Jak brać:**
+- Dawka: **3–4 mg na każdy kg masy ciała** (dla 80 kg osoby to 240–320 mg)
+- Czas: **30–40 minut przed treningiem**
+- Może to być kawa, tabletka z kofeiną lub napój energetyczny — forma nie ma dużego znaczenia
+
+**Ważne:** Nie wszyscy reagują tak samo. Część osób metabolizuje kofeinę szybciej i czuje mocny efekt, inni słabiej. Jeśli kofeina Ci nie pomaga — to może właśnie kwestia genetyki, nie dawki (PMID: 29509641).
+
+## 2. Cytrulina — lepsza pompa i mniej zmęczenia
+
+Cytrulina to aminokwas, który zwiększa przepływ krwi do mięśni. Efektem jest słynna „pompa mięśniowa" — ale to nie tylko estetyka. Lepsze ukrwienie mięśni oznacza więcej tlenu i energii podczas treningu.
+
+**Co daje:**
+- Lepsza „pompa" i dotlenienie mięśni
+- Mniej zakwasów podczas treningu
+- Nawet o **34% więcej energii** dostępnej dla mięśni (PMID: 12145119)
+- Szybsza odbudowa energii między seriami (+20%, PMC5999519)
+
+**Jak brać:**
+- Cytrulina malat: **10 g** ok. 1 godziny przed treningiem
+- Sama L-cytrulina: **5–6 g** ok. 1 godziny przed treningiem
+- Dlaczego nie arginina? Cytrulina wchłania się znacznie lepiej i daje wyższe stężenie substancji czynnej we krwi (PMID: 17513449)
+
+## 3. Beta-alanina — dla intensywnych wysiłków
+
+Beta-alanina działa inaczej niż kofeina czy cytrulina — nie daje efektu od razu. Działa kumulacyjnie: musisz ją brać codziennie, żeby budowały się jej zapasy w mięśniach.
+
+Efekt? Twoje mięśnie zakwaszają się wolniej podczas intensywnego wysiłku — możesz zrobić więcej powtórzeń zanim poczujesz palenie.
+
+**Co daje:**
+- Opóźnienie zakwaszenia mięśni podczas intensywnych ćwiczeń
+- Najlepiej działa przy wysiłkach trwających **1–4 minuty** (PMID: 26175657)
+- Przydatna na siłowni (serie do upadku), przy biegach i sportach walki
+
+**Jak brać:**
+- Dawka: **4–6 g dziennie**
+- Czas: nieważny — bierz kiedy chcesz, ważne żeby codziennie
+- Pierwsze efekty: po **2 tygodniach**, pełen efekt po **4 tygodniach** (PMID: 22270875)
+- Normalny efekt uboczny: mrowienie skóry (twarzy, rąk) — to nieszkodliwe, mija po chwili
+
+## Podsumowanie
+
+| Suplement | Dawka | Kiedy brać | Kiedy działa |
+|---|---|---|---|
+| Kofeina | 3–4 mg/kg mc | 30–40 min przed | Od razu |
+| Cytrulina malat | 10 g | ~1 h przed | Od razu |
+| Beta-alanina | 4–6 g | Dowolnie, codziennie | Po 2–4 tygodniach |
+
+Jeśli miałbyś zacząć od jednego — zacznij od kofeiny. Jeśli już ją stosujesz, dorzuć cytrulinę. Beta-alanina ma sens jeśli trenujesz intensywnie i zależy Ci na ostatnich powtórzeniach.
+
+> **Źródła:** PMID: 19077738 · 29509641 · 22142020 · PMC4462044 · PMID: 26442881 · PMC5368575 · PMC5999519 · PMID: 12145119 · 26900386 · 20386132 · 17953788 · 17513449 · PMID: 26175657 · 22270875 · 27797728
+    `.trim(),
+  },
 ]
