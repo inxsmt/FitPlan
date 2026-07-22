@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, Salad, UserPlus, CheckCircle } from 'lucide-react'
+import { Mail, Lock, Salad, UserPlus, CheckCircle, User } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -8,6 +8,8 @@ import { Input } from '../ui/Input'
 export const Register = () => {
   const navigate = useNavigate()
   const { signUp } = useAuth()
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
@@ -19,6 +21,10 @@ export const Register = () => {
     e.preventDefault()
     setError('')
 
+    if (!firstName.trim() || !lastName.trim()) {
+      setError('Podaj imie i nazwisko')
+      return
+    }
     if (password.length < 6) {
       setError('Haslo musi miec co najmniej 6 znakow')
       return
@@ -29,7 +35,7 @@ export const Register = () => {
     }
 
     setLoading(true)
-    const { data, error } = await signUp(email, password)
+    const { data, error } = await signUp(email, password, firstName, lastName)
     setLoading(false)
 
     if (error) {
@@ -97,6 +103,28 @@ export const Register = () => {
 
         <div className="card animate-slide-up">
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <Input
+                label="Imie"
+                type="text"
+                icon={User}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Jan"
+                required
+                autoComplete="given-name"
+              />
+              <Input
+                label="Nazwisko"
+                type="text"
+                icon={User}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Kowalski"
+                required
+                autoComplete="family-name"
+              />
+            </div>
             <Input
               label="Email"
               type="email"

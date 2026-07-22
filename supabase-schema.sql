@@ -8,6 +8,8 @@
 -- ============================================================
 CREATE TABLE public.profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  first_name TEXT,
+  last_name TEXT,
   initials TEXT,
   age INTEGER CHECK (age > 0 AND age < 150),
   gender TEXT CHECK (gender IN ('male', 'female', 'other')),
@@ -182,11 +184,20 @@ CREATE POLICY "Uzytkownik usuwa wlasne wpisy samopoczucia"
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
+DECLARE
+  fn TEXT := NULLIF(TRIM(NEW.raw_user_meta_data ->> 'first_name'), '');
+  ln TEXT := NULLIF(TRIM(NEW.raw_user_meta_data ->> 'last_name'), '');
 BEGIN
-  INSERT INTO public.profiles (id, initials, target_calories)
+  INSERT INTO public.profiles (id, first_name, last_name, initials, target_calories)
   VALUES (
     NEW.id,
-    COALESCE(split_part(NEW.email, '@', 1), 'USR'),
+    fn,
+    ln,
+    COALESCE(
+      NULLIF(UPPER(LEFT(COALESCE(fn, ''), 1) || LEFT(COALESCE(ln, ''), 1)), ''),
+      UPPER(split_part(NEW.email, '@', 1)),
+      'USR'
+    ),
     2000
   );
   RETURN NEW;
@@ -220,6 +231,15 @@ CREATE TRIGGER update_profiles_updated_at
 -- ============================================================
 ALTER TABLE public.weight_logs ADD COLUMN IF NOT EXISTS waist_cm NUMERIC(5,1) CHECK (waist_cm > 0);
 ALTER TABLE public.weight_logs ADD COLUMN IF NOT EXISTS hips_cm NUMERIC(5,1) CHECK (hips_cm > 0);
+
+-- ============================================================
+-- 7. MIGRACJA: dodanie imienia i nazwiska do profiles
+-- Uruchom tylko jesli tabela profiles juz istnieje bez tych kolumn.
+-- Po dodaniu kolumn uruchom ponownie funkcje handle_new_user powyzej,
+-- aby nowe konta automatycznie zapisywaly imie i nazwisko.
+-- ============================================================
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS first_name TEXT;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS last_name TEXT;
 
 -- ============================================================
 -- GOTOWE! Sprawdz w zakladce Table Editor czy tabele istnieja.
