@@ -147,6 +147,37 @@ CREATE POLICY "Uzytkownik usuwa wlasne logi wagi"
   USING (auth.uid() = user_id);
 
 -- ============================================================
+-- 3d. TABELA: wellbeing_logs
+-- ============================================================
+CREATE TABLE public.wellbeing_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  energy_level SMALLINT CHECK (energy_level BETWEEN 1 AND 5),
+  mood_level SMALLINT CHECK (mood_level BETWEEN 1 AND 5),
+  sleep_hours NUMERIC(3,1) CHECK (sleep_hours >= 0 AND sleep_hours <= 24),
+  bristol_scale SMALLINT CHECK (bristol_scale BETWEEN 1 AND 7),
+  symptoms TEXT[] NOT NULL DEFAULT '{}',
+  note TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_wellbeing_logs_user_date ON public.wellbeing_logs(user_id, created_at DESC);
+
+ALTER TABLE public.wellbeing_logs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Uzytkownik widzi wlasne wpisy samopoczucia"
+  ON public.wellbeing_logs FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik dodaje wlasne wpisy samopoczucia"
+  ON public.wellbeing_logs FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Uzytkownik usuwa wlasne wpisy samopoczucia"
+  ON public.wellbeing_logs FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- ============================================================
 -- 4. TRIGGER: Automatyczne tworzenie profilu po rejestracji
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()

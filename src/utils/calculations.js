@@ -157,3 +157,87 @@ export const whrRiskCategory = (whr, gender) => {
   if (whr < highMin) return { label: 'Podwyzszone ryzyko', color: 'text-amber-500' }
   return { label: 'Wysokie ryzyko', color: 'text-red-500' }
 }
+
+/**
+ * Lista objawow trawiennych/samopoczucia do wyboru w dzienniku
+ */
+export const SYMPTOM_OPTIONS = [
+  'Wzdecia',
+  'Bol brzucha',
+  'Zgaga',
+  'Nudnosci',
+  'Zaparcia',
+  'Biegunka',
+  'Bole glowy',
+  'Zmeczenie',
+  'Wysypka/swiad skory',
+]
+
+/**
+ * Skala Bristolska - kliniczne narzedzie oceny konsystencji stolca,
+ * pomocne przy ocenie tolerancji pokarmowej i pracy jelit
+ */
+export const BRISTOL_TYPES = [
+  { value: 1, label: 'Typ 1', desc: 'Twarde grudki - silne zaparcie' },
+  { value: 2, label: 'Typ 2', desc: 'Zbity, grudkowaty ksztalt' },
+  { value: 3, label: 'Typ 3', desc: 'Ksztalt kielbasy z pekniedziami - norma' },
+  { value: 4, label: 'Typ 4', desc: 'Gladki i miekki - norma' },
+  { value: 5, label: 'Typ 5', desc: 'Miekkie grudki z wyraznymi brzegami' },
+  { value: 6, label: 'Typ 6', desc: 'Puszysty, postrzepiony - biegunka' },
+  { value: 7, label: 'Typ 7', desc: 'Wodnisty, bez stalych elementow - silna biegunka' },
+]
+
+/**
+ * Filtruje wpisy samopoczucia z danego dnia
+ */
+export const filterTodayWellbeing = (wellbeingLogs = []) => {
+  const today = new Date().toISOString().slice(0, 10)
+  return wellbeingLogs.filter((w) => w.created_at?.slice(0, 10) === today)
+}
+
+/**
+ * Zlicza wystapienia poszczegolnych objawow w ostatnich N dniach,
+ * posortowane malejaco wg czestosci
+ */
+export const tallySymptoms = (wellbeingLogs = [], days = 30) => {
+  const cutoff = new Date()
+  cutoff.setDate(cutoff.getDate() - days)
+
+  const counts = {}
+  wellbeingLogs.forEach((log) => {
+    if (new Date(log.created_at) < cutoff) return
+    ;(log.symptoms || []).forEach((s) => {
+      counts[s] = (counts[s] || 0) + 1
+    })
+  })
+
+  return Object.entries(counts)
+    .map(([symptom, count]) => ({ symptom, count }))
+    .sort((a, b) => b.count - a.count)
+}
+
+/**
+ * Srednie dzienne energii i nastroju z ostatnich N dni (do wykresu trendu)
+ */
+export const dailyWellbeingAverages = (wellbeingLogs = [], days = 14) => {
+  const result = []
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date()
+    date.setDate(date.getDate() - i)
+    const dateStr = date.toISOString().slice(0, 10)
+    const dayLogs = wellbeingLogs.filter((l) => l.created_at?.slice(0, 10) === dateStr)
+
+    const avg = (field) => {
+      const withField = dayLogs.filter((l) => l[field] != null)
+      if (withField.length === 0) return null
+      return Math.round((withField.reduce((s, l) => s + l[field], 0) / withField.length) * 10) / 10
+    }
+
+    result.push({
+      day: date.toLocaleDateString('pl-PL', { weekday: 'short' }),
+      energia: avg('energy_level'),
+      nastroj: avg('mood_level'),
+    })
+  }
+  return result
+}

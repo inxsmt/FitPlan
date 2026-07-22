@@ -8,6 +8,7 @@ import { Dashboard } from './components/dashboard/Dashboard'
 import { MealTracker } from './components/meals/MealTracker'
 import { WaterTracker } from './components/water/WaterTracker'
 import { WeightTracker } from './components/weight/WeightTracker'
+import { WellbeingTracker } from './components/wellbeing/WellbeingTracker'
 import { TDEECalculator } from './components/tdee/TDEECalculator'
 import { QuizModule } from './components/quiz/QuizModule'
 import { Blog } from './components/blog/Blog'
@@ -131,6 +132,16 @@ function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <WeightTracker />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/wellbeing"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <WellbeingTracker />
                 </AppLayout>
               </ProtectedRoute>
             }
