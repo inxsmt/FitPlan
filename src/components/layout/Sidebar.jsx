@@ -2,14 +2,14 @@ import { NavLink } from 'react-router-dom'
 import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, Droplet, Scale, HeartPulse, ChefHat, X } from 'lucide-react'
 
 const navItems = [
+  { to: '/tdee', label: 'Kalkulator TDEE', icon: Calculator },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/meals', label: 'Posilki', icon: UtensilsCrossed },
   { to: '/recipes', label: 'Przepisy', icon: ChefHat },
+  { to: '/diets', label: 'Diety', icon: Salad },
   { to: '/water', label: 'Woda', icon: Droplet },
   { to: '/weight', label: 'Waga', icon: Scale },
   { to: '/wellbeing', label: 'Samopoczucie', icon: HeartPulse },
-  { to: '/diets', label: 'Diety', icon: Salad },
-  { to: '/tdee', label: 'Kalkulator TDEE', icon: Calculator },
   { to: '/quiz', label: 'Quizy EBM', icon: Brain },
   { to: '/blog', label: 'Blog', icon: BookOpen },
 ]
