@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Salad, LogOut, Menu, X, User, Settings, ChevronDown } from 'lucide-react'
+import { Salad, LogOut, Menu, X, User, Settings, ChevronDown, Users } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useProfile } from '../../hooks/useProfile'
+import { useUserCount, osobyLabel } from '../../hooks/useUserCount'
 
 export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
   const navigate = useNavigate()
   const { signOut, user } = useAuth()
   const { profile } = useProfile()
+  const userCount = useUserCount()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleLogout = async () => {
@@ -41,6 +43,20 @@ export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
             </div>
             <span className="font-bold text-lg hidden sm:inline">FitPlan</span>
           </Link>
+
+          {userCount !== null && userCount > 0 && (
+            <div
+              title="Liczba zarejestrowanych uzytkownikow FitPlan"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 text-xs sm:text-sm font-semibold"
+            >
+              <Users size={14} />
+              <span>
+                <span className="font-bold">{userCount}</span>
+                <span className="hidden sm:inline"> zarejestrowanych</span>
+                <span className="sm:hidden"> {osobyLabel(userCount)}</span>
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="relative">

@@ -242,5 +242,22 @@ ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS first_name TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS last_name TEXT;
 
 -- ============================================================
+-- 8. FUNKCJA: licznik zarejestrowanych uzytkownikow
+-- SECURITY DEFINER omija RLS (kazdy uzytkownik widzi tylko swoj profil),
+-- dzieki czemu zwraca laczna liczbe kont. Dostepna tez bez logowania
+-- (anon), aby licznik dzialal na stronie rejestracji.
+-- ============================================================
+CREATE OR REPLACE FUNCTION public.get_user_count()
+RETURNS INTEGER
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT COUNT(*)::int FROM public.profiles;
+$$;
+
+GRANT EXECUTE ON FUNCTION public.get_user_count() TO anon, authenticated;
+
+-- ============================================================
 -- GOTOWE! Sprawdz w zakladce Table Editor czy tabele istnieja.
 -- ============================================================
