@@ -25,6 +25,11 @@ export const Register = () => {
       setError('Podaj imie i nazwisko')
       return
     }
+    const nameRegex = /^[\p{L}][\p{L} '-]*$/u
+    if (!nameRegex.test(firstName.trim()) || !nameRegex.test(lastName.trim())) {
+      setError('Imie i nazwisko moga zawierac tylko litery, spacje i myslnik')
+      return
+    }
     if (password.length < 6) {
       setError('Haslo musi miec co najmniej 6 znakow')
       return
@@ -79,7 +84,9 @@ export const Register = () => {
           <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 flex items-center justify-center mx-auto mb-4">
             <CheckCircle size={32} />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Konto utworzone!</h2>
+          <h2 className="text-2xl font-bold mb-2">
+            Witaj, {firstName.trim()}! Konto utworzone!
+          </h2>
           <p className="text-slate-500 dark:text-slate-400">
             Przekierowuje do dashboardu...
           </p>

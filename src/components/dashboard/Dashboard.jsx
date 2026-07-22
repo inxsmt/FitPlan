@@ -93,7 +93,9 @@ export const Dashboard = () => {
       {showWelcome && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl animate-fade-in">
           <CheckCircle size={22} />
-          <span className="font-semibold">Konto zostalo utworzone! Witaj w FitPlan!</span>
+          <span className="font-semibold">
+            Konto zostalo utworzone! Witaj w FitPlan{profile?.first_name ? `, ${profile.first_name}` : ''}!
+          </span>
         </div>
       )}
       <div>
