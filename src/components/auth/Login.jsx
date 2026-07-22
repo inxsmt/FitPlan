@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Mail, Lock, Salad, LogIn, CheckCircle } from 'lucide-react'
+import { Mail, Lock, Salad, LogIn, CheckCircle, Users } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
+import { useUserCount, osobyLabel } from '../../hooks/useUserCount'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
 
 export const Login = () => {
   const navigate = useNavigate()
   const { signIn, resetPassword } = useAuth()
+  const userCount = useUserCount()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -54,6 +56,12 @@ export const Login = () => {
           <p className="text-slate-500 dark:text-slate-400">
             {forgotMode ? 'Resetowanie hasla' : 'Zaloguj sie do swojego konta'}
           </p>
+          {!forgotMode && userCount !== null && userCount > 0 && (
+            <div className="inline-flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 text-sm font-semibold">
+              <Users size={16} />
+              Dolaczylo juz {userCount} {osobyLabel(userCount)}!
+            </div>
+          )}
         </div>
 
         <div className="card animate-slide-up">
