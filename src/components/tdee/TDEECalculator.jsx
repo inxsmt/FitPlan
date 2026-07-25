@@ -294,13 +294,39 @@ export const TDEECalculator = () => {
       <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
         <div className="flex gap-3">
           <Info className="text-blue-600 shrink-0" size={20} />
-          <div className="text-sm text-blue-900 dark:text-blue-200">
-            <p className="font-semibold mb-1">Informacja merytoryczna (EBM):</p>
-            <p>
-              Wzór Mifflina-St Jeora (1990) jest uznawany przez Academy of Nutrition and Dietetics
-              za najdokładniejszy do oszacowania BMR u zdrowych dorosłych. Dokładność wynosi około
-              +/- 10%. Współczynniki PAL pochodzą z zaleceń FAO/WHO/UNU (2004).
-            </p>
+          <div className="text-sm text-blue-900 dark:text-blue-200 space-y-3">
+            <div>
+              <p className="font-semibold mb-1">Dlaczego wzór Mifflina-St Jeora?</p>
+              <p>
+                Mifflin-St Jeor (1990) jest uznawany przez Academy of Nutrition and Dietetics za
+                najdokładniejszy wzór do oszacowania BMR u zdrowych dorosłych — dlatego jest domyślny
+                w tym kalkulatorze. Dokładność wynosi około +/- 10%. Współczynniki aktywności (PAL)
+                pochodzą z zaleceń FAO/WHO/UNU (2004).
+              </p>
+            </div>
+
+            <div>
+              <p className="font-semibold mb-1">A co z osobami trenującymi?</p>
+              <p>
+                Mifflin liczy z całkowitej masy ciała i nie rozróżnia mięśni od tłuszczu. U osób bardzo
+                umięśnionych (niski % tkanki tłuszczowej) może lekko zaniżać wynik, a przy wysokim
+                poziomie tłuszczu — lekko zawyżać. Dla większości ćwiczących różnica jest niewielka i
+                wzór sprawdza się dobrze. Kto zna swój % tłuszczu, może dla porównania sięgnąć po wzory
+                oparte na beztłuszczowej masie ciała (Katch-McArdle, Cunningham).
+              </p>
+            </div>
+
+            <div>
+              <p className="font-semibold mb-1">Traktuj wynik jako punkt startowy</p>
+              <p>
+                Każdy wzór to tylko szacunek (~+/- 10%), a największym źródłem błędu jest zwykle wybór
+                poziomu aktywności. Najdokładniejsza metoda to użyć wyniku jako startu i skorygować go
+                po 2–3 tygodniach na podstawie realnych zmian wagi i dziennika posiłków — a to możesz
+                robić w zakładkach <span className="font-semibold">Waga</span> i{' '}
+                <span className="font-semibold">Posiłki</span>. Jeśli waga nie zmienia się zgodnie z
+                celem, zmień kaloryczność o 100–200 kcal i obserwuj dalej.
+              </p>
+            </div>
           </div>
         </div>
       </Card>
