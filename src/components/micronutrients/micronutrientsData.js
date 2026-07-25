@@ -65,7 +65,7 @@ export const NUTRIENTS = [
     category: 'witaminy',
     tagline: 'Kości, siła mięśni i odporność',
     riskForActive: 'wysokie',
-    rda: { men: '15 µg (600 IU)', women: '15 µg (600 IU)' },
+    rda: { men: '800–2000 IU (20–50 µg)', women: '800–2000 IU (20–50 µg)' },
     unit: 'µg',
     whyActive:
       'Witamina D reguluje gospodarkę wapniowo-fosforanową (zdrowie kości), ale ma też receptory w mięśniach — jej niedobór wiąże się z niższą siłą, gorszą regeneracją i wyższym ryzykiem kontuzji. W polskiej szerokości geograficznej skóra praktycznie nie produkuje witaminy D od października do marca, dlatego niedobory dotyczą większości populacji, także osób trenujących na siłowni (w pomieszczeniu).',
@@ -83,12 +83,12 @@ export const NUTRIENTS = [
     ],
     sources: [
       { food: 'Tran / olej z wątroby dorsza', amount: '250 µg / 100 g' },
-      { food: 'Węgorz', amount: '110 µg / 100 g' },
+      { food: 'Węgorz', amount: '30 µg / 100 g' },
       { food: 'Łosoś', amount: '13 µg / 100 g' },
       { food: 'Żółtko jaja', amount: '5,4 µg / 100 g' },
       { food: 'Sery dojrzewające', amount: '1 µg / 100 g' },
     ],
-    tip: 'Sama dieta rzadko pokrywa zapotrzebowanie. Polskie wytyczne zalecają suplementację 800–2000 IU/dobę jesienią i zimą (a często cały rok). Optymalną dawkę najlepiej dobrać po badaniu poziomu 25(OH)D we krwi.',
+    tip: 'Wybieraj formę D3 (cholekalcyferol) — jest skuteczniejsza niż D2. Jako witamina rozpuszczalna w tłuszczach lepiej się wchłania przyjmowana do posiłku z tłuszczem (np. z jajkiem, awokado, orzechami). Dawkę w zakresie 800–2000 IU najlepiej dobrać po badaniu poziomu 25(OH)D we krwi.',
     upperLimit: 'Górna granica bez kontroli lekarza to zwykle 4000 IU/dobę. Witamina D kumuluje się w organizmie — długotrwałe megadawki mogą prowadzić do hiperkalcemii.',
     references: [
       'Rusińska A. i wsp. (2018) — wytyczne suplementacji witaminą D dla Polski',
