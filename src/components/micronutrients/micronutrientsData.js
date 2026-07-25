@@ -833,4 +833,231 @@ export const NUTRIENTS = [
       'Normy żywienia dla populacji Polski (NIZP-PZH, 2020)',
     ],
   },
+  {
+    id: 'fosfor',
+    name: 'Fosfor',
+    symbol: 'P',
+    category: 'mineraly',
+    tagline: 'Kości, zęby i produkcja energii (ATP)',
+    riskForActive: 'niskie',
+    rda: { men: '700 mg', women: '700 mg' },
+    unit: 'mg',
+    whyActive:
+      'Fosfor razem z wapniem buduje kości i zęby, jest składnikiem ATP (nośnika energii w mięśniach) oraz błon komórkowych i DNA. Kluczowa jest równowaga wapniowo-fosforanowa — problemem w diecie zachodniej jest raczej nadmiar fosforu (przetworzona żywność, cola) niż jego niedobór.',
+    deficiencySigns: [
+      'Niedobór u zdrowych osób jest bardzo rzadki',
+      'Osłabienie mięśni i kości (przy skrajnym niedoborze)',
+      'Zmęczenie, bóle kostne',
+    ],
+    atRisk: [
+      'Osoby skrajnie niedożywione',
+      'Osoby nadużywające alkoholu',
+    ],
+    sources: [
+      { food: 'Ser żółty', amount: '600 mg / 100 g' },
+      { food: 'Nasiona dyni', amount: '1200 mg / 100 g' },
+      { food: 'Ryby', amount: '250 mg / 100 g' },
+      { food: 'Mięso', amount: '200 mg / 100 g' },
+      { food: 'Rośliny strączkowe', amount: '350 mg / 100 g' },
+    ],
+    tip: 'Nie skupiaj się na dostarczaniu fosforu — jest go pod dostatkiem w białkowej diecie. Warto raczej ograniczać jego nadmiar z przetworzonej żywności (fosforany jako dodatki E), który przy dużej podaży zaburza gospodarkę wapniową.',
+    upperLimit: 'Nadmiar fosforu (zwłaszcza z dodatków do żywności i napojów typu cola) przy niskiej podaży wapnia może niekorzystnie wpływać na kości i nerki.',
+    references: [
+      'EFSA (2015) — Dietary Reference Values for phosphorus',
+      'Normy żywienia dla populacji Polski (NIZP-PZH, 2020)',
+    ],
+  },
+  {
+    id: 'cholina',
+    name: 'Cholina',
+    symbol: 'Ch',
+    category: 'witaminy',
+    tagline: 'Wątroba, praca mięśni i mózgu',
+    riskForActive: 'umiarkowane',
+    rda: { men: '550 mg (AI)', women: '425 mg (AI)' },
+    unit: 'mg',
+    whyActive:
+      'Cholina (substancja witaminopodobna) jest niezbędna do metabolizmu tłuszczów w wątrobie, budowy błon komórkowych oraz produkcji acetylocholiny — neuroprzekaźnika odpowiadającego m.in. za skurcz mięśni i pamięć. Organizm produkuje jej niewiele, więc liczy się podaż z diety; głównymi źródłami są produkty zwierzęce.',
+    deficiencySigns: [
+      'Stłuszczenie wątroby',
+      'Zmęczenie i osłabienie mięśni',
+      'Problemy z pamięcią i koncentracją',
+    ],
+    atRisk: [
+      'Weganie i wegetarianie (niska podaż z diety roślinnej)',
+      'Osoby jedzące mało jaj i mięsa',
+    ],
+    sources: [
+      { food: 'Żółtko jaja', amount: '680 mg / 100 g' },
+      { food: 'Wątróbka wołowa', amount: '420 mg / 100 g' },
+      { food: 'Mięso i drób', amount: '80 mg / 100 g' },
+      { food: 'Ryby (dorsz, łosoś)', amount: '85 mg / 100 g' },
+      { food: 'Soja', amount: '120 mg / 100 g' },
+    ],
+    tip: 'Jaja to jedno z najlepszych i najtańszych źródeł choliny — dwa jaja pokrywają znaczną część dziennego zapotrzebowania. Weganie powinni sięgać po soję, brokuły i orzeszki ziemne lub rozważyć suplement.',
+    upperLimit: 'Górna granica to 3500 mg/dobę. Nadmiar może powodować „rybi” zapach ciała, nudności i spadek ciśnienia.',
+    references: [
+      'EFSA (2016) — Dietary Reference Values for choline',
+      'Normy żywienia dla populacji Polski (NIZP-PZH, 2020)',
+    ],
+  },
+  {
+    id: 'mangan',
+    name: 'Mangan',
+    symbol: 'Mn',
+    category: 'mineraly',
+    tagline: 'Enzymy antyoksydacyjne i kości',
+    riskForActive: 'niskie',
+    rda: { men: '2,3 mg (AI)', women: '1,8 mg (AI)' },
+    unit: 'mg',
+    whyActive:
+      'Mangan jest składnikiem enzymu antyoksydacyjnego (dysmutazy ponadtlenkowej, SOD) chroniącego mitochondria przed stresem oksydacyjnym z wysiłku, a także uczestniczy w tworzeniu kości i tkanki łącznej oraz w metabolizmie węglowodanów. Niedobór u ludzi jest bardzo rzadki.',
+    deficiencySigns: [
+      'Niedobór u ludzi występuje wyjątkowo rzadko',
+      'Osłabienie kości i tkanki łącznej (teoretycznie)',
+    ],
+    atRisk: [
+      'Osoby na skrajnie ubogiej, monotonnej diecie',
+    ],
+    sources: [
+      { food: 'Orzechy laskowe', amount: '6 mg / 100 g' },
+      { food: 'Płatki owsiane', amount: '4 mg / 100 g' },
+      { food: 'Kasza gryczana', amount: '1,3 mg / 100 g' },
+      { food: 'Herbata (napar)', amount: '0,5 mg / 100 ml' },
+      { food: 'Szpinak', amount: '0,9 mg / 100 g' },
+    ],
+    tip: 'Pełnoziarniste zboża, orzechy i warzywa liściaste z nadwyżką pokrywają zapotrzebowanie na mangan — suplementacja jest zbędna i niezalecana bez wskazań.',
+    upperLimit: 'Górna granica to ok. 11 mg/dobę. Nadmiar (głównie z zanieczyszczonej wody lub suplementów) może być neurotoksyczny.',
+    references: [
+      'EFSA (2013) — Dietary Reference Values for manganese',
+      'Normy żywienia dla populacji Polski (NIZP-PZH, 2020)',
+    ],
+  },
+  {
+    id: 'chrom',
+    name: 'Chrom',
+    symbol: 'Cr',
+    category: 'mineraly',
+    tagline: 'Wsparcie gospodarki glukozowej (słabe dowody)',
+    riskForActive: 'niskie',
+    rda: { men: '35 µg (AI)', women: '25 µg (AI)' },
+    unit: 'µg',
+    whyActive:
+      'Chrom (w formie trójwartościowej) potencjalizuje działanie insuliny i bierze udział w metabolizmie glukozy i tłuszczów. Bywa reklamowany jako suplement „na spalanie tłuszczu” i kontrolę apetytu, jednak dowody naukowe na realne korzyści z suplementacji u osób bez niedoboru są słabe i niejednoznaczne — warto podchodzić do tych obietnic sceptycznie.',
+    deficiencySigns: [
+      'Klinicznie istotny niedobór jest bardzo rzadki',
+      'Teoretycznie: gorsza tolerancja glukozy',
+    ],
+    atRisk: [
+      'Osoby na diecie opartej o wysoko przetworzone produkty',
+    ],
+    sources: [
+      { food: 'Brokuł', amount: '11 µg / 100 g' },
+      { food: 'Pełnoziarniste produkty', amount: '5–10 µg / 100 g' },
+      { food: 'Mięso', amount: '2 µg / 100 g' },
+      { food: 'Drożdże piwne', amount: 'wysoko' },
+      { food: 'Orzechy', amount: '3 µg / 100 g' },
+    ],
+    tip: 'Zapotrzebowanie łatwo pokryć zwykłą, urozmaiconą dietą. Popularne spalacze tłuszczu z chromem („picolinian chromu”) nie mają mocnego uzasadnienia naukowego — nie licz na spektakularne efekty.',
+    upperLimit: 'Nie ustalono jednoznacznej górnej granicy dla chromu z żywności. Bardzo wysokie dawki suplementów (picolinian) budzą pewne wątpliwości co do bezpieczeństwa.',
+    references: [
+      'EFSA (2014) — Scientific Opinion on chromium',
+      'Normy żywienia dla populacji Polski (NIZP-PZH, 2020)',
+    ],
+  },
 ]
+
+// Grupy podwyższonego ryzyka niedoboru — do filtrowania składników.
+export const RISK_GROUPS = [
+  { id: 'weganie', label: 'Weganie i wegetarianie' },
+  { id: 'kobiety', label: 'Kobiety' },
+  { id: 'sportowcy', label: 'Intensywnie trenujący' },
+  { id: 'redukcja', label: 'Osoby na redukcji' },
+]
+
+// Przypisanie składników do grup, dla których ryzyko niedoboru jest podwyższone.
+export const NUTRIENT_GROUPS = {
+  'zelazo': ['kobiety', 'weganie', 'sportowcy', 'redukcja'],
+  'witamina-d': ['sportowcy'],
+  'magnez': ['sportowcy', 'redukcja'],
+  'wapn': ['weganie', 'kobiety', 'redukcja'],
+  'cynk': ['weganie', 'sportowcy'],
+  'witamina-b12': ['weganie'],
+  'sod': ['sportowcy'],
+  'potas': ['sportowcy'],
+  'witamina-c': [],
+  'kwas-foliowy': ['kobiety'],
+  'jod': ['weganie'],
+  'witamina-e': [],
+  'witamina-a': [],
+  'selen': [],
+  'miedz': [],
+  'omega-3': ['weganie', 'sportowcy'],
+  'witamina-k': [],
+  'witamina-b1': ['sportowcy', 'redukcja'],
+  'witamina-b2': ['weganie', 'sportowcy'],
+  'witamina-b3': [],
+  'witamina-b5': [],
+  'witamina-b6': ['sportowcy'],
+  'witamina-b7': [],
+  'fosfor': [],
+  'cholina': ['weganie', 'sportowcy'],
+  'mangan': [],
+  'chrom': [],
+}
+
+// Interakcje między składnikami (synergie i antagonizmy). Nie każdy składnik je ma.
+export const INTERACTIONS = {
+  'zelazo': [
+    { kind: 'synergia', label: 'Witamina C', note: 'Znacząco zwiększa wchłanianie żelaza roślinnego (niehemowego).' },
+    { kind: 'antagonizm', label: 'Wapń', note: 'Duża porcja wapnia w tym samym posiłku hamuje wchłanianie żelaza — rozdziel je w czasie.' },
+    { kind: 'antagonizm', label: 'Cynk', note: 'Wysokie dawki cynku i żelaza konkurują o wchłanianie.' },
+  ],
+  'wapn': [
+    { kind: 'synergia', label: 'Witamina D', note: 'Jest niezbędna do wchłaniania wapnia z jelit.' },
+    { kind: 'synergia', label: 'Witamina K', note: 'Kieruje wapń do kości (aktywacja osteokalcyny), a nie do naczyń.' },
+    { kind: 'antagonizm', label: 'Żelazo', note: 'Konkuruje z żelazem o wchłanianie — nie łącz suplementów w jednym posiłku.' },
+  ],
+  'witamina-d': [
+    { kind: 'synergia', label: 'Wapń', note: 'Witamina D umożliwia efektywne wchłanianie i wykorzystanie wapnia.' },
+    { kind: 'synergia', label: 'Magnez', note: 'Jest kofaktorem potrzebnym do aktywacji witaminy D w organizmie.' },
+    { kind: 'synergia', label: 'Witamina K', note: 'Wspólnie wspierają prawidłową mineralizację kości.' },
+  ],
+  'magnez': [
+    { kind: 'synergia', label: 'Witamina D', note: 'Magnez uczestniczy w aktywacji witaminy D — niedobór jednego pogarsza działanie drugiego.' },
+  ],
+  'cynk': [
+    { kind: 'antagonizm', label: 'Miedź', note: 'Długotrwałe wysokie dawki cynku obniżają poziom miedzi w organizmie.' },
+    { kind: 'antagonizm', label: 'Żelazo', note: 'Przy wysokich dawkach konkurują o wchłanianie.' },
+  ],
+  'miedz': [
+    { kind: 'synergia', label: 'Żelazo', note: 'Miedź jest potrzebna do prawidłowego wykorzystania żelaza i produkcji krwinek.' },
+    { kind: 'antagonizm', label: 'Cynk', note: 'Nadmiar cynku z suplementów blokuje wchłanianie miedzi.' },
+  ],
+  'witamina-c': [
+    { kind: 'synergia', label: 'Żelazo', note: 'Wyraźnie zwiększa wchłanianie żelaza roślinnego z posiłku.' },
+    { kind: 'synergia', label: 'Witamina E', note: 'Odtwarza aktywną formę witaminy E — współpraca antyoksydacyjna.' },
+  ],
+  'witamina-e': [
+    { kind: 'synergia', label: 'Witamina C', note: 'Regeneruje utlenioną witaminę E po zneutralizowaniu wolnego rodnika.' },
+  ],
+  'witamina-a': [
+    { kind: 'synergia', label: 'Tłuszcz i cynk', note: 'Tłuszcz w posiłku poprawia wchłanianie, a cynk wspiera transport witaminy A.' },
+  ],
+  'witamina-k': [
+    { kind: 'synergia', label: 'Witamina D', note: 'Razem regulują gospodarkę wapniową i zdrowie kości.' },
+    { kind: 'synergia', label: 'Wapń', note: 'Kieruje wapń do kości zamiast do ścian naczyń.' },
+  ],
+  'kwas-foliowy': [
+    { kind: 'synergia', label: 'Witamina B12', note: 'Współdziałają w produkcji krwi; nadmiar folianów może maskować niedobór B12.' },
+  ],
+  'witamina-b12': [
+    { kind: 'synergia', label: 'Foliany (B9)', note: 'Działają wspólnie przy tworzeniu czerwonych krwinek.' },
+  ],
+  'fosfor': [
+    { kind: 'antagonizm', label: 'Wapń', note: 'Nadmiar fosforu (np. z napojów typu cola) zaburza równowagę wapniowo-fosforanową i szkodzi kościom.' },
+  ],
+  'omega-3': [
+    { kind: 'antagonizm', label: 'Omega-6', note: 'Nadmiar omega-6 (oleje roślinne) względem omega-3 nasila procesy zapalne — liczy się proporcja.' },
+  ],
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Search, X, AlertTriangle, Apple, ShieldCheck, Users, Lightbulb, BookMarked } from 'lucide-react'
+import { Search, X, AlertTriangle, Apple, ShieldCheck, Users, Lightbulb, BookMarked, ArrowLeftRight, Plus, Minus } from 'lucide-react'
 import { Card } from '../ui/Card'
-import { NUTRIENTS, CATEGORIES, RISK_LEVELS } from './micronutrientsData'
+import { NUTRIENTS, CATEGORIES, RISK_LEVELS, RISK_GROUPS, NUTRIENT_GROUPS, INTERACTIONS } from './micronutrientsData'
 
 // Pełne, literalne klasy — Tailwind nie wykrywa dynamicznie sklejanych nazw klas.
 const RISK_STYLES = {
@@ -112,6 +112,38 @@ const NutrientModal = ({ nutrient, onClose }) => (
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{nutrient.upperLimit}</p>
         </Section>
 
+        {INTERACTIONS[nutrient.id]?.length > 0 && (
+          <Section icon={ArrowLeftRight} title="Interakcje z innymi składnikami">
+            <ul className="space-y-2">
+              {INTERACTIONS[nutrient.id].map((item, i) => {
+                const isSynergy = item.kind === 'synergia'
+                const Icon = isSynergy ? Plus : Minus
+                const color = isSynergy ? 'green' : 'red'
+                return (
+                  <li key={i} className="flex items-start gap-2.5 text-sm">
+                    <span
+                      className={`mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                        isSynergy
+                          ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                          : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
+                      }`}
+                    >
+                      <Icon size={12} />
+                    </span>
+                    <span className="text-slate-600 dark:text-slate-300">
+                      <strong className={isSynergy ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}>
+                        {item.label}
+                      </strong>
+                      {' — '}
+                      {item.note}
+                    </span>
+                  </li>
+                )
+              })}
+            </ul>
+          </Section>
+        )}
+
         <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
           <h3 className="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-1.5">
             <BookMarked size={13} /> Źródła
@@ -152,11 +184,13 @@ const NutrientCard = ({ nutrient, onClick }) => (
 
 export const Micronutrients = () => {
   const [activeCategory, setActiveCategory] = useState('all')
+  const [activeGroup, setActiveGroup] = useState(null)
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState(null)
 
   const filtered = NUTRIENTS.filter((n) => {
     if (activeCategory !== 'all' && n.category !== activeCategory) return false
+    if (activeGroup && !(NUTRIENT_GROUPS[n.id] || []).includes(activeGroup)) return false
     if (search && !n.name.toLowerCase().includes(search.toLowerCase())) return false
     return true
   })
@@ -194,6 +228,25 @@ export const Micronutrients = () => {
               }`}
             >
               {c.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="flex items-center gap-1 text-xs font-semibold text-slate-400 mr-1">
+            <Users size={13} /> Grupa ryzyka:
+          </span>
+          {RISK_GROUPS.map((g) => (
+            <button
+              key={g.id}
+              onClick={() => setActiveGroup(activeGroup === g.id ? null : g.id)}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${
+                activeGroup === g.id
+                  ? 'bg-amber-500 text-white'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+            >
+              {g.label}
             </button>
           ))}
         </div>
