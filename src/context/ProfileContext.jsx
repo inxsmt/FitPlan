@@ -33,7 +33,7 @@ export const ProfileProvider = ({ children }) => {
   }, [fetchProfile])
 
   const updateProfile = async (updates) => {
-    if (!user) return { error: 'Brak uzytkownika' }
+    if (!user) return { error: 'Brak użytkownika' }
     const { data, error } = await supabase
       .from('profiles')
       .update(updates)

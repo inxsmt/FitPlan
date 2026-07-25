@@ -31,7 +31,7 @@ export const useWellbeing = () => {
   }, [fetchWellbeing])
 
   const addWellbeing = async (entry) => {
-    if (!user) return { error: 'Brak uzytkownika' }
+    if (!user) return { error: 'Brak użytkownika' }
     const { data, error } = await supabase
       .from('wellbeing_logs')
       .insert([{ ...entry, user_id: user.id }])

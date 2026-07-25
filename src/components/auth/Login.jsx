@@ -25,7 +25,7 @@ export const Login = () => {
     setLoading(false)
     if (error) {
       setError(error.message === 'Invalid login credentials'
-        ? 'Nieprawidlowy email lub haslo'
+        ? 'Nieprawidłowy email lub hasło'
         : error.message)
     } else {
       navigate('/dashboard')
@@ -54,12 +54,12 @@ export const Login = () => {
           </div>
           <h1 className="text-3xl font-bold mb-2">FitPlan</h1>
           <p className="text-slate-500 dark:text-slate-400">
-            {forgotMode ? 'Resetowanie hasla' : 'Zaloguj sie do swojego konta'}
+            {forgotMode ? 'Resetowanie hasła' : 'Zaloguj się do swojego konta'}
           </p>
           {!forgotMode && userCount !== null && userCount > 0 && (
             <div className="inline-flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 text-sm font-semibold">
               <Users size={16} />
-              Dolaczylo juz {userCount} {osobyLabel(userCount)}!
+              Dołączyło już {userCount} {osobyLabel(userCount)}!
             </div>
           )}
         </div>
@@ -70,9 +70,9 @@ export const Login = () => {
               <div className="flex justify-center mb-4 text-green-500">
                 <CheckCircle size={48} />
               </div>
-              <h2 className="text-xl font-bold mb-2">Sprawdz swoj email</h2>
+              <h2 className="text-xl font-bold mb-2">Sprawdź swój email</h2>
               <p className="text-slate-500 dark:text-slate-400 mb-4">
-                Wyslalismy link do resetowania hasla na adres <strong>{email}</strong>
+                Wysłaliśmy link do resetowania hasła na adres <strong>{email}</strong>
               </p>
               <button
                 onClick={() => { setForgotMode(false); setResetSent(false) }}
@@ -101,7 +101,7 @@ export const Login = () => {
               )}
 
               <Button type="submit" disabled={loading} icon={Mail} className="w-full">
-                {loading ? 'Wysylanie...' : 'Wyslij link resetujacy'}
+                {loading ? 'Wysyłanie...' : 'Wyślij link resetujący'}
               </Button>
 
               <p className="text-center text-sm text-slate-500 dark:text-slate-400">
@@ -127,7 +127,7 @@ export const Login = () => {
                 autoComplete="email"
               />
               <Input
-                label="Haslo"
+                label="Hasło"
                 type="password"
                 icon={Lock}
                 value={password}
@@ -143,7 +143,7 @@ export const Login = () => {
                   onClick={() => { setForgotMode(true); setError('') }}
                   className="text-sm text-brand-600 hover:text-brand-700 font-semibold"
                 >
-                  Nie pamietasz hasla?
+                  Nie pamiętasz hasła?
                 </button>
               </div>
 
@@ -154,7 +154,7 @@ export const Login = () => {
               )}
 
               <Button type="submit" disabled={loading} icon={LogIn} className="w-full">
-                {loading ? 'Logowanie...' : 'Zaloguj sie'}
+                {loading ? 'Logowanie...' : 'Zaloguj się'}
               </Button>
             </form>
           )}
@@ -163,7 +163,7 @@ export const Login = () => {
             <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
               Nie masz konta?{' '}
               <Link to="/register" className="text-brand-600 hover:text-brand-700 font-semibold">
-                Zarejestruj sie
+                Zarejestruj się
               </Link>
             </p>
           )}

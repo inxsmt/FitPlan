@@ -14,12 +14,12 @@ const QUICK_AMOUNTS = [
 ]
 
 const HYDRATION_TIPS = [
-  'Pij szklanke wody zaraz po przebudzeniu, aby uzupelnic straty z nocy.',
-  'Zapotrzebowanie rosnie w dni treningowe - dolicz ok. 500-750ml na kazda godzine wysiłku.',
-  'Nie czekaj na pragnienie - to sygnal, ze organizm jest juz lekko odwodniony.',
-  'W upalne dni oraz przy gorączce zwieksz spozycie wody o 10-20%.',
-  'Rownomiernie rozloz picie w ciagu dnia zamiast duzych ilosci na raz.',
-  'Kawa i herbata licza sie do bilansu plynow, ale najlepszym wyborem pozostaje czysta woda.',
+  'Pij szklankę wody zaraz po przebudzeniu, aby uzupełnić straty z nocy.',
+  'Zapotrzebowanie rośnie w dni treningowe - dolicz ok. 500-750ml na każdą godzinę wysiłku.',
+  'Nie czekaj na pragnienie - to sygnał, że organizm jest już lekko odwodniony.',
+  'W upalne dni oraz przy gorączce zwiększ spożycie wody o 10-20%.',
+  'Równomiernie rozłóż picie w ciągu dnia zamiast dużych ilości na raz.',
+  'Kawa i herbata liczą się do bilansu płynów, ale najlepszym wyborem pozostaje czysta woda.',
 ]
 
 export const WaterTracker = () => {
@@ -47,7 +47,7 @@ export const WaterTracker = () => {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-500">Ladowanie...</div>
+    return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
   }
 
   return (
@@ -55,7 +55,7 @@ export const WaterTracker = () => {
       <div>
         <h1 className="text-3xl font-bold mb-1">Nawodnienie</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Sledz ile wody wypijasz w ciagu dnia
+          Śledź, ile wody wypijasz w ciągu dnia
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export const WaterTracker = () => {
               <span className="font-semibold text-sky-500">{glasses}</span> / {targetGlasses} szklanek (250ml)
             </p>
             {weight && (
-              <p className="text-xs text-slate-400 mt-1">cel wg wagi {weight}kg - {targetMl}ml/dzien</p>
+              <p className="text-xs text-slate-400 mt-1">cel wg wagi {weight}kg - {targetMl}ml/dzień</p>
             )}
           </div>
 
@@ -94,7 +94,7 @@ export const WaterTracker = () => {
               disabled={adding}
               onClick={() => handleAdd(GLASS_SIZE_ML)}
             >
-              Dodaj szklanke
+              Dodaj szklankę
             </Button>
             <Button
               icon={Minus}
@@ -109,7 +109,7 @@ export const WaterTracker = () => {
 
         <Card title={`Dzisiejsze wpisy (${todayWater.length})`} className="lg:col-span-1">
           {todayWater.length === 0 ? (
-            <p className="text-sm text-slate-500 text-center py-6">Brak wpisow - dodaj pierwsza porcje wody!</p>
+            <p className="text-sm text-slate-500 text-center py-6">Brak wpisów - dodaj pierwszą porcję wody!</p>
           ) : (
             <ul className="space-y-2 max-h-80 overflow-y-auto">
               {todayWater.map((w) => (
@@ -128,7 +128,7 @@ export const WaterTracker = () => {
                     <button
                       onClick={() => deleteWater(w.id)}
                       className="text-slate-400 hover:text-red-500 transition"
-                      aria-label="Usun wpis"
+                      aria-label="Usuń wpis"
                     >
                       <Trash2 size={15} />
                     </button>

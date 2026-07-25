@@ -62,7 +62,7 @@ export const WeightTracker = () => {
   const { icon: TrendIcon, color: trendColor, label: trendLabel } = TREND_META[trend.direction]
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-500">Ladowanie...</div>
+    return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
   }
 
   return (
@@ -70,7 +70,7 @@ export const WeightTracker = () => {
       <div>
         <h1 className="text-3xl font-bold mb-1">Waga</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Zapisuj regularne pomiary wagi i obwodow, aby sledzic zmiane sylwetki w czasie
+          Zapisuj regularne pomiary wagi i obwodów, aby śledzić zmianę sylwetki w czasie
         </p>
       </div>
 
@@ -136,7 +136,7 @@ export const WeightTracker = () => {
             </div>
             {weightLogs.length >= 2 && (
               <p className="text-xs text-slate-400 mt-1">
-                {trend.changeKg > 0 ? '+' : ''}{trend.changeKg}kg lacznie
+                {trend.changeKg > 0 ? '+' : ''}{trend.changeKg}kg łącznie
                 {trend.changePerWeek !== null && (
                   <> · {trend.changePerWeek > 0 ? '+' : ''}{trend.changePerWeek}kg/tydz.</>
                 )}
@@ -147,7 +147,7 @@ export const WeightTracker = () => {
           {whr && (
             <div className="mt-6 pt-6 border-t border-slate-200 dark:border-dark-border text-center">
               <p className="text-xs text-slate-500 mb-1 flex items-center justify-center gap-1">
-                <Ruler size={13} /> Wskaznik WHR (talia/biodra)
+                <Ruler size={13} /> Wskaźnik WHR (talia/biodra)
               </p>
               <p className="text-3xl font-bold">{whr}</p>
               <p className={`text-sm font-semibold mt-1 ${whrRisk.color}`}>{whrRisk.label}</p>
@@ -161,12 +161,12 @@ export const WeightTracker = () => {
         <Card
           title="Wykres wagi i talii"
           icon={TrendingUp}
-          subtitle="Historia pomiarow"
+          subtitle="Historia pomiarów"
           className="lg:col-span-2"
         >
           {chartData.length < 2 ? (
             <div className="h-64 flex items-center justify-center text-sm text-slate-500 text-center px-6">
-              Dodaj co najmniej 2 pomiary, aby zobaczyc wykres tendencji
+              Dodaj co najmniej 2 pomiary, aby zobaczyć wykres tendencji
             </div>
           ) : (
             <div className="h-64">
@@ -197,9 +197,9 @@ export const WeightTracker = () => {
         </Card>
       </div>
 
-      <Card title={`Historia pomiarow (${weightLogs.length})`}>
+      <Card title={`Historia pomiarów (${weightLogs.length})`}>
         {weightLogs.length === 0 ? (
-          <p className="text-sm text-slate-500 text-center py-6">Brak wpisow - dodaj pierwszy pomiar!</p>
+          <p className="text-sm text-slate-500 text-center py-6">Brak wpisów - dodaj pierwszy pomiar!</p>
         ) : (
           <ul className="space-y-2 max-h-96 overflow-y-auto">
             {weightLogs.map((w) => (
@@ -227,7 +227,7 @@ export const WeightTracker = () => {
                   <button
                     onClick={() => deleteWeightLog(w.id)}
                     className="text-slate-400 hover:text-red-500 transition"
-                    aria-label="Usun wpis"
+                    aria-label="Usuń wpis"
                   >
                     <Trash2 size={15} />
                   </button>

@@ -30,5 +30,5 @@ export const osobyLabel = (n) => {
   const mod100 = n % 100
   if (n === 1) return 'osoba'
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'osoby'
-  return 'osob'
+  return 'osób'
 }

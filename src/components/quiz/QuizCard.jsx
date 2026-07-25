@@ -73,10 +73,10 @@ export const QuizCard = ({ quiz, onBack }) => {
           </div>
 
           <h2 className="text-3xl font-bold mb-2">
-            {isGood ? 'Swietna robota!' : 'Mozesz lepiej!'}
+            {isGood ? 'Świetna robota!' : 'Możesz lepiej!'}
           </h2>
           <p className="text-slate-500 dark:text-slate-400 mb-6">
-            Twoj wynik w quizie "{quiz.title}":
+            Twój wynik w quizie "{quiz.title}":
           </p>
 
           <div className="text-6xl font-bold text-brand-600 mb-2">
@@ -90,7 +90,7 @@ export const QuizCard = ({ quiz, onBack }) => {
             <p className="text-sm text-slate-500 mb-4">Zapisywanie wyniku...</p>
           )}
           {saveError && (
-            <p className="text-sm text-red-500 mb-4">Blad zapisu: {saveError}</p>
+            <p className="text-sm text-red-500 mb-4">Błąd zapisu: {saveError}</p>
           )}
           {!saving && !saveError && (
             <p className="text-sm text-brand-600 mb-6">
@@ -100,7 +100,7 @@ export const QuizCard = ({ quiz, onBack }) => {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button onClick={handleRestart} variant="secondary" icon={RotateCcw}>
-              Sprobuj ponownie
+              Spróbuj ponownie
             </Button>
             <Button onClick={onBack}>
               Wybierz inny quiz
@@ -162,7 +162,7 @@ export const QuizCard = ({ quiz, onBack }) => {
             : 'bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800'
         }`}>
           <p className="font-semibold mb-1">
-            {selected === currentQ.correct ? 'Poprawnie!' : 'Niestety, blad'}
+            {selected === currentQ.correct ? 'Poprawnie!' : 'Niestety, błąd'}
           </p>
           <p className="text-sm">{currentQ.explanation}</p>
         </div>
@@ -170,11 +170,11 @@ export const QuizCard = ({ quiz, onBack }) => {
 
       <div className="flex justify-between">
         <Button onClick={onBack} variant="ghost">
-          Wroc
+          Wróć
         </Button>
         {showFeedback && (
           <Button onClick={handleNext} icon={ArrowRight}>
-            {isLast ? 'Zakoncz quiz' : 'Nastepne pytanie'}
+            {isLast ? 'Zakończ quiz' : 'Następne pytanie'}
           </Button>
         )}
       </div>

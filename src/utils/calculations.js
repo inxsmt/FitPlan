@@ -18,10 +18,10 @@ export const calculateBMR = ({ weight, height, age, gender }) => {
  * Wspolczynniki PAL (Physical Activity Level)
  */
 export const ACTIVITY_LEVELS = [
-  { value: 1.2, label: 'Siedzacy tryb (brak cwiczen)', description: 'Praca biurowa, brak aktywnosci' },
-  { value: 1.375, label: 'Lekka aktywnosc (1-3 dni/tydz.)', description: 'Lekkie cwiczenia lub spacery' },
-  { value: 1.55, label: 'Umiarkowana aktywnosc (3-5 dni/tydz.)', description: 'Trening silowy lub cardio' },
-  { value: 1.725, label: 'Wysoka aktywnosc (6-7 dni/tydz.)', description: 'Intensywne treningi codziennie' },
+  { value: 1.2, label: 'Siedzący tryb (brak ćwiczeń)', description: 'Praca biurowa, brak aktywności' },
+  { value: 1.375, label: 'Lekka aktywność (1-3 dni/tydz.)', description: 'Lekkie ćwiczenia lub spacery' },
+  { value: 1.55, label: 'Umiarkowana aktywność (3-5 dni/tydz.)', description: 'Trening siłowy lub cardio' },
+  { value: 1.725, label: 'Wysoka aktywność (6-7 dni/tydz.)', description: 'Intensywne treningi codziennie' },
   { value: 1.9, label: 'Bardzo wysoka (sportowiec)', description: 'Praca fizyczna + treningi 2x dziennie' },
 ]
 
@@ -37,9 +37,9 @@ export const calculateTDEE = (bmr, activityLevel) => {
  */
 export const GOAL_ADJUSTMENTS = [
   { value: -500, label: 'Redukcja masy (-0.5 kg/tydz.)' },
-  { value: -250, label: 'Lagodna redukcja (-0.25 kg/tydz.)' },
+  { value: -250, label: 'Łagodna redukcja (-0.25 kg/tydz.)' },
   { value: 0, label: 'Utrzymanie masy' },
-  { value: 250, label: 'Lagodna budowa (+0.25 kg/tydz.)' },
+  { value: 250, label: 'Łagodna budowa (+0.25 kg/tydz.)' },
   { value: 500, label: 'Budowa masy (+0.5 kg/tydz.)' },
 ]
 
@@ -154,7 +154,7 @@ export const whrRiskCategory = (whr, gender) => {
   const lowMax = isFemale ? 0.80 : 0.90
   const highMin = isFemale ? 0.85 : 1.0
   if (whr < lowMax) return { label: 'Niskie ryzyko', color: 'text-green-500' }
-  if (whr < highMin) return { label: 'Podwyzszone ryzyko', color: 'text-amber-500' }
+  if (whr < highMin) return { label: 'Podwyższone ryzyko', color: 'text-amber-500' }
   return { label: 'Wysokie ryzyko', color: 'text-red-500' }
 }
 
@@ -162,15 +162,15 @@ export const whrRiskCategory = (whr, gender) => {
  * Lista objawow trawiennych/samopoczucia do wyboru w dzienniku
  */
 export const SYMPTOM_OPTIONS = [
-  'Wzdecia',
-  'Bol brzucha',
+  'Wzdęcia',
+  'Ból brzucha',
   'Zgaga',
-  'Nudnosci',
+  'Nudności',
   'Zaparcia',
   'Biegunka',
-  'Bole glowy',
-  'Zmeczenie',
-  'Wysypka/swiad skory',
+  'Bóle głowy',
+  'Zmęczenie',
+  'Wysypka/świąd skóry',
 ]
 
 /**
@@ -179,12 +179,12 @@ export const SYMPTOM_OPTIONS = [
  */
 export const BRISTOL_TYPES = [
   { value: 1, label: 'Typ 1', desc: 'Twarde grudki - silne zaparcie' },
-  { value: 2, label: 'Typ 2', desc: 'Zbity, grudkowaty ksztalt' },
-  { value: 3, label: 'Typ 3', desc: 'Ksztalt kielbasy z pekniedziami - norma' },
-  { value: 4, label: 'Typ 4', desc: 'Gladki i miekki - norma' },
-  { value: 5, label: 'Typ 5', desc: 'Miekkie grudki z wyraznymi brzegami' },
-  { value: 6, label: 'Typ 6', desc: 'Puszysty, postrzepiony - biegunka' },
-  { value: 7, label: 'Typ 7', desc: 'Wodnisty, bez stalych elementow - silna biegunka' },
+  { value: 2, label: 'Typ 2', desc: 'Zbity, grudkowaty kształt' },
+  { value: 3, label: 'Typ 3', desc: 'Kształt kiełbasy z pęknięciami - norma' },
+  { value: 4, label: 'Typ 4', desc: 'Gładki i miękki - norma' },
+  { value: 5, label: 'Typ 5', desc: 'Miękkie grudki z wyraźnymi brzegami' },
+  { value: 6, label: 'Typ 6', desc: 'Puszysty, postrzępiony - biegunka' },
+  { value: 7, label: 'Typ 7', desc: 'Wodnisty, bez stałych elementów - silna biegunka' },
 ]
 
 /**

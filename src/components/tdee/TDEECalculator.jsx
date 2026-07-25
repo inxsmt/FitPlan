@@ -119,12 +119,12 @@ export const TDEECalculator = () => {
       <div>
         <h1 className="text-3xl font-bold mb-1">Kalkulator TDEE</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Oblicz swoje dzienne zapotrzebowanie kaloryczne (wzor Mifflina-St Jeora)
+          Oblicz swoje dzienne zapotrzebowanie kaloryczne (wzór Mifflina-St Jeora)
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card title="Wprowadz dane" icon={Calculator}>
+        <Card title="Wprowadź dane" icon={Calculator}>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <Input
@@ -156,21 +156,21 @@ export const TDEECalculator = () => {
                 onChange={handleChange('age')}
               />
               <div>
-                <label className="label">Plec</label>
+                <label className="label">Płeć</label>
                 <select
                   value={form.gender}
                   onChange={handleChange('gender')}
                   className="input-field"
                 >
-                  <option value="male">Mezczyzna</option>
+                  <option value="male">Mężczyzna</option>
                   <option value="female">Kobieta</option>
-                  <option value="other">Inna / nieokreslona</option>
+                  <option value="other">Inna / nieokreślona</option>
                 </select>
               </div>
             </div>
 
             <div>
-              <label className="label">Poziom aktywnosci (PAL)</label>
+              <label className="label">Poziom aktywności (PAL)</label>
               <select
                 value={form.activity}
                 onChange={handleChange('activity')}
@@ -210,32 +210,32 @@ export const TDEECalculator = () => {
               <p className="text-sm text-slate-500 mb-1">BMR (podstawowa przemiana materii)</p>
               <p className="text-2xl font-bold">{Math.round(bmr)} kcal</p>
               <p className="text-xs text-slate-500 mt-1">
-                Energia potrzebna na podstawowe funkcje zyciowe w spoczynku
+                Energia potrzebna na podstawowe funkcje życiowe w spoczynku
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-              <p className="text-sm text-slate-500 mb-1">TDEE (calkowite zapotrzebowanie)</p>
+              <p className="text-sm text-slate-500 mb-1">TDEE (całkowite zapotrzebowanie)</p>
               <p className="text-2xl font-bold">{tdee} kcal</p>
               <p className="text-xs text-slate-500 mt-1">
-                BMR x wspolczynnik aktywnosci fizycznej
+                BMR × współczynnik aktywności fizycznej
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-brand-100 dark:bg-brand-900/30 border-2 border-brand-500">
               <p className="text-sm text-brand-700 dark:text-brand-400 mb-1">
-                Twoj cel kaloryczny
+                Twój cel kaloryczny
               </p>
               <p className="text-3xl font-bold text-brand-700 dark:text-brand-400">
                 {goalCalories} kcal
               </p>
               <p className="text-xs text-brand-700 dark:text-brand-400 mt-1">
-                Spozywaj tyle, aby osiagnac wybrany cel
+                Spożywaj tyle, aby osiągnąć wybrany cel
               </p>
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <p className="text-xs text-slate-500">Mozesz recznie dostosowac makroskladniki:</p>
+              <p className="text-xs text-slate-500">Możesz ręcznie dostosować makroskładniki:</p>
               <button
                 onClick={handleSaveMacros}
                 disabled={savingMacros}
@@ -246,9 +246,9 @@ export const TDEECalculator = () => {
             </div>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { key: 'protein', label: 'Bialko', color: 'blue', opt: 'opt. 1,6–2,2' },
-                { key: 'carbs', label: 'Weglow.', color: 'amber', opt: null },
-                { key: 'fat', label: 'Tluszcze', color: 'red', opt: 'opt. 0,6–1,2' },
+                { key: 'protein', label: 'Białko', color: 'blue', opt: 'opt. 1,6–2,2' },
+                { key: 'carbs', label: 'Węglow.', color: 'amber', opt: null },
+                { key: 'fat', label: 'Tłuszcze', color: 'red', opt: 'opt. 0,6–1,2' },
               ].map(({ key, label, color, opt }) => (
                 <div key={key} className={`p-3 rounded-lg bg-${color}-100 dark:bg-${color}-900/30`}>
                   <p className={`text-xs text-${color}-700 dark:text-${color}-400 mb-1 font-medium`}>{label}</p>
@@ -267,7 +267,7 @@ export const TDEECalculator = () => {
               ))}
             </div>
             <div className="p-3 rounded-xl bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800 text-sm font-semibold text-brand-700 dark:text-brand-400">
-              Lacznie z makro: {macroKcal} kcal
+              Łącznie z makro: {macroKcal} kcal
               {Math.abs(macroKcal - goalCalories) > 50 && (
                 <span className="text-xs font-normal text-slate-500 ml-2">(TDEE cel: {goalCalories} kcal)</span>
               )}
@@ -279,12 +279,12 @@ export const TDEECalculator = () => {
               icon={Save}
               className="w-full"
             >
-              {saving ? 'Zapisywanie...' : saved ? 'Zapisano!' : 'Zapisz jako moj cel'}
+              {saving ? 'Zapisywanie...' : saved ? 'Zapisano!' : 'Zapisz jako mój cel'}
             </Button>
 
             {saved && (
               <p className="text-sm text-brand-600 text-center animate-fade-in">
-                Cel kaloryczny i makroskladniki zostaly zaktualizowane w profilu
+                Cel kaloryczny i makroskładniki zostały zaktualizowane w profilu
               </p>
             )}
           </div>
@@ -297,9 +297,9 @@ export const TDEECalculator = () => {
           <div className="text-sm text-blue-900 dark:text-blue-200">
             <p className="font-semibold mb-1">Informacja merytoryczna (EBM):</p>
             <p>
-              Wzor Mifflina-St Jeora (1990) jest uznawany przez Academy of Nutrition and Dietetics
-              za najdokladniejszy do oszacowania BMR u zdrowych doroslych. Dokladnosc wynosi okolo
-              +/- 10%. Wspolczynniki PAL pochodza z zalecen FAO/WHO/UNU (2004).
+              Wzór Mifflina-St Jeora (1990) jest uznawany przez Academy of Nutrition and Dietetics
+              za najdokładniejszy do oszacowania BMR u zdrowych dorosłych. Dokładność wynosi około
+              +/- 10%. Współczynniki PAL pochodzą z zaleceń FAO/WHO/UNU (2004).
             </p>
           </div>
         </div>

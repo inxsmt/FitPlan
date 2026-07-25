@@ -4,10 +4,10 @@ import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, D
 const navItems = [
   { to: '/tdee', label: 'Kalkulator TDEE', icon: Calculator },
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/meals', label: 'Posilki', icon: UtensilsCrossed },
+  { to: '/meals', label: 'Posiłki', icon: UtensilsCrossed },
   { to: '/recipes', label: 'Przepisy', icon: ChefHat },
   { to: '/diets', label: 'Diety', icon: Salad },
-  { to: '/micronutrients', label: 'Mikroskladniki', icon: Pill },
+  { to: '/micronutrients', label: 'Mikroskładniki', icon: Pill },
   { to: '/water', label: 'Woda', icon: Droplet },
   { to: '/weight', label: 'Waga', icon: Scale },
   { to: '/wellbeing', label: 'Samopoczucie', icon: HeartPulse },

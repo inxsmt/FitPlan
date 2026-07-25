@@ -53,19 +53,19 @@ export const ProfileSettings = () => {
   const handlePasswordSubmit = async (e) => {
     e.preventDefault()
     setPasswordError('')
-    if (!passwordForm.currentPassword) { setPasswordError('Podaj aktualne haslo'); return }
-    if (passwordForm.newPassword.length < 6) { setPasswordError('Nowe haslo musi miec co najmniej 6 znakow'); return }
-    if (passwordForm.newPassword !== passwordForm.confirmPassword) { setPasswordError('Hasla nie sa identyczne'); return }
+    if (!passwordForm.currentPassword) { setPasswordError('Podaj aktualne hasło'); return }
+    if (passwordForm.newPassword.length < 6) { setPasswordError('Nowe hasło musi mieć co najmniej 6 znaków'); return }
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) { setPasswordError('Hasła nie są identyczne'); return }
     setSavingPassword(true)
     const { error: authError } = await signIn(user.email, passwordForm.currentPassword)
-    if (authError) { setSavingPassword(false); setPasswordError('Aktualne haslo jest nieprawidlowe'); return }
+    if (authError) { setSavingPassword(false); setPasswordError('Aktualne hasło jest nieprawidłowe'); return }
     const { error } = await updatePassword(passwordForm.newPassword)
     setSavingPassword(false)
     if (error) setPasswordError(error.message)
     else { setSavedPassword(true); setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' }); setTimeout(() => setSavedPassword(false), 3000) }
   }
 
-  if (loading) return <div className="text-center py-12 text-slate-500">Ladowanie...</div>
+  if (loading) return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
 
   const weight = parseFloat(personalForm.weight) || null
 
@@ -73,7 +73,7 @@ export const ProfileSettings = () => {
     <div className="space-y-6 animate-fade-in max-w-lg">
       <div>
         <h1 className="text-3xl font-bold mb-1">Ustawienia profilu</h1>
-        <p className="text-slate-500 dark:text-slate-400">Uzupelnij swoje dane osobowe i zmien haslo</p>
+        <p className="text-slate-500 dark:text-slate-400">Uzupełnij swoje dane osobowe i zmień hasło</p>
       </div>
 
       {/* Dane osobowe */}

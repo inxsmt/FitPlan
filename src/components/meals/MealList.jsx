@@ -4,8 +4,8 @@ export const MealList = ({ meals, onDelete }) => {
   if (!meals.length) {
     return (
       <div className="text-center py-12 text-slate-500">
-        <p className="mb-2">Brak posilkow na ten dzien.</p>
-        <p className="text-sm">Dodaj swoj pierwszy posilek powyzej</p>
+        <p className="mb-2">Brak posiłków na ten dzień.</p>
+        <p className="text-sm">Dodaj swój pierwszy posiłek powyżej</p>
       </div>
     )
   }
@@ -44,7 +44,7 @@ export const MealList = ({ meals, onDelete }) => {
           <button
             onClick={() => onDelete(meal.id)}
             className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition opacity-0 group-hover:opacity-100"
-            aria-label="Usun posilek"
+            aria-label="Usuń posiłek"
           >
             <Trash2 size={18} />
           </button>

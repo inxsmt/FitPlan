@@ -29,11 +29,11 @@ export const MealForm = ({ onAdd }) => {
     setError('')
 
     if (!form.meal_name.trim()) {
-      setError('Podaj nazwe posilku')
+      setError('Podaj nazwę posiłku')
       return
     }
     if (calories <= 0) {
-      setError('Podaj makroskładniki aby obliczyc kalorie')
+      setError('Podaj makroskładniki, aby obliczyć kalorie')
       return
     }
 
@@ -48,7 +48,7 @@ export const MealForm = ({ onAdd }) => {
     setLoading(false)
 
     if (error) {
-      setError(error.message || 'Blad dodawania posilku')
+      setError(error.message || 'Błąd dodawania posiłku')
     } else {
       setForm({ meal_name: '', protein: '', carbs: '', fat: '' })
     }
@@ -57,7 +57,7 @@ export const MealForm = ({ onAdd }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <Input
-        label="Nazwa posilku"
+        label="Nazwa posiłku"
         value={form.meal_name}
         onChange={handleChange('meal_name')}
         placeholder="np. Owsianka z owocami"
@@ -66,7 +66,7 @@ export const MealForm = ({ onAdd }) => {
 
       <div className="grid grid-cols-3 gap-3">
         <Input
-          label="Bialko (g)"
+          label="Białko (g)"
           type="number"
           min="0"
           value={form.protein}
@@ -74,7 +74,7 @@ export const MealForm = ({ onAdd }) => {
           placeholder="20"
         />
         <Input
-          label="Weglow. (g)"
+          label="Węglow. (g)"
           type="number"
           min="0"
           value={form.carbs}
@@ -82,7 +82,7 @@ export const MealForm = ({ onAdd }) => {
           placeholder="60"
         />
         <Input
-          label="Tluszcze (g)"
+          label="Tłuszcze (g)"
           type="number"
           min="0"
           value={form.fat}
@@ -102,7 +102,7 @@ export const MealForm = ({ onAdd }) => {
       )}
 
       <Button type="submit" icon={Plus} disabled={loading} className="w-full md:w-auto">
-        {loading ? 'Dodawanie...' : 'Dodaj posilek'}
+        {loading ? 'Dodawanie...' : 'Dodaj posiłek'}
       </Button>
     </form>
   )

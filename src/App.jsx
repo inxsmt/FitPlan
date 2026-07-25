@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-slate-500">Ladowanie...</div>
+        <div className="animate-pulse text-slate-500">Ładowanie...</div>
       </div>
     )
   }
@@ -43,7 +43,7 @@ const PublicRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-slate-500">Ladowanie...</div>
+        <div className="animate-pulse text-slate-500">Ładowanie...</div>
       </div>
     )
   }

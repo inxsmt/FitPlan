@@ -46,7 +46,7 @@ export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
 
           {userCount !== null && userCount > 0 && (
             <div
-              title="Liczba zarejestrowanych uzytkownikow FitPlan"
+              title="Liczba zarejestrowanych użytkowników FitPlan"
               className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 text-xs sm:text-sm font-semibold"
             >
               <Users size={14} />

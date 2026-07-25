@@ -24,20 +24,20 @@ export const Register = () => {
     setError('')
 
     if (!firstName.trim() || !lastName.trim()) {
-      setError('Podaj imie i nazwisko')
+      setError('Podaj imię i nazwisko')
       return
     }
     const nameRegex = /^[\p{L}][\p{L} '-]*$/u
     if (!nameRegex.test(firstName.trim()) || !nameRegex.test(lastName.trim())) {
-      setError('Imie i nazwisko moga zawierac tylko litery, spacje i myslnik')
+      setError('Imię i nazwisko mogą zawierać tylko litery, spacje i myślnik')
       return
     }
     if (password.length < 6) {
-      setError('Haslo musi miec co najmniej 6 znakow')
+      setError('Hasło musi mieć co najmniej 6 znaków')
       return
     }
     if (password !== passwordConfirm) {
-      setError('Hasla nie sa identyczne')
+      setError('Hasła nie są identyczne')
       return
     }
 
@@ -63,16 +63,16 @@ export const Register = () => {
           <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center mx-auto mb-4">
             <Mail size={32} />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Sprawdz swoja skrzynke!</h2>
+          <h2 className="text-2xl font-bold mb-2">Sprawdź swoją skrzynkę!</h2>
           <p className="text-slate-500 dark:text-slate-400 mb-2">
-            Wyslalismy link potwierdzajacy na adres:
+            Wysłaliśmy link potwierdzający na adres:
           </p>
           <p className="font-semibold text-brand-600 mb-4">{email}</p>
           <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
-            Kliknij w link w mailu aby aktywowac konto, a nastepnie zaloguj sie.
+            Kliknij w link w mailu, aby aktywować konto, a następnie zaloguj się.
           </p>
           <Link to="/login" className="text-brand-600 hover:text-brand-700 font-semibold text-sm">
-            Przejdz do logowania
+            Przejdź do logowania
           </Link>
         </div>
       </div>
@@ -90,7 +90,7 @@ export const Register = () => {
             Witaj, {firstName.trim()}! Konto utworzone!
           </h2>
           <p className="text-slate-500 dark:text-slate-400">
-            Przekierowuje do dashboardu...
+            Przekierowuję do dashboardu...
           </p>
         </div>
       </div>
@@ -104,14 +104,14 @@ export const Register = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-600 text-white mb-4 shadow-lg">
             <Salad size={32} />
           </div>
-          <h1 className="text-3xl font-bold mb-2">Dolacz do FitPlan</h1>
+          <h1 className="text-3xl font-bold mb-2">Dołącz do FitPlan</h1>
           <p className="text-slate-500 dark:text-slate-400">
-            Stworz darmowe konto w 30 sekund
+            Stwórz darmowe konto w 30 sekund
           </p>
           {userCount !== null && userCount > 0 && (
             <div className="inline-flex items-center gap-2 mt-4 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 text-sm font-semibold">
               <Users size={16} />
-              Dolaczylo juz {userCount} {osobyLabel(userCount)}!
+              Dołączyło już {userCount} {osobyLabel(userCount)}!
             </div>
           )}
         </div>
@@ -120,7 +120,7 @@ export const Register = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <Input
-                label="Imie"
+                label="Imię"
                 type="text"
                 icon={User}
                 value={firstName}
@@ -151,22 +151,22 @@ export const Register = () => {
               autoComplete="email"
             />
             <Input
-              label="Haslo"
+              label="Hasło"
               type="password"
               icon={Lock}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Min. 6 znakow"
+              placeholder="Min. 6 znaków"
               required
               autoComplete="new-password"
             />
             <Input
-              label="Powtorz haslo"
+              label="Powtórz hasło"
               type="password"
               icon={Lock}
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
-              placeholder="Powtorz haslo"
+              placeholder="Powtórz hasło"
               required
               autoComplete="new-password"
             />
@@ -178,14 +178,14 @@ export const Register = () => {
             )}
 
             <Button type="submit" disabled={loading} icon={UserPlus} className="w-full">
-              {loading ? 'Tworzenie konta...' : 'Zarejestruj sie'}
+              {loading ? 'Tworzenie konta...' : 'Zarejestruj się'}
             </Button>
           </form>
 
           <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
-            Masz juz konto?{' '}
+            Masz już konto?{' '}
             <Link to="/login" className="text-brand-600 hover:text-brand-700 font-semibold">
-              Zaloguj sie
+              Zaloguj się
             </Link>
           </p>
         </div>

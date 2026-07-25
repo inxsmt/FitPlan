@@ -19,7 +19,7 @@ const LEVEL_COLOR = (level) => (level >= 4 ? 'text-green-500' : level === 3 ? 't
 const summarizeEntry = (w) => {
   const parts = []
   if (w.energy_level) parts.push(`Energia ${w.energy_level}/5`)
-  if (w.mood_level) parts.push(`Nastroj ${w.mood_level}/5`)
+  if (w.mood_level) parts.push(`Nastrój ${w.mood_level}/5`)
   if (w.sleep_hours != null) parts.push(`Sen ${w.sleep_hours}h`)
   if (w.bristol_scale) parts.push(`Bristol typ ${w.bristol_scale}`)
   if (w.symptoms?.length) parts.push(w.symptoms.join(', '))
@@ -90,7 +90,7 @@ export const WellbeingTracker = () => {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-500">Ladowanie...</div>
+    return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
   }
 
   return (
@@ -98,7 +98,7 @@ export const WellbeingTracker = () => {
       <div>
         <h1 className="text-3xl font-bold mb-1">Samopoczucie</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Zapisuj energie, nastroj i objawy trawienne, aby powiazac je z tym co jesz
+          Zapisuj energię, nastrój i objawy trawienne, aby powiązać je z tym, co jesz
         </p>
       </div>
 
@@ -124,7 +124,7 @@ export const WellbeingTracker = () => {
           </div>
 
           <div className="mt-4">
-            <p className="text-xs font-medium text-slate-500 mb-1.5 flex items-center gap-1"><Smile size={13} /> Nastroj</p>
+            <p className="text-xs font-medium text-slate-500 mb-1.5 flex items-center gap-1"><Smile size={13} /> Nastrój</p>
             <div className="flex gap-1.5">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
@@ -182,7 +182,7 @@ export const WellbeingTracker = () => {
               onChange={(e) => setBristol(e.target.value ? Number(e.target.value) : null)}
               className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
-              <option value="">Nie okreslono</option>
+              <option value="">Nie określono</option>
               {BRISTOL_TYPES.map((b) => (
                 <option key={b.value} value={b.value}>{b.label} - {b.desc}</option>
               ))}
@@ -194,7 +194,7 @@ export const WellbeingTracker = () => {
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="np. wzdecia po nabiale"
+              placeholder="np. wzdęcia po nabiale"
               rows={2}
               className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
             />
@@ -211,9 +211,9 @@ export const WellbeingTracker = () => {
         </Card>
 
         <div className="lg:col-span-2 space-y-6">
-          <Card title="Oś czasu dnia" icon={Clock} subtitle="Posilki i samopoczucie razem">
+          <Card title="Oś czasu dnia" icon={Clock} subtitle="Posiłki i samopoczucie razem">
             {timeline.length === 0 ? (
-              <p className="text-sm text-slate-500 text-center py-6">Brak wpisow z dzisiaj</p>
+              <p className="text-sm text-slate-500 text-center py-6">Brak wpisów z dzisiaj</p>
             ) : (
               <ul className="space-y-2">
                 {timeline.map((item, i) => (
@@ -250,15 +250,15 @@ export const WellbeingTracker = () => {
                   />
                   <Legend />
                   <Line type="monotone" dataKey="energia" stroke="#f59e0b" strokeWidth={2.5} dot={{ r: 3 }} name="Energia" connectNulls />
-                  <Line type="monotone" dataKey="nastroj" stroke="#3b82f6" strokeWidth={2.5} dot={{ r: 3 }} name="Nastroj" connectNulls />
+                  <Line type="monotone" dataKey="nastroj" stroke="#3b82f6" strokeWidth={2.5} dot={{ r: 3 }} name="Nastrój" connectNulls />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </Card>
 
-          <Card title="Najczestsze objawy" icon={Activity} subtitle="Ostatnie 30 dni">
+          <Card title="Najczęstsze objawy" icon={Activity} subtitle="Ostatnie 30 dni">
             {symptomTally.length === 0 ? (
-              <p className="text-sm text-slate-500 text-center py-6">Brak zarejestrowanych objawow</p>
+              <p className="text-sm text-slate-500 text-center py-6">Brak zarejestrowanych objawów</p>
             ) : (
               <ul className="space-y-2">
                 {symptomTally.map(({ symptom, count }) => (
@@ -279,9 +279,9 @@ export const WellbeingTracker = () => {
         </div>
       </div>
 
-      <Card title={`Historia wpisow (${wellbeingLogs.length})`}>
+      <Card title={`Historia wpisów (${wellbeingLogs.length})`}>
         {wellbeingLogs.length === 0 ? (
-          <p className="text-sm text-slate-500 text-center py-6">Brak wpisow - dodaj pierwszy wpis samopoczucia!</p>
+          <p className="text-sm text-slate-500 text-center py-6">Brak wpisów - dodaj pierwszy wpis samopoczucia!</p>
         ) : (
           <ul className="space-y-2 max-h-96 overflow-y-auto">
             {wellbeingLogs.map((w) => (
@@ -292,7 +292,7 @@ export const WellbeingTracker = () => {
                 <div className="min-w-0">
                   <div className="flex items-center gap-3 flex-wrap text-sm">
                     {w.energy_level && <span className={`font-semibold ${LEVEL_COLOR(w.energy_level)}`}>Energia {w.energy_level}/5</span>}
-                    {w.mood_level && <span className={`font-semibold ${LEVEL_COLOR(w.mood_level)}`}>Nastroj {w.mood_level}/5</span>}
+                    {w.mood_level && <span className={`font-semibold ${LEVEL_COLOR(w.mood_level)}`}>Nastrój {w.mood_level}/5</span>}
                     {w.sleep_hours != null && <span className="text-slate-500">Sen {w.sleep_hours}h</span>}
                     {w.bristol_scale && <span className="text-slate-500">Bristol typ {w.bristol_scale}</span>}
                   </div>
@@ -309,7 +309,7 @@ export const WellbeingTracker = () => {
                   <button
                     onClick={() => deleteWellbeing(w.id)}
                     className="text-slate-400 hover:text-red-500 transition"
-                    aria-label="Usun wpis"
+                    aria-label="Usuń wpis"
                   >
                     <Trash2 size={15} />
                   </button>

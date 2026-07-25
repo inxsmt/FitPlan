@@ -28,16 +28,16 @@ export const MealTracker = () => {
   }
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-500">Ladowanie...</div>
+    return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
   }
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-start justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-3xl font-bold mb-1">Tracker posilkow</h1>
+          <h1 className="text-3xl font-bold mb-1">Tracker posiłków</h1>
           <p className="text-slate-500 dark:text-slate-400">
-            Zapisuj wszystko co jesz, aby kontrolowac bilans kaloryczny
+            Zapisuj wszystko, co jesz, aby kontrolować bilans kaloryczny
           </p>
         </div>
         <div className="flex rounded-xl overflow-hidden border border-slate-200 dark:border-dark-border">
@@ -66,7 +66,7 @@ export const MealTracker = () => {
         </Card>
         {/* Białko */}
         <Card className="text-center !p-4">
-          <p className="text-xs text-slate-500 mb-1">Bialko</p>
+          <p className="text-xs text-slate-500 mb-1">Białko</p>
           <p className="text-2xl font-bold text-blue-500">{todayMacros.protein}g</p>
           <p className="text-xs text-slate-400">z {targets.protein}g</p>
           {(() => { const p = pct(todayMacros.protein, targets.protein); return p !== null && <p className={`text-xs font-semibold mt-0.5 ${pctColor(p)}`}>{p}%</p> })()}
@@ -74,7 +74,7 @@ export const MealTracker = () => {
         </Card>
         {/* Węglowodany */}
         <Card className="text-center !p-4">
-          <p className="text-xs text-slate-500 mb-1">Weglow.</p>
+          <p className="text-xs text-slate-500 mb-1">Węglow.</p>
           <p className="text-2xl font-bold text-amber-500">{todayMacros.carbs}g</p>
           <p className="text-xs text-slate-400">z {targets.carbs}g</p>
           {(() => { const p = pct(todayMacros.carbs, targets.carbs); return p !== null && <p className={`text-xs font-semibold mt-0.5 ${pctColor(p)}`}>{p}%</p> })()}
@@ -82,7 +82,7 @@ export const MealTracker = () => {
         </Card>
         {/* Tłuszcze */}
         <Card className="text-center !p-4">
-          <p className="text-xs text-slate-500 mb-1">Tluszcze</p>
+          <p className="text-xs text-slate-500 mb-1">Tłuszcze</p>
           <p className="text-2xl font-bold text-red-500">{todayMacros.fat}g</p>
           <p className="text-xs text-slate-400">z {targets.fat}g</p>
           {(() => { const p = pct(todayMacros.fat, targets.fat); return p !== null && <p className={`text-xs font-semibold mt-0.5 ${pctColor(p)}`}>{p}%</p> })()}
@@ -95,7 +95,7 @@ export const MealTracker = () => {
           <Card title="Dodaj nowy posilek" icon={UtensilsCrossed}>
             <MealForm onAdd={addMeal} />
           </Card>
-          <Card title={`Dzisiejsze posilki (${todayMeals.length})`}>
+          <Card title={`Dzisiejsze posiłki (${todayMeals.length})`}>
             <MealList meals={todayMeals} onDelete={deleteMeal} />
           </Card>
         </>

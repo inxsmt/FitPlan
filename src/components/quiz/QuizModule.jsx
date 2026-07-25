@@ -49,7 +49,7 @@ export const QuizModule = () => {
       <div>
         <h1 className="text-3xl font-bold mb-1">Quizy wiedzy</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Sprawdz co wiesz o zywieniu, treningu i suplementacji — bez trudnych slow
+          Sprawdź, co wiesz o żywieniu, treningu i suplementacji — bez trudnych słów
         </p>
       </div>
 
@@ -76,7 +76,7 @@ export const QuizModule = () => {
                 </p>
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-500">
-                    {quiz.questions.length} pytan
+                    {quiz.questions.length} pytań
                   </span>
                   {bestScore > 0 && (
                     <span className="text-brand-600 dark:text-brand-400 font-semibold flex items-center gap-1">
@@ -91,12 +91,12 @@ export const QuizModule = () => {
         })}
       </div>
 
-      <Card title="Twoja historia" icon={Clock} subtitle="Ostatnie 10 prob">
+      <Card title="Twoja historia" icon={Clock} subtitle="Ostatnie 10 prób">
         {loading ? (
-          <p className="text-slate-500 text-center py-4">Ladowanie...</p>
+          <p className="text-slate-500 text-center py-4">Ładowanie...</p>
         ) : history.length === 0 ? (
           <p className="text-slate-500 text-center py-4">
-            Brak rozwiazanych quizow. Rozpocznij pierwszy!
+            Brak rozwiązanych quizów. Rozpocznij pierwszy!
           </p>
         ) : (
           <div className="space-y-2">

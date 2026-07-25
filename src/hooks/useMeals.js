@@ -31,7 +31,7 @@ export const useMeals = () => {
   }, [fetchMeals])
 
   const addMeal = async (meal) => {
-    if (!user) return { error: 'Brak uzytkownika' }
+    if (!user) return { error: 'Brak użytkownika' }
     const { data, error } = await supabase
       .from('meal_logs')
       .insert([{ ...meal, user_id: user.id }])

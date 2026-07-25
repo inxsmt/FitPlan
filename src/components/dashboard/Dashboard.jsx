@@ -83,7 +83,7 @@ export const Dashboard = () => {
   if (profileLoading || mealsLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-pulse text-slate-500">Ladowanie danych...</div>
+        <div className="animate-pulse text-slate-500">Ładowanie danych...</div>
       </div>
     )
   }
@@ -94,15 +94,15 @@ export const Dashboard = () => {
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-xl animate-fade-in">
           <CheckCircle size={22} />
           <span className="font-semibold">
-            Konto zostalo utworzone! Witaj w FitPlan{profile?.first_name ? `, ${profile.first_name}` : ''}!
+            Konto zostało utworzone! Witaj w FitPlan{profile?.first_name ? `, ${profile.first_name}` : ''}!
           </span>
         </div>
       )}
       <div>
         <h1 className="text-3xl font-bold mb-1">
-          Czesc, {profile?.first_name
+          Cześć, {profile?.first_name
             ? `${profile.first_name}${profile.last_name ? ' ' + profile.last_name : ''}`
-            : 'Uzytkowniku'}!
+            : 'Użytkowniku'}!
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
           Oto Twoje podsumowanie z dzisiaj - {new Date().toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' })}
@@ -113,7 +113,7 @@ export const Dashboard = () => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Flame size={18} className="text-brand-600" />
-            <span className="font-bold">Dzisiejsze spozycie</span>
+            <span className="font-bold">Dzisiejsze spożycie</span>
             {(profile?.weight || profile?.age || profile?.gender) && (
               <span className="text-xs text-slate-400 hidden sm:inline">
                 {profile.weight && `· ${profile.weight}kg`}
@@ -199,19 +199,19 @@ export const Dashboard = () => {
               <MacroRing current={todayMacros.calories} target={targetCalories} label="Kalorie" unit=" kcal" color="#22c55e" />
             </div>
             <div className="text-center">
-              <MacroRing current={todayMacros.protein} target={recommended.protein} label="Bialko" unit="g" color="#3b82f6" />
+              <MacroRing current={todayMacros.protein} target={recommended.protein} label="Białko" unit="g" color="#3b82f6" />
               {weight && <p className="text-xs text-blue-500 mt-1 font-medium">{(todayMacros.protein/weight).toFixed(1)}g/kg</p>}
               {weight && <p className="text-xs text-slate-400">cel {(recommended.protein/weight).toFixed(1)}g/kg</p>}
               <p className="text-xs text-slate-300 dark:text-slate-600">opt. 1,6–2,2g/kg</p>
             </div>
             <div className="text-center">
-              <MacroRing current={todayMacros.carbs} target={recommended.carbs} label="Weglowodany" unit="g" color="#f59e0b" />
+              <MacroRing current={todayMacros.carbs} target={recommended.carbs} label="Węglowodany" unit="g" color="#f59e0b" />
               {weight && <p className="text-xs text-amber-500 mt-1 font-medium">{(todayMacros.carbs/weight).toFixed(1)}g/kg</p>}
               {weight && <p className="text-xs text-slate-400">cel {(recommended.carbs/weight).toFixed(1)}g/kg</p>}
               <p className="text-xs text-slate-300 dark:text-slate-600">reszta kalorii</p>
             </div>
             <div className="text-center">
-              <MacroRing current={todayMacros.fat} target={recommended.fat} label="Tluszcze" unit="g" color="#ef4444" />
+              <MacroRing current={todayMacros.fat} target={recommended.fat} label="Tłuszcze" unit="g" color="#ef4444" />
               {weight && <p className="text-xs text-red-500 mt-1 font-medium">{(todayMacros.fat/weight).toFixed(1)}g/kg</p>}
               {weight && <p className="text-xs text-slate-400">cel {(recommended.fat/weight).toFixed(1)}g/kg</p>}
               <p className="text-xs text-slate-300 dark:text-slate-600">min. 0,6 (opt. 0,6–1,2g/kg)</p>
@@ -242,9 +242,9 @@ export const Dashboard = () => {
         return (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Card className="!p-4">
-              <p className="text-xs text-slate-500 mb-1">0 kaloryczne (TDEE)</p>
+              <p className="text-xs text-slate-500 mb-1">Zapotrzebowanie (TDEE)</p>
               <p className="text-xl font-bold">{tdee ? `${tdee} kcal` : '–'}</p>
-              <p className="text-xs text-slate-400 mt-1">konserwacja masy ciała</p>
+              <p className="text-xs text-slate-400 mt-1">utrzymanie masy ciała</p>
               {!tdee && <p className="text-xs text-amber-500 mt-1">Przelicz kalkulator TDEE</p>}
             </Card>
             <Card className="!p-4">
@@ -294,7 +294,7 @@ export const Dashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <Card title="Ostatnie 7 dni" icon={TrendingUp} subtitle="Spozycie kalorii vs cel">
+          <Card title="Ostatnie 7 dni" icon={TrendingUp} subtitle="Spożycie kalorii vs cel">
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={last7Days}>
@@ -308,7 +308,7 @@ export const Dashboard = () => {
                       borderRadius: '12px',
                     }}
                   />
-                  <Bar dataKey="kcal" fill="#22c55e" radius={[8, 8, 0, 0]} name="Spozycie (kcal)" />
+                  <Bar dataKey="kcal" fill="#22c55e" radius={[8, 8, 0, 0]} name="Spożycie (kcal)" />
                   <Bar dataKey="cel" fill="#64748b" radius={[8, 8, 0, 0]} opacity={0.3} name="Cel (kcal)" />
                 </BarChart>
               </ResponsiveContainer>
@@ -321,7 +321,7 @@ export const Dashboard = () => {
             <div className="space-y-2">
               <Link to="/meals">
                 <Button icon={UtensilsCrossed} variant="primary" className="w-full">
-                  Dodaj posilek
+                  Dodaj posiłek
                 </Button>
               </Link>
               <Link to="/tdee">
@@ -331,17 +331,17 @@ export const Dashboard = () => {
               </Link>
               <Link to="/quiz">
                 <Button icon={Brain} variant="ghost" className="w-full mt-2">
-                  Rozwiaz quiz
+                  Rozwiąż quiz
                 </Button>
               </Link>
             </div>
           </Card>
 
           <Card>
-            <p className="text-sm text-slate-500 mb-1">Posilkow dzis</p>
+            <p className="text-sm text-slate-500 mb-1">Posiłków dziś</p>
             <p className="text-3xl font-bold">{todayMeals.length}</p>
             <p className="text-xs text-slate-500 mt-1">
-              Pozostalo: {Math.max(targetCalories - todayMacros.calories, 0)} kcal
+              Pozostało: {Math.max(targetCalories - todayMacros.calories, 0)} kcal
             </p>
           </Card>
         </div>

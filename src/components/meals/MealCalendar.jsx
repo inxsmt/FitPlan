@@ -95,7 +95,7 @@ export const MealCalendar = ({ meals, onDelete }) => {
         </div>
       </Card>
 
-      <Card title={`Posilki: ${new Date(selectedDate + 'T12:00:00').toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' })}`}>
+      <Card title={`Posiłki: ${new Date(selectedDate + 'T12:00:00').toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' })}`}>
         <MealList
           meals={selectedMeals}
           onDelete={selectedDate === todayStr ? onDelete : () => {}}

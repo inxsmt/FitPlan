@@ -31,7 +31,7 @@ export const useWeightLogs = () => {
   }, [fetchWeightLogs])
 
   const addWeightLog = async ({ weightKg, waistCm = null, hipsCm = null }) => {
-    if (!user) return { error: 'Brak uzytkownika' }
+    if (!user) return { error: 'Brak użytkownika' }
     const { data, error } = await supabase
       .from('weight_logs')
       .insert([{ weight_kg: weightKg, waist_cm: waistCm, hips_cm: hipsCm, user_id: user.id }])
