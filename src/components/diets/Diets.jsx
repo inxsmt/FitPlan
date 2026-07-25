@@ -42,6 +42,16 @@ export const Diets = () => {
   const [selected, setSelected] = useState('2500')
   const diet = diets.find((d) => d.id === selected)
 
+  const totals = diet.meals.reduce(
+    (acc, m) => ({
+      calories: acc.calories + m.macros.calories,
+      protein: acc.protein + m.macros.protein,
+      carbs: acc.carbs + m.macros.carbs,
+      fat: acc.fat + m.macros.fat,
+    }),
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
+  )
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
@@ -103,6 +113,23 @@ export const Diets = () => {
             <MealCard key={i} meal={meal} />
           ))}
         </div>
+
+        <div className="mt-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800/70 border border-slate-200 dark:border-dark-border">
+          <div className="flex items-center justify-between mb-1">
+            <span className="font-bold text-sm">Suma dnia ({diet.meals.length} posiłków)</span>
+            <span className="font-bold text-brand-600">{totals.calories} kcal</span>
+          </div>
+          <div className="flex gap-3 text-xs font-semibold">
+            <span className="text-blue-500">Białko: {totals.protein}g</span>
+            <span className="text-amber-500">Węglow.: {totals.carbs}g</span>
+            <span className="text-red-500">Tłuszcze: {totals.fat}g</span>
+          </div>
+        </div>
+
+        <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
+          Makroskładniki przeliczone na podstawie polskich tabel wartości odżywczej żywności (IŻŻ,
+          Kunachowicz i wsp.). Wagi mięsa i ryb podano dla produktu surowego, kasz/ryżu/makaronu — suchego.
+        </p>
       </Card>
     </div>
   )
