@@ -62,6 +62,10 @@ const RecipeModal = ({ recipe, onClose }) => {
             </button>
           </div>
 
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="font-semibold">Wartości na 1 porcję</h3>
+            <span className="text-xs text-slate-400">{recipe.servings} porcja</span>
+          </div>
           <div className="grid grid-cols-4 gap-2 mb-5">
             <MacroBadge label="Kalorie" value={recipe.macros.calories} unit=" kcal" color="brand" />
             <MacroBadge label="Białko" value={recipe.macros.protein} color="blue" />
@@ -117,6 +121,10 @@ const RecipeModal = ({ recipe, onClose }) => {
             )}
           </button>
           <p className="text-xs text-center text-slate-400 mt-2">Doda dzisiejszy posiłek w Trackerze posiłków</p>
+          <p className="text-xs text-center text-slate-400 mt-3 leading-relaxed">
+            Wartości przeliczone ze składników na podstawie polskich tabel wartości odżywczej żywności
+            (IŻŻ, Kunachowicz i wsp.). Wagi mięsa i ryb podano dla produktu surowego.
+          </p>
         </div>
       </div>
     </div>

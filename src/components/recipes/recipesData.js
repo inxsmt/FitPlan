@@ -14,6 +14,10 @@ export const TAGS = [
   { id: 'szybkie', label: 'Szybkie' },
 ]
 
+// Wartości odżywcze każdego przepisu przeliczone na 1 porcję ze składników,
+// na podstawie polskich tabel wartości odżywczej żywności (IŻŻ / Kunachowicz i wsp.).
+// Kalorie liczone ze wzoru: białko×4 + węglowodany×4 + tłuszcze×9 (jak w trackerze).
+// Wagi mięsa/ryb podane dla produktu surowego, kasz/ryżu/makaronu — suchego.
 export const RECIPES = [
   {
     id: 'owsianka-proteinowa',
@@ -22,7 +26,7 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'masa', 'wegetarianskie'],
     prepTime: 10,
     servings: 1,
-    macros: { calories: 580, protein: 40, carbs: 72, fat: 14 },
+    macros: { calories: 775, protein: 48, carbs: 94, fat: 23 },
     ingredients: [
       '80 g płatków owsianych',
       '1 banan (ok. 120 g)',
@@ -46,7 +50,7 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'redukcja', 'szybkie'],
     prepTime: 10,
     servings: 1,
-    macros: { calories: 220, protein: 28, carbs: 8, fat: 8 },
+    macros: { calories: 265, protein: 32, carbs: 9, fat: 11 },
     ingredients: [
       '6 białek jajek',
       '1 całe jajko',
@@ -68,10 +72,10 @@ export const RECIPES = [
     id: 'twarog-z-jagodami',
     title: 'Twaróg z jagodami i granolą',
     category: 'sniadanie',
-    tags: ['redukcja', 'wegetarianskie', 'szybkie'],
+    tags: ['wysokobialkowe', 'redukcja', 'wegetarianskie', 'szybkie'],
     prepTime: 5,
     servings: 1,
-    macros: { calories: 320, protein: 26, carbs: 40, fat: 5 },
+    macros: { calories: 490, protein: 41, carbs: 46, fat: 16 },
     ingredients: [
       '200 g twarogu półtłustego',
       '100 g jagód (świeżych lub mrożonych)',
@@ -92,7 +96,7 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'masa'],
     prepTime: 10,
     servings: 1,
-    macros: { calories: 480, protein: 38, carbs: 28, fat: 22 },
+    macros: { calories: 550, protein: 43, carbs: 31, fat: 28 },
     ingredients: [
       '3 jajka',
       '80 g łososia wędzonego',
@@ -116,9 +120,9 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'masa'],
     prepTime: 30,
     servings: 1,
-    macros: { calories: 520, protein: 50, carbs: 60, fat: 8 },
+    macros: { calories: 610, protein: 49, carbs: 74, fat: 13 },
     ingredients: [
-      '180 g piersi kurczaka',
+      '180 g piersi kurczaka (surowa)',
       '80 g ryżu białego (waga sucha)',
       '150 g brokułów',
       '10 ml oliwy z oliwek',
@@ -139,10 +143,10 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'szybkie'],
     prepTime: 20,
     servings: 1,
-    macros: { calories: 480, protein: 40, carbs: 64, fat: 7 },
+    macros: { calories: 545, protein: 43, carbs: 68, fat: 11 },
     ingredients: [
       '80 g makaronu penne lub spaghetti (waga sucha)',
-      '150 g tuńczyka w sosie własnym (1 puszka)',
+      '150 g tuńczyka w sosie własnym (1 puszka, po odsączeniu ~130 g)',
       '200 g pomidorów krojonych (z puszki lub świeżych)',
       '50 g cukinii',
       '10 ml oliwy z oliwek',
@@ -165,9 +169,9 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'masa'],
     prepTime: 35,
     servings: 1,
-    macros: { calories: 560, protein: 40, carbs: 36, fat: 22 },
+    macros: { calories: 660, protein: 45, carbs: 37, fat: 37 },
     ingredients: [
-      '200 g filetu z łososia',
+      '200 g filetu z łososia (surowy)',
       '200 g ziemniaków',
       '100 g sałaty lodowej lub mieszanki sałat',
       '10 ml oliwy z oliwek',
@@ -189,9 +193,9 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'redukcja'],
     prepTime: 30,
     servings: 1,
-    macros: { calories: 500, protein: 48, carbs: 52, fat: 8 },
+    macros: { calories: 560, protein: 47, carbs: 64, fat: 13 },
     ingredients: [
-      '180 g filetu z indyka',
+      '180 g filetu z indyka (surowy)',
       '80 g kaszy gryczanej (waga sucha)',
       '100 g brokułów lub marchewki',
       '10 ml oliwy z oliwek',
@@ -212,9 +216,9 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'redukcja', 'szybkie'],
     prepTime: 15,
     servings: 1,
-    macros: { calories: 380, protein: 38, carbs: 10, fat: 20 },
+    macros: { calories: 400, protein: 36, carbs: 12, fat: 23 },
     ingredients: [
-      '150 g piersi kurczaka',
+      '150 g piersi kurczaka (surowa)',
       '½ awokado (ok. 80 g)',
       '100 g mieszanki sałat',
       '100 g pomidorów cherry',
@@ -237,9 +241,9 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'szybkie'],
     prepTime: 15,
     servings: 1,
-    macros: { calories: 420, protein: 40, carbs: 42, fat: 9 },
+    macros: { calories: 490, protein: 47, carbs: 40, fat: 16 },
     ingredients: [
-      '1 tortilla pełnoziarnista',
+      '1 tortilla pełnoziarnista (ok. 60 g)',
       '120 g ugotowanej lub grillowanej piersi kurczaka',
       '40 g hummusu',
       '50 g rukoli lub sałaty',
@@ -258,17 +262,17 @@ export const RECIPES = [
     id: 'twarog-na-kolacje',
     title: 'Twaróg z warzywami na kolację',
     category: 'kolacja',
-    tags: ['redukcja', 'wegetarianskie', 'szybkie'],
+    tags: ['wysokobialkowe', 'redukcja', 'wegetarianskie', 'szybkie'],
     prepTime: 5,
     servings: 1,
-    macros: { calories: 200, protein: 24, carbs: 10, fat: 3 },
+    macros: { calories: 230, protein: 41, carbs: 14, fat: 1 },
     ingredients: [
       '200 g twarogu chudego',
       '1 ogórek',
       '4–5 rzodkiewek',
       '2 łyżeczki szczypiorku',
       'Sól, pieprz',
-      'Opcjonalnie: 1 łyżeczka oliwy',
+      'Opcjonalnie: 1 łyżeczka oliwy (+40 kcal, +4,5 g tłuszczu)',
     ],
     steps: [
       'Ogórek i rzodkiewki pokrój w plasterki lub kostkę.',
@@ -285,10 +289,10 @@ export const RECIPES = [
     tags: ['wysokobialkowe', 'masa', 'szybkie', 'wegetarianskie'],
     prepTime: 5,
     servings: 1,
-    macros: { calories: 400, protein: 35, carbs: 54, fat: 6 },
+    macros: { calories: 445, protein: 35, carbs: 58, fat: 8 },
     ingredients: [
       '30 g odżywki białkowej',
-      '1 banan',
+      '1 banan (ok. 120 g)',
       '200 ml mleka 2%',
       '30 g płatków owsianych',
       '3–4 kostki lodu',
