@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, Droplet, Scale, HeartPulse, ChefHat, Pill, X } from 'lucide-react'
+import { LayoutDashboard, UtensilsCrossed, Calculator, Brain, BookOpen, Salad, Droplet, Scale, HeartPulse, ChefHat, Pill, User, X } from 'lucide-react'
 
 const navItems = [
   { to: '/tdee', label: 'Kalkulator TDEE', icon: Calculator },
@@ -13,6 +13,7 @@ const navItems = [
   { to: '/wellbeing', label: 'Samopoczucie', icon: HeartPulse },
   { to: '/quiz', label: 'Quizy EBM', icon: Brain },
   { to: '/blog', label: 'Blog', icon: BookOpen },
+  { to: '/about', label: 'O autorze', icon: User },
 ]
 
 export const Sidebar = ({ open, onClose }) => {

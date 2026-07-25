@@ -16,6 +16,7 @@ import { Diets } from './components/diets/Diets'
 import { ProfileSettings } from './components/profile/ProfileSettings'
 import { Recipes } from './components/recipes/Recipes'
 import { Micronutrients } from './components/micronutrients/Micronutrients'
+import { About } from './components/about/About'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
 
@@ -205,6 +206,16 @@ function App() {
               <ProtectedRoute>
                 <AppLayout>
                   <Micronutrients />
+                </AppLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <ProtectedRoute>
+                <AppLayout>
+                  <About />
                 </AppLayout>
               </ProtectedRoute>
             }
