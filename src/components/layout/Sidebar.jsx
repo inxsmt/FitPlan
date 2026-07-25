@@ -61,6 +61,9 @@ export const Sidebar = ({ open, onClose }) => {
         <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-500">
           <p className="font-semibold mb-1">Projekt edukacyjny</p>
           <p>Aplikacja stworzona w ramach pracy dla Uniwersytetu VIZJA.</p>
+          <p className="mt-1.5 pt-1.5 border-t border-slate-200 dark:border-slate-700">
+            Marcel Tryniszewski · 55074
+          </p>
         </div>
       </aside>
     </>
