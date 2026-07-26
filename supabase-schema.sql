@@ -43,6 +43,7 @@ CREATE TABLE public.meal_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   meal_name TEXT NOT NULL,
+  meal_type TEXT,
   calories INTEGER NOT NULL CHECK (calories >= 0),
   protein INTEGER NOT NULL DEFAULT 0 CHECK (protein >= 0),
   carbs INTEGER NOT NULL DEFAULT 0 CHECK (carbs >= 0),
@@ -275,6 +276,13 @@ ALTER TABLE public.weight_logs ADD COLUMN IF NOT EXISTS hips_cm NUMERIC(5,1) CHE
 -- ============================================================
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS first_name TEXT;
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS last_name TEXT;
+
+-- ============================================================
+-- 9. MIGRACJA: typ posilku (sniadanie/obiad/kolacja...) w meal_logs
+-- Uruchom jesli tabela meal_logs juz istnieje bez tej kolumny.
+-- Stare wpisy bez meal_type sa grupowane w aplikacji jako "Inne".
+-- ============================================================
+ALTER TABLE public.meal_logs ADD COLUMN IF NOT EXISTS meal_type TEXT;
 
 -- ============================================================
 -- 8. FUNKCJA: licznik zarejestrowanych uzytkownikow

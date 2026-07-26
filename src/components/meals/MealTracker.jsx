@@ -92,10 +92,10 @@ export const MealTracker = () => {
 
       {view === 'today' ? (
         <>
-          <Card title="Dodaj nowy posilek" icon={UtensilsCrossed}>
+          <Card title="Dodaj produkt do posiłku" icon={UtensilsCrossed}>
             <MealForm onAdd={addMeal} />
           </Card>
-          <Card title={`Dzisiejsze posiłki (${todayMeals.length})`}>
+          <Card title="Dziennik dnia" subtitle={`${todayMeals.length} ${todayMeals.length === 1 ? 'produkt' : 'produktów'} w posiłkach`}>
             <MealList meals={todayMeals} onDelete={deleteMeal} />
           </Card>
         </>

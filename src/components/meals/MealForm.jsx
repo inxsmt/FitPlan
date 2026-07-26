@@ -3,6 +3,7 @@ import { Plus, Search, Loader2, ArrowLeft, Pencil, X, BadgeCheck } from 'lucide-
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
 import { searchFoods, scaleMacros } from '../../lib/foodApi'
+import { MEAL_TYPES, guessMealType } from '../../lib/mealTypes'
 
 const MacroChip = ({ label, value, color }) => (
   <span className={`text-xs font-semibold ${color}`}>{label}: {value}</span>
@@ -10,6 +11,7 @@ const MacroChip = ({ label, value, color }) => (
 
 export const MealForm = ({ onAdd }) => {
   const [mode, setMode] = useState('search') // 'search' | 'manual'
+  const [mealType, setMealType] = useState(guessMealType())
 
   // --- wyszukiwarka ---
   const [query, setQuery] = useState('')
@@ -83,6 +85,7 @@ export const MealForm = ({ onAdd }) => {
     setLoading(true)
     const { error } = await onAdd({
       meal_name: `${selected.name} (${grams} g)`,
+      meal_type: mealType,
       calories: m.calories,
       protein: m.protein,
       carbs: m.carbs,
@@ -112,6 +115,7 @@ export const MealForm = ({ onAdd }) => {
     setLoading(true)
     const { error } = await onAdd({
       meal_name: form.meal_name.trim(),
+      meal_type: mealType,
       calories: manualCalories,
       protein: parseFloat(form.protein) || 0,
       carbs: parseFloat(form.carbs) || 0,
@@ -124,6 +128,27 @@ export const MealForm = ({ onAdd }) => {
 
   return (
     <div>
+      {/* Wybór posiłku */}
+      <div className="mb-4">
+        <p className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Do którego posiłku?</p>
+        <div className="flex flex-wrap gap-2">
+          {MEAL_TYPES.map(({ key, label, icon: Icon }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setMealType(key)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition ${
+                mealType === key
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
+            >
+              <Icon size={15} /> {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Przełącznik trybu */}
       <div className="flex rounded-xl overflow-hidden border border-slate-200 dark:border-dark-border mb-4 w-full sm:w-auto">
         <button
