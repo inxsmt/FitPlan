@@ -180,6 +180,41 @@ CREATE POLICY "Uzytkownik usuwa wlasne wpisy samopoczucia"
   USING (auth.uid() = user_id);
 
 -- ============================================================
+-- 3e. TABELA: app_reviews (oceny aplikacji - publiczne)
+-- W przeciwienstwie do reszty tabel, opinie sa widoczne dla WSZYSTKICH
+-- zalogowanych uzytkownikow. Imie autora zapisujemy bezposrednio w wierszu
+-- (author_name), bo RLS na profiles pozwala widziec tylko wlasny profil.
+-- UNIQUE(user_id) = jedna opinia na uzytkownika (edytowalna przez upsert).
+-- ============================================================
+CREATE TABLE IF NOT EXISTS public.app_reviews (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL UNIQUE REFERENCES public.profiles(id) ON DELETE CASCADE,
+  rating SMALLINT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+  comment TEXT,
+  author_name TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_app_reviews_created ON public.app_reviews(created_at DESC);
+
+ALTER TABLE public.app_reviews ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "reviews_select_all" ON public.app_reviews;
+CREATE POLICY "reviews_select_all" ON public.app_reviews FOR SELECT TO authenticated USING (true);
+
+DROP POLICY IF EXISTS "reviews_insert_own" ON public.app_reviews;
+CREATE POLICY "reviews_insert_own" ON public.app_reviews FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "reviews_update_own" ON public.app_reviews;
+CREATE POLICY "reviews_update_own" ON public.app_reviews FOR UPDATE TO authenticated USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "reviews_delete_own" ON public.app_reviews;
+CREATE POLICY "reviews_delete_own" ON public.app_reviews FOR DELETE TO authenticated USING (auth.uid() = user_id);
+
+-- (updated_at ustawiane po stronie aplikacji przy zapisie opinii)
+
+-- ============================================================
 -- 4. TRIGGER: Automatyczne tworzenie profilu po rejestracji
 -- ============================================================
 CREATE OR REPLACE FUNCTION public.handle_new_user()
