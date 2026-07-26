@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Star, Send, MessageSquareText, Trash2 } from 'lucide-react'
 import { supabase } from '../../lib/supabaseClient'
 import { useAuth } from '../../context/AuthContext'
-import { useProfile } from '../../hooks/useProfile'
 import { Card } from '../ui/Card'
 
 const StarInput = ({ value, onChange, size = 30 }) => {
@@ -43,7 +42,6 @@ const StarDisplay = ({ value, size = 16 }) => (
 
 export const Reviews = () => {
   const { user } = useAuth()
-  const { profile } = useProfile()
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
   const [rating, setRating] = useState(0)
@@ -82,14 +80,6 @@ export const Reviews = () => {
     n: reviews.filter((r) => r.rating === star).length,
   }))
 
-  const authorName = () => {
-    if (profile?.first_name) {
-      const initial = profile.last_name ? ` ${profile.last_name[0]}.` : ''
-      return `${profile.first_name}${initial}`
-    }
-    return profile?.initials || 'Użytkownik'
-  }
-
   const handleSubmit = async () => {
     if (!rating) {
       setError('Wybierz ocenę — od 1 do 5 gwiazdek.')
@@ -97,13 +87,13 @@ export const Reviews = () => {
     }
     setSubmitting(true)
     setError('')
+    // author_name i updated_at ustawia trigger w bazie (set_review_author),
+    // zeby nie dalo sie podpisac opinii cudza nazwa ani sfalszowac daty.
     const { error } = await supabase.from('app_reviews').upsert(
       {
         user_id: user.id,
         rating,
-        comment: comment.trim() || null,
-        author_name: authorName(),
-        updated_at: new Date().toISOString(),
+        comment: comment.trim().slice(0, 500) || null,
       },
       { onConflict: 'user_id' }
     )

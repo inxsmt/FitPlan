@@ -38,8 +38,8 @@ export const ProfileSettings = () => {
     setPersonalError('')
     setSavingPersonal(true)
     const { error } = await updateProfile({
-      first_name: personalForm.first_name.trim(),
-      last_name: personalForm.last_name.trim(),
+      first_name: personalForm.first_name.trim().slice(0, 50),
+      last_name: personalForm.last_name.trim().slice(0, 50),
       age: personalForm.age ? parseInt(personalForm.age) : null,
       weight: personalForm.weight ? parseFloat(personalForm.weight) : null,
       height: personalForm.height ? parseFloat(personalForm.height) : null,
@@ -85,10 +85,10 @@ export const ProfileSettings = () => {
           <div className="grid grid-cols-2 gap-3">
             <Input label="Imię" icon={User} value={personalForm.first_name}
               onChange={(e) => setPersonalForm({ ...personalForm, first_name: e.target.value })}
-              placeholder="Jan" />
+              placeholder="Jan" maxLength={50} />
             <Input label="Nazwisko" icon={User} value={personalForm.last_name}
               onChange={(e) => setPersonalForm({ ...personalForm, last_name: e.target.value })}
-              placeholder="Kowalski" />
+              placeholder="Kowalski" maxLength={50} />
           </div>
           <div className="grid grid-cols-3 gap-3">
             <Input label="Wiek (lata)" type="number" icon={User} value={personalForm.age}

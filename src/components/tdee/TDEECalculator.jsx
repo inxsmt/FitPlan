@@ -12,11 +12,39 @@ import {
   recommendedMacros,
 } from '../../utils/calculations'
 
+// localStorage bywa niedostepny (tryb prywatny, zablokowane ciasteczka) albo
+// zawiera uszkodzony JSON - bez tych oslon aplikacja pokazywalaby biala strone,
+// z ktorej uzytkownik nie ma jak sie wydostac.
+const lsGet = (key, fallback) => {
+  try {
+    const raw = localStorage.getItem(key)
+    return raw ? JSON.parse(raw) : fallback
+  } catch {
+    return fallback
+  }
+}
+
+const lsSet = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    // brak miejsca lub zablokowany storage - ustawienia po prostu sie nie zapisza
+  }
+}
+
+const lsHas = (key) => {
+  try {
+    return localStorage.getItem(key) !== null
+  } catch {
+    return false
+  }
+}
+
 export const TDEECalculator = () => {
   const { profile, updateProfile } = useProfile()
 
   const [form, setForm] = useState(() => {
-    const saved = JSON.parse(localStorage.getItem('tdee_settings') || '{}')
+    const saved = lsGet('tdee_settings', {}) || {}
     return {
       weight: 70,
       height: 175,
@@ -29,10 +57,9 @@ export const TDEECalculator = () => {
 
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [macroForm, setMacroForm] = useState(() => {
-    const ls = JSON.parse(localStorage.getItem('tdee_macros') || 'null')
-    return ls || { protein: 160, carbs: 196, fat: 64 }
-  })
+  const [macroForm, setMacroForm] = useState(
+    () => lsGet('tdee_macros', null) || { protein: 160, carbs: 196, fat: 64 }
+  )
 
   useEffect(() => {
     if (profile) {
@@ -43,18 +70,18 @@ export const TDEECalculator = () => {
         age: profile.age || prev.age,
         gender: profile.gender || prev.gender,
       }))
-      if (!localStorage.getItem('tdee_macros') && profile.target_protein) {
+      if (!lsHas('tdee_macros') && profile.target_protein) {
         setMacroForm({ protein: profile.target_protein, carbs: profile.target_carbs, fat: profile.target_fat })
       }
     }
   }, [profile])
 
   useEffect(() => {
-    localStorage.setItem('tdee_settings', JSON.stringify({ activity: form.activity, goal: form.goal }))
+    lsSet('tdee_settings', { activity: form.activity, goal: form.goal })
   }, [form.activity, form.goal])
 
   useEffect(() => {
-    localStorage.setItem('tdee_macros', JSON.stringify(macroForm))
+    lsSet('tdee_macros', macroForm)
   }, [macroForm])
 
   const handleChange = (field) => (e) => {

@@ -78,7 +78,7 @@ export const WellbeingTracker = () => {
       sleep_hours: sleepHours ? parseFloat(sleepHours.replace(',', '.')) : null,
       bristol_scale: bristol,
       symptoms,
-      note: note.trim() || null,
+      note: note.trim().slice(0, 1000) || null,
     })
     setEnergyLevel(null)
     setMoodLevel(null)
@@ -195,6 +195,7 @@ export const WellbeingTracker = () => {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="np. wzdęcia po nabiale"
+              maxLength={1000}
               rows={2}
               className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-bg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none"
             />

@@ -42,7 +42,14 @@ export const useMeals = () => {
   }
 
   const deleteMeal = async (id) => {
-    const { error } = await supabase.from('meal_logs').delete().eq('id', id)
+    if (!user) return { error: 'Brak użytkownika' }
+    // user_id zawezone dodatkowo po stronie klienta - RLS i tak by tego pilnowalo,
+    // ale dzieki temu blad w polityce nie oznacza od razu kasowania cudzych danych.
+    const { error } = await supabase
+      .from('meal_logs')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', user.id)
     if (!error) setMeals((prev) => prev.filter((m) => m.id !== id))
     return { error }
   }

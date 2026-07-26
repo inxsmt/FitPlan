@@ -42,7 +42,12 @@ export const useWellbeing = () => {
   }
 
   const deleteWellbeing = async (id) => {
-    const { error } = await supabase.from('wellbeing_logs').delete().eq('id', id)
+    if (!user) return { error: 'Brak użytkownika' }
+    const { error } = await supabase
+      .from('wellbeing_logs')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', user.id)
     if (!error) setWellbeingLogs((prev) => prev.filter((w) => w.id !== id))
     return { error }
   }

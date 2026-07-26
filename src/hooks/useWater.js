@@ -42,7 +42,12 @@ export const useWater = () => {
   }
 
   const deleteWater = async (id) => {
-    const { error } = await supabase.from('water_logs').delete().eq('id', id)
+    if (!user) return { error: 'Brak uzytkownika' }
+    const { error } = await supabase
+      .from('water_logs')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', user.id)
     if (!error) setWaterLogs((prev) => prev.filter((w) => w.id !== id))
     return { error }
   }

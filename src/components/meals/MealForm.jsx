@@ -84,7 +84,9 @@ export const MealForm = ({ onAdd }) => {
     const m = selectedMacros
     setLoading(true)
     const { error } = await onAdd({
-      meal_name: `${selected.name} (${grams} g)`,
+      // baza ogranicza meal_name do 200 znakow, a nazwy z Open Food Facts
+      // potrafia byc bardzo dlugie - przycinamy z zapasem na sufiks z gramatura
+      meal_name: `${selected.name.slice(0, 180)} (${grams} g)`,
       meal_type: mealType,
       calories: m.calories,
       protein: m.protein,
@@ -114,7 +116,7 @@ export const MealForm = ({ onAdd }) => {
 
     setLoading(true)
     const { error } = await onAdd({
-      meal_name: form.meal_name.trim(),
+      meal_name: form.meal_name.trim().slice(0, 200),
       meal_type: mealType,
       calories: manualCalories,
       protein: parseFloat(form.protein) || 0,
@@ -318,6 +320,7 @@ export const MealForm = ({ onAdd }) => {
             value={form.meal_name}
             onChange={handleManualChange('meal_name')}
             placeholder="np. Owsianka z owocami"
+            maxLength={200}
             required
           />
 
