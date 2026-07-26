@@ -28,18 +28,18 @@ export const Sidebar = ({ open, onClose }) => {
       )}
 
       <aside
-        className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-dark-card border-r border-slate-200 dark:border-dark-border z-40 transition-transform ${
+        className={`fixed lg:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-dark-card border-r border-slate-200 dark:border-dark-border z-40 transition-transform flex flex-col ${
           open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="flex items-center justify-between p-4 lg:hidden">
+        <div className="flex items-center justify-between p-4 lg:hidden shrink-0">
           <span className="font-semibold">Menu</span>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
             <X size={18} />
           </button>
         </div>
 
-        <nav className="p-4 space-y-1">
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
           {navItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
@@ -53,13 +53,13 @@ export const Sidebar = ({ open, onClose }) => {
                 }`
               }
             >
-              <Icon size={18} />
+              <Icon size={18} className="shrink-0" />
               {label}
             </NavLink>
           ))}
         </nav>
 
-        <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-500">
+        <div className="shrink-0 m-4 mt-0 p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-500">
           <p className="font-semibold mb-1">Projekt edukacyjny</p>
           <p>Aplikacja stworzona w ramach pracy dla Uniwersytetu VIZJA.</p>
           <p className="mt-1.5 pt-1.5 border-t border-slate-200 dark:border-slate-700">
