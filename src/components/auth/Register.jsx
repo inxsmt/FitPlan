@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useUserCount, osobyLabel } from '../../hooks/useUserCount'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
+import { PrivacyNotice } from '../ui/PrivacyNotice'
 
 export const Register = () => {
   const navigate = useNavigate()
@@ -15,6 +16,7 @@ export const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [projectConsent, setProjectConsent] = useState(false)
   const [error, setError] = useState('')
   const [status, setStatus] = useState(null) // null | 'confirm_email' | 'success'
   const [loading, setLoading] = useState(false)
@@ -42,7 +44,7 @@ export const Register = () => {
     }
 
     setLoading(true)
-    const { data, error } = await signUp(email, password, firstName, lastName)
+    const { data, error } = await signUp(email, password, firstName, lastName, projectConsent)
     setLoading(false)
 
     if (error) {
@@ -170,6 +172,31 @@ export const Register = () => {
               required
               autoComplete="new-password"
             />
+
+            {/* Klauzula informacyjna - obowiazek z art. 13 RODO.
+                Nie jest zgoda, tylko informacja, wiec nie wymaga checkboxa. */}
+            <PrivacyNotice />
+
+            {/* Zgoda dobrowolna - odznaczona domyslnie.
+                RODO (motyw 32) wymaga wyraznego dzialania, wiec pole nie moze
+                byc zaznaczone z gory ani wymagane do zalozenia konta. */}
+            <label className="flex items-start gap-3 p-3 rounded-xl border border-slate-200 dark:border-dark-border hover:border-brand-400 dark:hover:border-brand-600 cursor-pointer transition-colors">
+              <input
+                type="checkbox"
+                checked={projectConsent}
+                onChange={(e) => setProjectConsent(e.target.checked)}
+                className="mt-0.5 w-4 h-4 shrink-0 rounded border-slate-300 dark:border-dark-border text-brand-600 focus:ring-2 focus:ring-brand-500 cursor-pointer"
+              />
+              <span className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                <span className="font-semibold">Chcę wziąć udział w projekcie.</span>{' '}
+                Zgadzam się, aby moje konto (imię, nazwisko, adres e-mail i statystyki w aplikacji)
+                mogło zostać pokazane podczas obrony i w dokumentacji projektu.
+                <span className="block mt-1 text-slate-400 dark:text-slate-500">
+                  Nieobowiązkowe — bez zaznaczenia konto działa tak samo. Zgodę możesz w każdej
+                  chwili cofnąć w ustawieniach profilu.
+                </span>
+              </span>
+            </label>
 
             {error && (
               <div className="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">

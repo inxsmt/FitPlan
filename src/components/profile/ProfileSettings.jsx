@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { User, Save, CheckCircle, Lock, Scale } from 'lucide-react'
+import { User, Save, CheckCircle, Lock, Scale, ShieldCheck } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
+import { PrivacyNotice } from '../ui/PrivacyNotice'
 import { useProfile } from '../../hooks/useProfile'
 import { useAuth } from '../../context/AuthContext'
 
@@ -14,6 +15,9 @@ export const ProfileSettings = () => {
   const [savingPersonal, setSavingPersonal] = useState(false)
   const [savedPersonal, setSavedPersonal] = useState(false)
   const [personalError, setPersonalError] = useState('')
+
+  const [savingConsent, setSavingConsent] = useState(false)
+  const [consentError, setConsentError] = useState('')
 
   const[passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
   const [savingPassword, setSavingPassword] = useState(false)
@@ -50,6 +54,20 @@ export const ProfileSettings = () => {
     else { setSavedPersonal(true); setTimeout(() => setSavedPersonal(false), 3000) }
   }
 
+  // Zgoda zapisuje sie od razu po przelaczeniu - bez osobnego przycisku,
+  // zeby wycofanie bylo tak samo latwe jak udzielenie (art. 7 ust. 3 RODO).
+  // Data trafia do bazy jako NULL (brak zgody) albo znacznik czasu.
+  // Faktyczna wartosc daty i tak ustawia trigger set_consent_timestamp().
+  const handleConsentToggle = async (checked) => {
+    setConsentError('')
+    setSavingConsent(true)
+    const { error } = await updateProfile({
+      presentation_consent_at: checked ? new Date().toISOString() : null,
+    })
+    setSavingConsent(false)
+    if (error) setConsentError(error.message)
+  }
+
   const handlePasswordSubmit = async (e) => {
     e.preventDefault()
     setPasswordError('')
@@ -68,6 +86,14 @@ export const ProfileSettings = () => {
   if (loading) return <div className="text-center py-12 text-slate-500">Ładowanie...</div>
 
   const weight = parseFloat(personalForm.weight) || null
+
+  // NULL w kolumnie = brak zgody, data = zgoda udzielona wtedy i wtedy.
+  const hasConsent = Boolean(profile?.presentation_consent_at)
+  const consentDate = hasConsent
+    ? new Date(profile.presentation_consent_at).toLocaleDateString('pl-PL', {
+        day: 'numeric', month: 'long', year: 'numeric',
+      })
+    : null
 
   return (
     <div className="space-y-6 animate-fade-in max-w-lg">
@@ -122,6 +148,50 @@ export const ProfileSettings = () => {
             {savingPersonal ? 'Zapisywanie...' : 'Zapisz dane'}
           </Button>
         </form>
+      </Card>
+
+      {/* Udział w projekcie - zgoda dobrowolna, odwoływalna w każdej chwili */}
+      <Card>
+        <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
+          <ShieldCheck size={18} /> Udział w projekcie
+        </h2>
+
+        {/* Ta sama klauzula co przy rejestracji - dzieki temu widza ja rowniez
+            osoby, ktore zalozyly konto, zanim zostala wprowadzona. */}
+        <PrivacyNotice className="mb-4" />
+
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={hasConsent}
+            disabled={savingConsent}
+            onChange={(e) => handleConsentToggle(e.target.checked)}
+            className="mt-0.5 w-4 h-4 shrink-0 rounded border-slate-300 dark:border-dark-border text-brand-600 focus:ring-2 focus:ring-brand-500 cursor-pointer disabled:opacity-50"
+          />
+          <span className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <span className="font-semibold">Zgadzam się na udział w projekcie.</span>{' '}
+            Moje konto (imię, nazwisko, adres e-mail i statystyki w aplikacji) może zostać
+            pokazane podczas obrony i w dokumentacji projektu.
+            <span className="block mt-1 text-xs text-slate-400 dark:text-slate-500">
+              Zgoda jest dobrowolna — jej brak w niczym nie ogranicza działania konta.
+              Możesz ją cofnąć w dowolnym momencie, odznaczając to pole.
+            </span>
+          </span>
+        </label>
+
+        {consentError && (
+          <div className="mt-3 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
+            {consentError}
+          </div>
+        )}
+        {savingConsent && (
+          <p className="mt-3 text-xs text-slate-400">Zapisywanie...</p>
+        )}
+        {!savingConsent && hasConsent && (
+          <p className="mt-3 text-xs text-green-600 dark:text-green-400 flex items-center gap-1.5">
+            <CheckCircle size={13} /> Zgoda udzielona {consentDate}
+          </p>
+        )}
       </Card>
 
       {/* Zmiana hasła */}

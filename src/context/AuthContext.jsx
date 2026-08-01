@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signUp = async (email, password, firstName, lastName) => {
+  const signUp = async (email, password, firstName, lastName, projectConsent = false) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -34,6 +34,9 @@ export const AuthProvider = ({ children }) => {
         data: {
           first_name: firstName?.trim() || null,
           last_name: lastName?.trim() || null,
+          // Dobrowolna zgoda na wykorzystanie danych w prezentacji projektu.
+          // handle_new_user() przenosi ja do profiles.presentation_consent_at.
+          presentation_consent: projectConsent === true,
         },
       },
     })

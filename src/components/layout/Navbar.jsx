@@ -4,6 +4,7 @@ import { Salad, LogOut, Menu, X, User, Settings, ChevronDown, Users } from 'luci
 import { useAuth } from '../../context/AuthContext'
 import { useProfile } from '../../hooks/useProfile'
 import { useUserCount, osobyLabel } from '../../hooks/useUserCount'
+import { ConsentBadge } from './ConsentBadge'
 
 export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
   const navigate = useNavigate()
@@ -57,6 +58,8 @@ export const Navbar = ({ onToggleSidebar, sidebarOpen }) => {
               </span>
             </div>
           )}
+
+          <ConsentBadge />
         </div>
 
         <div className="relative">
