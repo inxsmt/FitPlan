@@ -1,5 +1,6 @@
-import { GraduationCap, Code2, Dumbbell, HeartHandshake, Salad, FlaskConical, Sparkles, Rocket, MessageSquare } from 'lucide-react'
+import { GraduationCap, Code2, Dumbbell, HeartHandshake, Salad, FlaskConical, Sparkles, Rocket, MessageSquare, Mail } from 'lucide-react'
 import { Card } from '../ui/Card'
+import { CONTACT_EMAIL } from '../feedback/FeedbackModal'
 
 const PassionCard = ({ icon: Icon, title, text, color }) => (
   <div className="card h-full">
@@ -123,6 +124,22 @@ export const About = () => {
               realnie wpłynie na to, w którą stronę pójdzie FitPlan. Dziękuję, że testujesz apkę na tym etapie! 🙌
             </span>
           </p>
+          <div className="pt-3 border-t border-amber-200 dark:border-amber-800/60">
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <Mail size={16} className="text-amber-600 dark:text-amber-400 shrink-0" />
+              <span>Błędy i propozycje funkcji wysyłaj na:</span>
+              <a
+                href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('FitPlan — wiadomość')}`}
+                className="font-semibold underline underline-offset-2 hover:text-amber-700 dark:hover:text-amber-300 break-all"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </p>
+            <p className="mt-1.5 text-xs text-amber-700/80 dark:text-amber-300/70">
+              Ten sam adres znajdziesz pod przyciskiem „Zgłoś błąd lub pomysł" na dole menu bocznego —
+              tam formularz podpowie, co warto opisać.
+            </p>
+          </div>
         </div>
       </Card>
 

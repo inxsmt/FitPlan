@@ -21,6 +21,7 @@ import { Reviews } from './components/reviews/Reviews'
 import { About } from './components/about/About'
 import { Navbar } from './components/layout/Navbar'
 import { Sidebar } from './components/layout/Sidebar'
+import { FeedbackModal } from './components/feedback/FeedbackModal'
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -60,6 +61,7 @@ const PublicRoute = ({ children }) => {
 
 const AppLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-dark-bg">
@@ -68,11 +70,20 @@ const AppLayout = ({ children }) => {
         sidebarOpen={sidebarOpen}
       />
       <div className="flex">
-        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Sidebar
+          open={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          onOpenFeedback={() => setFeedbackOpen(true)}
+        />
         <main className="flex-1 p-4 lg:p-6 max-w-7xl mx-auto w-full">
           {children}
         </main>
       </div>
+
+      {/* Renderowane tutaj, a nie w Sidebarze: <aside> ma transform,
+          ktory tworzy blok zawierajacy dla position: fixed i przyciolby
+          okno do szerokosci menu. */}
+      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </div>
   )
 }
