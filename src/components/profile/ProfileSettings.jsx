@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { User, Save, CheckCircle, Lock, Scale, ShieldCheck } from 'lucide-react'
+import { User, Save, CheckCircle, Lock, Scale, ShieldCheck, Mail } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { Input } from '../ui/Input'
 import { Button } from '../ui/Button'
 import { PrivacyNotice } from '../ui/PrivacyNotice'
+import { CONTACT_EMAIL } from '../feedback/FeedbackModal'
 import { useProfile } from '../../hooks/useProfile'
 import { useAuth } from '../../context/AuthContext'
 
@@ -54,15 +55,17 @@ export const ProfileSettings = () => {
     else { setSavedPersonal(true); setTimeout(() => setSavedPersonal(false), 3000) }
   }
 
-  // Zgoda zapisuje sie od razu po przelaczeniu - bez osobnego przycisku,
-  // zeby wycofanie bylo tak samo latwe jak udzielenie (art. 7 ust. 3 RODO).
-  // Data trafia do bazy jako NULL (brak zgody) albo znacznik czasu.
-  // Faktyczna wartosc daty i tak ustawia trigger set_consent_timestamp().
+  // Zgode mozna w aplikacji tylko UDZIELIC - raz udzielonej nie da sie
+  // odznaczyc (pole jest wtedy wylaczone). Wycofanie odbywa sie mailowo:
+  // uzytkownik pisze na adres kontaktowy, a konto wraz z danymi jest usuwane
+  // z bazy - o czym informuje komunikat pod polem. Dlatego handler reaguje
+  // wylacznie na zaznaczenie; ewentualne odznaczenie jest ignorowane.
   const handleConsentToggle = async (checked) => {
+    if (!checked) return
     setConsentError('')
     setSavingConsent(true)
     const { error } = await updateProfile({
-      presentation_consent_at: checked ? new Date().toISOString() : null,
+      presentation_consent_at: new Date().toISOString(),
     })
     setSavingConsent(false)
     if (error) setConsentError(error.message)
@@ -150,7 +153,8 @@ export const ProfileSettings = () => {
         </form>
       </Card>
 
-      {/* Udział w projekcie - zgoda dobrowolna, odwoływalna w każdej chwili */}
+      {/* Udział w projekcie - zgode mozna udzielic, ale nie cofnac w aplikacji.
+          Wycofanie odbywa sie mailowo (usuniecie konta i danych z bazy). */}
       <Card>
         <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
           <ShieldCheck size={18} /> Udział w projekcie
@@ -160,22 +164,23 @@ export const ProfileSettings = () => {
             osoby, ktore zalozyly konto, zanim zostala wprowadzona. */}
         <PrivacyNotice className="mb-4" />
 
-        <label className="flex items-start gap-3 cursor-pointer">
+        <label className={`flex items-start gap-3 ${hasConsent ? 'cursor-default' : 'cursor-pointer'}`}>
           <input
             type="checkbox"
             checked={hasConsent}
-            disabled={savingConsent}
+            disabled={savingConsent || hasConsent}
             onChange={(e) => handleConsentToggle(e.target.checked)}
-            className="mt-0.5 w-4 h-4 shrink-0 rounded border-slate-300 dark:border-dark-border text-brand-600 focus:ring-2 focus:ring-brand-500 cursor-pointer disabled:opacity-50"
+            className="mt-0.5 w-4 h-4 shrink-0 rounded border-slate-300 dark:border-dark-border text-brand-600 focus:ring-2 focus:ring-brand-500 disabled:cursor-not-allowed disabled:opacity-60"
           />
           <span className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
             <span className="font-semibold">Zgadzam się na udział w projekcie.</span>{' '}
             Moje konto (imię, nazwisko, adres e-mail i statystyki w aplikacji) może zostać
             pokazane podczas obrony i w dokumentacji projektu.
-            <span className="block mt-1 text-xs text-slate-400 dark:text-slate-500">
-              Zgoda jest dobrowolna — jej brak w niczym nie ogranicza działania konta.
-              Możesz ją cofnąć w dowolnym momencie, odznaczając to pole.
-            </span>
+            {!hasConsent && (
+              <span className="block mt-1 text-xs text-slate-400 dark:text-slate-500">
+                Zgoda jest dobrowolna — jej brak w niczym nie ogranicza działania konta.
+              </span>
+            )}
           </span>
         </label>
 
@@ -188,9 +193,27 @@ export const ProfileSettings = () => {
           <p className="mt-3 text-xs text-slate-400">Zapisywanie...</p>
         )}
         {!savingConsent && hasConsent && (
-          <p className="mt-3 text-xs text-green-600 dark:text-green-400 flex items-center gap-1.5">
-            <CheckCircle size={13} /> Zgoda udzielona {consentDate}
-          </p>
+          <>
+            <p className="mt-3 text-xs text-green-600 dark:text-green-400 flex items-center gap-1.5">
+              <CheckCircle size={13} /> Zgoda udzielona {consentDate}
+            </p>
+            <div className="mt-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-dark-border">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed flex items-start gap-2">
+                <Mail size={14} className="shrink-0 mt-0.5 text-slate-400" />
+                <span>
+                  Zgody nie można cofnąć samodzielnie w aplikacji. Jeśli chcesz zostać
+                  usunięty z listy uczestników projektu, napisz na{' '}
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('FitPlan — wycofanie udziału w projekcie')}`}
+                    className="font-semibold underline underline-offset-2 hover:text-brand-600 dark:hover:text-brand-400 break-all"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  {' '}— Twoje konto wraz ze wszystkimi danymi zostanie wtedy usunięte z bazy.
+                </span>
+              </p>
+            </div>
+          </>
         )}
       </Card>
 

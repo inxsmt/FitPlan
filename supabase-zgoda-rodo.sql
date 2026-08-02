@@ -35,6 +35,11 @@ COMMENT ON COLUMN public.profiles.presentation_consent_at IS
 -- wprost do REST API. Gdyby date przyjmowac bez kontroli, mozna by
 -- wpisac zgode z przeszlosci - a to wlasnie ta data ma byc dowodem.
 -- Ten sam wzorzec co set_review_author() w supabase-hardening.sql.
+--
+-- Zgoda jest JEDNOKIERUNKOWA: raz udzielonej nie da sie cofnac przez
+-- aktualizacje profilu (ani z UI, ani strzalem w REST API). Jedyna droga
+-- wycofania to usuniecie calego konta - uzytkownik zglasza to mailowo.
+-- Dzieki temu blokada z interfejsu ma pokrycie po stronie bazy.
 -- ============================================================
 
 CREATE OR REPLACE FUNCTION public.set_consent_timestamp()
@@ -44,19 +49,21 @@ SECURITY DEFINER
 SET search_path = public
 AS $fn$
 BEGIN
-  IF NEW.presentation_consent_at IS NULL THEN
-    -- Wycofanie zgody (albo jej brak) - zostawiamy NULL.
+  IF TG_OP = 'UPDATE' AND OLD.presentation_consent_at IS NOT NULL THEN
+    -- Zgoda juz byla udzielona - ignorujemy proby jej cofniecia lub
+    -- zmiany daty. Pierwotna data zostaje nienaruszona.
+    NEW.presentation_consent_at := OLD.presentation_consent_at;
     RETURN NEW;
   END IF;
 
-  IF TG_OP = 'INSERT' OR OLD.presentation_consent_at IS NULL THEN
-    -- Zgoda wlasnie udzielona - baza sama stempluje aktualnym czasem.
-    NEW.presentation_consent_at := NOW();
-  ELSE
-    -- Zgoda juz byla - pierwotnej daty nie wolno nadpisac.
-    NEW.presentation_consent_at := OLD.presentation_consent_at;
+  IF NEW.presentation_consent_at IS NULL THEN
+    -- Nadal brak zgody - zostawiamy NULL.
+    RETURN NEW;
   END IF;
 
+  -- Zgoda wlasnie udzielona (INSERT albo pierwsze zaznaczenie) - baza
+  -- sama stempluje aktualnym czasem, nie ufajac dacie od klienta.
+  NEW.presentation_consent_at := NOW();
   RETURN NEW;
 END;
 $fn$;
