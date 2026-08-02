@@ -3,6 +3,9 @@ import { ArrowLeft, Clock, Tag } from 'lucide-react'
 import { Card } from '../ui/Card'
 import { posts } from './blogData'
 
+// najnowsze posty na gorze
+const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date))
+
 const formatDate = (dateStr) =>
   new Date(dateStr).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
 
@@ -71,7 +74,7 @@ export const Blog = () => {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {posts.map((post) => (
+        {sortedPosts.map((post) => (
           <button
             key={post.id}
             onClick={() => setSelectedPost(post)}

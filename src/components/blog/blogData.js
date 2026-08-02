@@ -3,7 +3,7 @@ export const posts = [
     id: 'witamina-e-testosteron',
     title: 'Witamina E a testosteron — co mówią badania i dlaczego to ważne dla ćwiczących?',
     excerpt: 'Badania pokazują, że witamina E może znacząco poprawić produkcję testosteronu — szczególnie u osób narażonych na stres oksydacyjny, czyli intensywnie trenujących.',
-    date: '2026-07-04',
+    date: '2026-03-15',
     readTime: '5 min',
     category: 'Hormony',
     content: `
@@ -66,7 +66,7 @@ Warto też pamiętać, że badanie ludzkie jest z 1982 roku i obejmowało małą
     id: 'magnez-potas-kortyzol',
     title: 'Magnez + potas = o 45% mniej kortyzolu. Co mówi nauka?',
     excerpt: 'Badanie kliniczne wykazało, że połączenie magnezu i potasu obniżyło kortyzol o ponad 45% i całkowicie wyeliminowało ciężką bezsenność. Sprawdź jak to możliwe.',
-    date: '2026-07-04',
+    date: '2026-04-08',
     readTime: '5 min',
     category: 'Suplementacja',
     content: `
@@ -159,7 +159,7 @@ To jeden z najbardziej uderzających wyników — minerały, które możesz kupi
     id: 'cynk-kortyzol',
     title: 'Cynk a kortyzol — jak ten minerał wpływa na poziom stresu?',
     excerpt: 'Badania pokazują, że suplementacja cynkiem może znacząco obniżyć poziom kortyzolu. Sprawdź jak to działa i dlaczego warto zadbać o ten składnik w diecie.',
-    date: '2026-07-04',
+    date: '2026-04-26',
     readTime: '4 min',
     category: 'Suplementacja',
     content: `
@@ -217,7 +217,7 @@ Typowe dawki suplementacyjne wynoszą **15–30 mg dziennie**. Wyższe dawki (ja
     id: 'ile-bialka-dla-sportowca',
     title: 'Ile białka potrzebuje sportowiec? Konkretne liczby oparte na badaniach',
     excerpt: 'Nie każdy potrzebuje tyle samo białka. Różne cele — masa, redukcja, wiek — wymagają różnych dawek. Sprawdź, co faktycznie mówi nauka i jak rozłożyć białko w ciągu dnia.',
-    date: '2026-07-21',
+    date: '2026-05-19',
     readTime: '7 min',
     category: 'Białko',
     content: `
@@ -291,7 +291,7 @@ To jeden z najczęstszych mitów. Metaanaliza z 2018 roku (PMID: 30308987, PMC58
     id: 'suplementacja-przed-treningowa',
     title: 'Co wziąć przed treningiem? 3 suplementy, które naprawdę działają',
     excerpt: 'Kofeina, cytrulina, beta-alanina — trzy suplementy z prawdziwymi dowodami naukowymi. Sprawdź ile brać, kiedy brać i czego się spodziewać.',
-    date: '2026-07-21',
+    date: '2026-06-14',
     readTime: '5 min',
     category: 'Suplementacja',
     content: `
@@ -364,7 +364,7 @@ Jeśli miałbyś zacząć od jednego — zacznij od kofeiny. Jeśli już ją sto
     id: 'suplementacja-przed-treningowa-cz2',
     title: 'Co wziąć przed treningiem? Część 2 — glicerol, sok z buraka i kapsaicyna',
     excerpt: 'Mniej znane, ale skuteczne suplementy przedtreningowe. Glicerol opóźnia odwodnienie, burak poprawia wytrzymałość, a kapsaicyna pozwala wycisnąć więcej z każdej serii.',
-    date: '2026-07-21',
+    date: '2026-07-09',
     readTime: '5 min',
     category: 'Suplementacja',
     content: `
